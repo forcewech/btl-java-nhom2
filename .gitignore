@@ -1,4 +1,5 @@
 # ignore file kết nối database vì mỗi máy có một tên khác nhau
+# Tạo folder Database
 # Trong folder Database -> tạo class DatabaseHelper.java
 # Trong class DatabaseHelper.java thêm dòng code:
 # public static final String connectionUrl = "jdbc:sqlserver://<tên host>:1433" + 
@@ -19,6 +20,6 @@
 #        return null;
 #    }
 
-Database/DatabaseHelper.java
 /src/main/java/Database/DatabaseHelper.java
 /src/main/java/com/mycompany/java/nhom2/
+/src/main/java/Database/
