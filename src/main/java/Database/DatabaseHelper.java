@@ -6,6 +6,7 @@ package Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -13,18 +14,18 @@ import java.sql.DriverManager;
  */
 public class DatabaseHelper {
     public static final String connectionUrl = "jdbc:sqlserver://DESKTOP-HRLN0OR\\BRIGHTMOON:1433;" + 
-            "databaseName=test1;user=sa;password=123;encrypt=true;trustServerCertificate=true;";
+            "databaseName=QLTaiSanPhongMay;user=sa;password=123;encrypt=true;trustServerCertificate=true;";
     public static Connection getDBConnection() {
         Connection conn = null;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        } catch(Exception ex) {
+        } catch(ClassNotFoundException ex) {
             System.out.println("chua co Driver!" + ex.toString());
         }
         try {
             conn = DriverManager.getConnection(connectionUrl);
             return conn;
-        } catch(Exception ex) {
+        } catch(SQLException ex) {
             System.out.println("Loi connection" + ex.toString());
         }
         return null;
