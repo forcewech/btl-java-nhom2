@@ -13,8 +13,7 @@ import java.sql.SQLException;
  * @author thinh
  */
 public class DatabaseHelper {
-    public static final String connectionUrl = "jdbc:sqlserver://DESKTOP-HRLN0OR\\BRIGHTMOON:1433;" + 
-            "databaseName=QLTaiSanPhongMay;user=sa;password=123;encrypt=true;trustServerCertificate=true;";
+    public static final String connectionUrl = "jdbc:sqlserver://21AK22-COM\\SQLEXPRESS:1433;"+"databaseName=QLTaiSanPhongMay;user=sa;password=123456;encrypt=true;trustServerCertificate=true;";
     public static Connection getDBConnection() {
         Connection conn = null;
         try {
