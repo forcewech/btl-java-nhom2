@@ -4,23 +4,26 @@ package Session;
 import Database.DatabaseHelper;
 import Models.NguoiDung;
 import Models.NguoiDungDAO;
+import Models.PhongMay;
+import Models.PhongMayDAO;
 import java.sql.Connection;
 
 public class TestDB {
     public static void main(String[] args) {
         Connection conn = DatabaseHelper.getDBConnection();
-        NguoiDungDAO dao = new NguoiDungDAO();
+//        NguoiDungDAO dao = new NguoiDungDAO();
+        PhongMayDAO dao = new PhongMayDAO();
         if(conn != null){
             System.out.println("connect thanh cong");
-//            NguoiDung nd1 = new NguoiDung("ND003","Nguyen Xuan Thang","truong","123456","truong@gmail.com","Teacher");
-//            dao.add(nd1);
-//            dao.update(nd1);
-//            NguoiDung nd1 = new NguoiDung("ND003");
-//            dao.delete(nd1);
-//                for(NguoiDung nd: dao.getAll()){
-//                    System.out.println(nd.toString());
+//            PhongMay pm1 = new PhongMay("PM003","Phong May 03","Chua su dung",false);
+//            dao.add(pm1);
+//            dao.update(pm1);
+//            PhongMay pm1 = new PhongMay("PM003");
+//            dao.delete(pm1);
+//                for(PhongMay pm: dao.getAll()){
+//                    System.out.println(pm.toString());
 //                }
-                NguoiDung find = dao.findUserByID("ND001");
+                PhongMay find = dao.findRoomByID("PM001");
                 if(find != null){
                     System.out.println("Tim thay");
                     System.out.println(find.toString());
