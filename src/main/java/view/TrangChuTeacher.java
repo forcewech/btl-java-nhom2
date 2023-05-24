@@ -4,12 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,34 +45,44 @@ public class TrangChuTeacher extends javax.swing.JFrame {
         frame.setVisible(true);
     }
     private static void createUI1(final JFrame frame){
-        JPanel panel = new JPanel();
-        LayoutManager layout = new FlowLayout();
-        panel.setLayout(layout);
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.CENTER; // Đưa các thành phần ra giữa
+        constraints.insets = new Insets(5, 5, 5, 5); // Khoảng cách giữa các thành phần
+        constraints.gridx = 0;
+        constraints.gridy = GridBagConstraints.RELATIVE; // Thiết lập hàng dọc
         JButton button1 = new JButton("Biểu mẫu");
         JButton button2 = new JButton("Báo cáo");
-        button1.setPreferredSize(new Dimension(100, 50));
-        button2.setPreferredSize(new Dimension(100, 50));
-        final JLabel label = new JLabel();
-        panel.add(button1);
-        panel.add(button2);
-        panel.add(label);
+        panel.add(button1, constraints);
+        panel.add(button2, constraints);
+        int buttonWidth = 300;
+        int buttonHeight = 40;
+        Dimension buttonSize = new Dimension(buttonWidth, buttonHeight);
+        button1.setPreferredSize(buttonSize);
+        button2.setPreferredSize(buttonSize);
+        
         frame.getContentPane().add(panel, BorderLayout.CENTER);
     }
     private static void createUI2(final JFrame frame){
-        JPanel panel = new JPanel();
-        LayoutManager layout = new FlowLayout();
-        panel.setLayout(layout);
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.CENTER; // Đưa các thành phần ra giữa
+        constraints.insets = new Insets(5, 5, 5, 5); // Khoảng cách giữa các thành phần
+        constraints.gridx = 0;
+        constraints.gridy = GridBagConstraints.RELATIVE; // Thiết lập hàng dọc
         JButton button1 = new JButton("Thêm kế hoạch");
         JButton button2 = new JButton("Sửa kế hoạch");
         JButton button3 = new JButton("Xóa kế hoạch");
-        button1.setPreferredSize(new Dimension(100, 50));
-        button2.setPreferredSize(new Dimension(100, 50));
-        button3.setPreferredSize(new Dimension(100, 50));
-        final JLabel label = new JLabel();
-        panel.add(button1);
-        panel.add(button2);
-        panel.add(button3);
-        panel.add(label);
+        panel.add(button1, constraints);
+        panel.add(button2, constraints);
+        panel.add(button3, constraints);
+        int buttonWidth = 300;
+        int buttonHeight = 40;
+        Dimension buttonSize = new Dimension(buttonWidth, buttonHeight);
+        button1.setPreferredSize(buttonSize);
+        button2.setPreferredSize(buttonSize);
+        button3.setPreferredSize(buttonSize);
+        
         frame.getContentPane().add(panel, BorderLayout.CENTER);
     }
     @SuppressWarnings("unchecked")
