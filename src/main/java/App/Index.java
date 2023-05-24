@@ -9,16 +9,16 @@ package App;
  * @author thinh
  */
 import Controllers.*;
-import Models.DanhGiaBaoTri;
+import Models.NguoiDungDAO;
 import view.Login;
 
 public class Index {
     public static void main(String[] args) {
         
-        DanhGiaBaoTri danhGiaBaoTri = new DanhGiaBaoTri();
+        NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
         Login loginView = new Login();
         
-        DangNhapController dangNhapController = new DangNhapController(loginView, danhGiaBaoTri);
+        DangNhapController dangNhapController = new DangNhapController(loginView, nguoiDungDAO);
         dangNhapController.hienThiDangNhapView();
     }
 }

@@ -81,7 +81,7 @@
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="D:\School\Course_6\Java\Project_Netbeans\btl-java-nhom2\src\main\java\icons\d7311b47ce21107f4930.jpg"/>
+              <Image iconType="2" name="D:\btl-java-nhom2\src\main\java\icons\d7311b47ce21107f4930.jpg"/>
             </Property>
           </Properties>
           <Events>

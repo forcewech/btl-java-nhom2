@@ -8,20 +8,49 @@ package Controllers;
  *
  * @author thinh
  */
+import Interfaces.CheckManager;
+import Interfaces.CheckRole;
 import view.*;
 import Models.*;
+import javax.swing.JOptionPane;
 
 public class DangNhapController {
     private Login loginView;
-    private DanhGiaBaoTri danhGiaBaoTri;
-
-    public DangNhapController(Login loginView, DanhGiaBaoTri danhGiaBaoTri) {
+    private NguoiDungDAO nguoiDungDAO;
+    private TrangChuAdmin trangChuAdmin;
+    private TrangChuTeacher trangChuTeacher;
+    
+    
+    public DangNhapController(Login loginView, NguoiDungDAO nguoiDungDAO) {
         this.loginView = loginView;
-        this.danhGiaBaoTri = danhGiaBaoTri;
+        this.nguoiDungDAO = nguoiDungDAO;
     }
     
     public void hienThiDangNhapView() {
         loginView.setVisible(true);
+    }
+    
+    public void anDangNhapView() {
+        loginView.setVisible(false);
+    }
+    
+    public void DangNhap(String Account, String Password) {
+        
+        NguoiDung nguoiDung = nguoiDungDAO.findUserByUsername_Password(Account, Password);
+        if( nguoiDung != null) {
+            JOptionPane.showMessageDialog(null, "Đăng nhập thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+            CheckManager checkManager = new CheckManager();
+            TrangChuAdminController trangChuAdminController = new TrangChuAdminController(trangChuAdmin, nguoiDung, checkManager);
+            trangChuAdmin = new TrangChuAdmin(trangChuAdminController, nguoiDung);
+            trangChuAdmin.setVisible(true);
+            anDangNhapView();
+        } else {
+            JOptionPane.showMessageDialog(null, "Đăng nhập thất bại", "Thất bại", JOptionPane.INFORMATION_MESSAGE);
+            trangChuTeacher = new TrangChuTeacher();
+            trangChuTeacher.setVisible(true);
+            anDangNhapView();
+        }
+        
     }
     
     
