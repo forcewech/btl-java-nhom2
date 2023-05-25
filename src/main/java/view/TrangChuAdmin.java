@@ -5,6 +5,7 @@
 package view;
 
 import Controllers.TrangChuAdminController;
+import Interfaces.CheckManager;
 import Models.NguoiDung;
 
 /**
@@ -25,12 +26,13 @@ public class TrangChuAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    public TrangChuAdmin(TrangChuAdminController trangChuAdminController, NguoiDung nguoiDung) {
+    public TrangChuAdmin(NguoiDung nguoiDung) {
         initComponents();
         setSize(1000,600);
         setLocationRelativeTo(null);
         
-        this.trangChuAdminController = trangChuAdminController;
+        CheckManager checkManager = new CheckManager();
+        this.trangChuAdminController = new TrangChuAdminController(this, nguoiDung, checkManager);
         this.nguoiDung = nguoiDung;
         TF_Information.setText("Tên người dùng: " + nguoiDung.getHoTen());
     }
