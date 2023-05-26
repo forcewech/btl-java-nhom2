@@ -40,8 +40,7 @@ public class DangNhapController {
         if( nguoiDung != null) {
             JOptionPane.showMessageDialog(null, "Đăng nhập thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
             CheckManager checkManager = new CheckManager();
-            TrangChuAdminController trangChuAdminController = new TrangChuAdminController(trangChuAdmin, nguoiDung, checkManager);
-            trangChuAdmin = new TrangChuAdmin(trangChuAdminController, nguoiDung);
+            trangChuAdmin = new TrangChuAdmin(nguoiDung);
             trangChuAdmin.setVisible(true);
             anDangNhapView();
         } else {
