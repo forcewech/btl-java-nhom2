@@ -4,6 +4,29 @@
  */
 package view;
 
+import Controllers.TrangChuTeacherController;
+import Models.NguoiDung;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Administrator
@@ -13,10 +36,77 @@ public class TrangChuTeacher extends javax.swing.JFrame {
     /**
      * Creates new form TrangChuTeacher
      */
+    private TrangChuTeacherController trangChuTeacherController;
+    private NguoiDung nguoiDung;
     public TrangChuTeacher() {
         initComponents();
+        setSize(1000,600);
+        setLocationRelativeTo(null);
     }
    
+    public TrangChuTeacher(TrangChuTeacherController trangChuTeacherController, NguoiDung nguoiDung) {
+        initComponents();
+        setSize(1000,600);
+        setLocationRelativeTo(null);
+        this.trangChuTeacherController = trangChuTeacherController;
+        this.nguoiDung = nguoiDung;
+    }
+    
+    private static void createWindow1() {
+        JFrame frame = new JFrame("Swing Tester");
+        createUI1(frame);
+        frame.setSize(560, 200);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    private static void createWindow2() {
+        JFrame frame = new JFrame("Swing Tester");
+        createUI2(frame);
+        frame.setSize(560, 200);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    private static void createUI1(final JFrame frame){
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.CENTER; // Đưa các thành phần ra giữa
+        constraints.insets = new Insets(5, 5, 5, 5); // Khoảng cách giữa các thành phần
+        constraints.gridx = 0;
+        constraints.gridy = GridBagConstraints.RELATIVE; // Thiết lập hàng dọc
+        JButton button1 = new JButton("Biểu mẫu");
+        JButton button2 = new JButton("Báo cáo");
+        panel.add(button1, constraints);
+        panel.add(button2, constraints);
+        int buttonWidth = 300;
+        int buttonHeight = 40;
+        Dimension buttonSize = new Dimension(buttonWidth, buttonHeight);
+        button1.setPreferredSize(buttonSize);
+        button2.setPreferredSize(buttonSize);
+        
+        frame.getContentPane().add(panel, BorderLayout.CENTER);
+    }
+    private static void createUI2(final JFrame frame){
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.CENTER; // Đưa các thành phần ra giữa
+        constraints.insets = new Insets(5, 5, 5, 5); // Khoảng cách giữa các thành phần
+        constraints.gridx = 0;
+        constraints.gridy = GridBagConstraints.RELATIVE; // Thiết lập hàng dọc
+        JButton button1 = new JButton("Thêm kế hoạch");
+        JButton button2 = new JButton("Sửa kế hoạch");
+        JButton button3 = new JButton("Xóa kế hoạch");
+        panel.add(button1, constraints);
+        panel.add(button2, constraints);
+        panel.add(button3, constraints);
+        int buttonWidth = 300;
+        int buttonHeight = 40;
+        Dimension buttonSize = new Dimension(buttonWidth, buttonHeight);
+        button1.setPreferredSize(buttonSize);
+        button2.setPreferredSize(buttonSize);
+        button3.setPreferredSize(buttonSize);
+        
+        frame.getContentPane().add(panel, BorderLayout.CENTER);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,15 +161,15 @@ public class TrangChuTeacher extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 472, Short.MAX_VALUE)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(388, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(228, 228, 228))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
+                .addGap(199, 199, 199))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,11 +178,11 @@ public class TrangChuTeacher extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -115,10 +205,11 @@ public class TrangChuTeacher extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        createWindow2();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+        createWindow1();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

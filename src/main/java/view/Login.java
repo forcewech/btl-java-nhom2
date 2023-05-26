@@ -21,7 +21,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        setSize(1100,700);
+        setSize(1000,600);
         setLocationRelativeTo(null);
     }
 
@@ -44,8 +44,6 @@ public class Login extends javax.swing.JFrame {
         TF_Password = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(null);
-        setPreferredSize(new java.awt.Dimension(1000, 596));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -70,14 +68,31 @@ public class Login extends javax.swing.JFrame {
                 Click_DangNhap(evt);
             }
         });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Tên đăng nhập");
 
+        TF_Account.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_AccountActionPerformed(evt);
+            }
+        });
+
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Mật khẩu");
+
+        TF_Password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_PasswordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -94,7 +109,7 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(TF_Account, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE))
                 .addGap(235, 235, 235))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(332, 332, 332)
@@ -103,14 +118,14 @@ public class Login extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(376, 376, 376))
+                .addGap(402, 402, 402))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(42, 42, 42)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -120,7 +135,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(TF_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
@@ -129,17 +144,13 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(76, 76, 76))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGap(0, 121, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,20 +160,34 @@ public class Login extends javax.swing.JFrame {
     private NguoiDungDAO nguoiDungDAO;
     
     private void Click_DangNhap(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Click_DangNhap
-
         String accountUser = TF_Account.getText();
         String passwordUser = TF_Password.getText();
-
-        nguoiDungDAO = new NguoiDungDAO();
-        danhNhapController = new DangNhapController(this, nguoiDungDAO);
-        
-        danhNhapController.DangNhap(accountUser, passwordUser);
+        if(accountUser.trim().length() == 0 || passwordUser.trim().length() == 0) 
+            JOptionPane.showMessageDialog(this,"Phải nhập đầy đủ thông tin!","Thông báo", JOptionPane.WARNING_MESSAGE);
+        else{
+            nguoiDungDAO = new NguoiDungDAO();
+            danhNhapController = new DangNhapController(this, nguoiDungDAO);     
+            danhNhapController.DangNhap(accountUser, passwordUser);
+//            this.dispose();
+        }            
 
     }//GEN-LAST:event_Click_DangNhap
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void TF_AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_AccountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_AccountActionPerformed
+
+    private void TF_PasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_PasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_PasswordActionPerformed
 
     /**
      * @param args the command line arguments
