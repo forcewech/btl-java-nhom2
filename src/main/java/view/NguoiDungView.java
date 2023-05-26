@@ -4,7 +4,6 @@ import Database.DatabaseHelper;
 import Models.NguoiDungDAO;
 import Models.NguoiDung;
 import java.sql.Connection;
-import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -33,14 +32,6 @@ public class NguoiDungView extends javax.swing.JFrame {
     }
     public void LoadTableTS(ArrayList<NguoiDung> ds){
         tableTS.setModel(new TableNguoiDung(ds));
-    }
-    public void saveData(){        
-//        try {
-//            db.LuuFile(fname,dsTaiSan);
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(null, "Lỗi lưu dữ liệu:\n" +ex,"Lỗi", JOptionPane.ERROR_MESSAGE);
-//            //Logger.getLogger(JQLTaiSan.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
     public void readData(){
         try {

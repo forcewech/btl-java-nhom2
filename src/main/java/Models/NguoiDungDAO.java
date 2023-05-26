@@ -135,4 +135,35 @@ public class NguoiDungDAO {
          }
          return null;
      }
+     
+     public NguoiDung findUserByUsername_Password(String username, String password){
+         ResultSet rs = null;
+         Statement sttm = null;
+         try{
+             String sSQL = "select * from ThongTinNguoiDung where " + "username = '" + username + "' and password = '" + password + "'";
+             conn = DatabaseHelper.getDBConnection();
+             sttm = conn.createStatement();
+             rs = sttm.executeQuery(sSQL);
+             while(rs.next()){
+                 NguoiDung nd = new NguoiDung();
+                 nd.setMaNguoiDung(rs.getString(1));
+                 nd.setHoTen(rs.getString(2));
+                 nd.setTen(rs.getString(3));
+                 nd.setEmail(rs.getString(4));
+                 nd.setMatKhau(rs.getString(5));
+                 nd.setRole(rs.getString(6));
+                 return nd;
+             }
+         }catch(Exception e){
+             System.out.println("Error: "+e.toString());
+         }
+         finally{
+             try{
+                 rs.close(); sttm.close();conn.close();
+             }catch(Exception e){
+                 System.out.println("Error: "+e.toString());
+             }
+         }
+         return null;
+     }
 }
