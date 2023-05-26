@@ -9,6 +9,7 @@ package Controllers;
  * @author thinh
  */
 import Interfaces.CheckManager;
+import Interfaces.CheckTeacher;
 import Interfaces.CheckRole;
 import view.*;
 import Models.*;
@@ -35,23 +36,25 @@ public class DangNhapController {
     }
     
     public void DangNhap(String Account, String Password) {
-        
         NguoiDung nguoiDung = nguoiDungDAO.findUserByUsername_Password(Account, Password);
         if( nguoiDung != null) {
             JOptionPane.showMessageDialog(null, "Đăng nhập thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-            CheckManager checkManager = new CheckManager();
-            TrangChuAdminController trangChuAdminController = new TrangChuAdminController(trangChuAdmin, nguoiDung, checkManager);
-            trangChuAdmin = new TrangChuAdmin(trangChuAdminController, nguoiDung);
-            trangChuAdmin.setVisible(true);
-            anDangNhapView();
+            if(nguoiDung.getRole().equals("Manager")){
+//                CheckManager checkManager = new CheckManager();
+//                TrangChuAdminController trangChuAdminController = new TrangChuAdminController(trangChuAdmin, nguoiDung, checkManager);
+                trangChuAdmin = new TrangChuAdmin();
+                trangChuAdmin.setVisible(true);
+                anDangNhapView();
+            }
+            else{
+//                CheckManager checkTeacher = new CheckManager();
+//                TrangChuTeacherController trangChuTeacherController = new TrangChuTeacherController(trangChuTeacher, nguoiDung, checkTeacher);
+                trangChuTeacher = new TrangChuTeacher();
+                trangChuTeacher.setVisible(true);
+                anDangNhapView();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Đăng nhập thất bại", "Thất bại", JOptionPane.INFORMATION_MESSAGE);
-            trangChuTeacher = new TrangChuTeacher();
-            trangChuTeacher.setVisible(true);
-            anDangNhapView();
-        }
-        
-    }
-    
-    
+        }      
+    }  
 }
