@@ -24,7 +24,7 @@ public class NhiemVuBaoTriDAO {
     public List<NhiemVuBaoTri> getAllNhiemVuBaoTriByiDKeHoachBaoTri(String iDKeHoachBaoTri) throws SQLException {
         conn = Database.DatabaseHelper.getDBConnection();
         
-        String query = "select * from NhiemVubaoTri join KeHoachBaoTri on NhiemVubaoTri.iD = KeHoachBaoTri.iD where KeHoachBaoTri.iD = " + "'" + iDKeHoachBaoTri + "'";
+        String query = "select * from NhiemVubaoTri join KeHoachBaoTri on NhiemVubaoTri.iDKeHoachBaoTri = KeHoachBaoTri.iD where KeHoachBaoTri.iD = " + "'" + iDKeHoachBaoTri + "'";
         
         sttm = conn.createStatement();
         ResultSet result = sttm.executeQuery(query);
@@ -40,6 +40,8 @@ public class NhiemVuBaoTriDAO {
             nvbt.setChiTietNhiemVu(result.getString(4));
             nvbt.setDanhGia(result.getString(5));
             nvbt.setChiPhi(result.getInt(6));
+            
+            listNV.add(nvbt);
         }
         
         return listNV;

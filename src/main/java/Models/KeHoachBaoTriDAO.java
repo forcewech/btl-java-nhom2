@@ -28,7 +28,7 @@ public class KeHoachBaoTriDAO {
         
         conn = DatabaseHelper.getDBConnection();
         
-        String query = "select * from KeHoachBaoTri join HoanThanhBaoTri on KeHoachBaoTri.iD = HoanThanhBaoTri.iD where trangThai = 0";
+        String query = "select * from KeHoachBaoTri where trangThai = 0";
         
         Statement sttm = null;
         

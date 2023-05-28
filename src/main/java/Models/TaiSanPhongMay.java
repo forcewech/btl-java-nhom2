@@ -6,50 +6,54 @@ package Models;
 
 /**
  *
- * @author Administrator
+ * @author thinh
  */
 public class TaiSanPhongMay {
-    private String tenTaiSan;
-    private String maTaiSan;
-    private double soLuong;
+    private String iD;
+    private String iDTaiSan;
+    private String iDPhongMay;
+    private int soLuong;
 
-    public TaiSanPhongMay() {
+    public String getiD() {
+        return iD;
     }
 
-    public TaiSanPhongMay(String tenTaiSan, String maTaiSan, double soLuong) {
-        this.tenTaiSan = tenTaiSan;
-        this.maTaiSan = maTaiSan;
-        this.soLuong = soLuong;
+    public String getiDTaiSan() {
+        return iDTaiSan;
     }
 
-    public String getTenTaiSan() {
-        return tenTaiSan;
+    public String getiDPhongMay() {
+        return iDPhongMay;
     }
 
-    public void setTenTaiSan(String tenTaiSan) {
-        this.tenTaiSan = tenTaiSan;
-    }
-
-    public String getMaTaiSan() {
-        return maTaiSan;
-    }
-
-    public void setMaTaiSan(String maTaiSan) {
-        this.maTaiSan = maTaiSan;
-    }
-
-    public double getSoLuong() {
+    public int getSoLuong() {
         return soLuong;
     }
 
-    public void setSoLuong(double soLuong) {
+    public void setiD(String iD) {
+        this.iD = iD;
+    }
+
+    public void setiDTaiSan(String iDTaiSan) {
+        this.iDTaiSan = iDTaiSan;
+    }
+
+    public void setiDPhongMay(String iDPhongMay) {
+        this.iDPhongMay = iDPhongMay;
+    }
+
+    public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
 
-    @Override
-    public String toString() {
-        return "TaiSanPhongMay{" + "tenTaiSan=" + tenTaiSan + ", maTaiSan=" + maTaiSan + ", soLuong=" + soLuong + '}';
+    public TaiSanPhongMay(String iD, String iDTaiSan, String iDPhongMay, int soLuong) {
+        this.iD = iD;
+        this.iDTaiSan = iDTaiSan;
+        this.iDPhongMay = iDPhongMay;
+        this.soLuong = soLuong;
     }
-    
+
+    public TaiSanPhongMay() {
+    }
     
 }
