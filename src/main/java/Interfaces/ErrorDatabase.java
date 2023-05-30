@@ -13,12 +13,12 @@ import javax.swing.JOptionPane;
 public class ErrorDatabase implements Error {
     @Override
     public void HienThiThongBaoLoi() {
-        JOptionPane.showMessageDialog(null, "Lỗi cơ sở dữ liệu", "Đang có vấn đề nào đó cần sửa chữa...! Bạn hãy reset lại phần mềm", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Đang có vấn đề nào đó cần sửa chữa...! Bạn hãy reset lại phần mềm", "Lỗi cơ sở dữ liệu", JOptionPane.WARNING_MESSAGE);
     }
 
     @Override
     public void HienThiThongBaoLoi(String Message) {
-        JOptionPane.showMessageDialog(null, "Lỗi cơ sở dữ liệu", Message, JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, Message, "Lỗi cơ sở dữ liệu", JOptionPane.ERROR_MESSAGE);
     }
       
 }

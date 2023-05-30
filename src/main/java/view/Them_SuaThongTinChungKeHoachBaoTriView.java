@@ -5,8 +5,11 @@
 package view;
 
 import Controllers.KeHoachBaoTriController;
+import Interfaces.ErrorNormal;
+import Interfaces.NotifyNormal;
 import Models.KeHoachBaoTri;
 import Models.NguoiDung;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -29,6 +32,8 @@ public class Them_SuaThongTinChungKeHoachBaoTriView extends javax.swing.JFrame {
         initComponents();
     }
     
+    
+    // Khởi tạo khi muốn update thông tin chung
     public Them_SuaThongTinChungKeHoachBaoTriView(KeHoachBaoTriController keHoachBaoTriController, KeHoachBaoTri keHoachBaoTri) {
         initComponents();
         this.keHoachBaoTriController = keHoachBaoTriController;        
@@ -38,10 +43,11 @@ public class Them_SuaThongTinChungKeHoachBaoTriView extends javax.swing.JFrame {
         hienThiThongTinUpdate();
     }
     
-    public Them_SuaThongTinChungKeHoachBaoTriView(KeHoachBaoTriController keHoachBaoTriController, boolean isAddKeHoachBaoTri) {
+    // Khởi tạo khi muốn thêm kế hoạch bảo trì
+    public Them_SuaThongTinChungKeHoachBaoTriView(KeHoachBaoTriController keHoachBaoTriController) {
         initComponents();
         this.keHoachBaoTriController = keHoachBaoTriController;        
-        this.isAddKeHoachBaoTri = isAddKeHoachBaoTri;
+        this.isAddKeHoachBaoTri = true;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -144,6 +150,11 @@ public class Them_SuaThongTinChungKeHoachBaoTriView extends javax.swing.JFrame {
 
         Btn_Cancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Btn_Cancel.setText("Hủy");
+        Btn_Cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_CancelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,40 +212,58 @@ public class Them_SuaThongTinChungKeHoachBaoTriView extends javax.swing.JFrame {
     
     private void Btn_xacNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_xacNhanMouseClicked
         if(isAddKeHoachBaoTri) {
-            addThongTinChungKeHoachBaoTri();
-            navigateKeHoachBaoTriViewByAddKeHoach();
+            try {
+                addThongTinChungKeHoachBaoTriIntoKeHoachBaoTriView();
+                NotifyNormal notifyNormal = new NotifyNormal("Đã thêm thông tin chung cho kế hoạch");
+                notifyNormal.showNotify();
+                navigateKeHoachBaoTriViewByAddKeHoach();
+            } catch(DateTimeException ex) {
+                ErrorNormal errorNormal = new ErrorNormal("Bạn nhập sai định dạng ngày tháng - vd: 2014/03/04 (năm, tháng, ngày)" + "\n" + ex.getMessage());
+                errorNormal.HienThiThongBaoLoi();
+            }
         } else {
-            updateThongTinChungKeHoachBaoTri();
-            navigateKeHoachBaoTriViewByUpdateKeHoach();
+            try {
+                updateThongTinChungKeHoachBaoTri();
+                NotifyNormal notifyNormal = new NotifyNormal("Update thông tin chung thành công");
+                notifyNormal.showNotify();
+                navigateKeHoachBaoTriViewByUpdateKeHoach();
+            } catch(DateTimeException ex) {
+                ErrorNormal errorNormal = new ErrorNormal("Bạn nhập sai định dạng ngày tháng - vd: 2014/03/04 (năm, tháng, ngày)");
+                errorNormal.HienThiThongBaoLoi();
+            }
         }
     }//GEN-LAST:event_Btn_xacNhanMouseClicked
 
+    private void Btn_CancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_CancelMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_Btn_CancelMouseClicked
+
     private void navigateKeHoachBaoTriViewByAddKeHoach() {
         keHoachBaoTriController.getChiTietKeHoachBaoTriView().setVisible(true);
-        keHoachBaoTriController.getChiTietKeHoachBaoTriView().setKeHoachBaoTri(keHoachBaoTri);
         keHoachBaoTriController.getChiTietKeHoachBaoTriView().hienThiThongTinChung();
+        this.dispose();
     }
     
     private void navigateKeHoachBaoTriViewByUpdateKeHoach() {
         keHoachBaoTriController.getChiTietKeHoachBaoTriView().setVisible(true);
         keHoachBaoTriController.getChiTietKeHoachBaoTriView().hienThiThongTinChung();
+        this.dispose();
     }
     
-    private void addThongTinChungKeHoachBaoTri() {
+    private void addThongTinChungKeHoachBaoTriIntoKeHoachBaoTriView() throws DateTimeException{
         keHoachBaoTri = new KeHoachBaoTri();
         
         keHoachBaoTri.setiD(UUID.randomUUID().toString().substring(0, 6));
-        keHoachBaoTri.setThoiGianBatDau(LocalDate.parse(TF_ThoiGianThucHien.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        keHoachBaoTri.setThoiGianKetThuc(LocalDate.parse(TF_ThoiGianKetThuc.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        keHoachBaoTri.setThoiGianBatDau(LocalDate.parse(TF_ThoiGianThucHien.getText(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+        keHoachBaoTri.setThoiGianKetThuc(LocalDate.parse(TF_ThoiGianKetThuc.getText(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
         keHoachBaoTri.setGhiChu(TF_GhiChu.getText());
         
         keHoachBaoTriController.getChiTietKeHoachBaoTriView().setKeHoachBaoTri(keHoachBaoTri);
     }
     
-    private void updateThongTinChungKeHoachBaoTri() {
-        
-        keHoachBaoTri.setThoiGianBatDau(LocalDate.parse(TF_ThoiGianThucHien.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        keHoachBaoTri.setThoiGianKetThuc(LocalDate.parse(TF_ThoiGianKetThuc.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+    private void updateThongTinChungKeHoachBaoTri() throws DateTimeException {
+        keHoachBaoTri.setThoiGianBatDau(LocalDate.parse(TF_ThoiGianThucHien.getText(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+        keHoachBaoTri.setThoiGianKetThuc(LocalDate.parse(TF_ThoiGianKetThuc.getText(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
         keHoachBaoTri.setGhiChu(TF_GhiChu.getText());
         
         keHoachBaoTriController.updateKeHoachBaoTri(keHoachBaoTri);

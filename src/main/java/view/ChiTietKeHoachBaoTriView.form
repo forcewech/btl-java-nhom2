@@ -24,43 +24,55 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel1" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jScrollPane1" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-              <Component id="jScrollPane2" max="32767" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
               <Component id="jLabel8" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="419" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="407" max="-2" attributes="0"/>
               <Component id="jLabel9" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-              <Component id="jButton4" min="-2" pref="95" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-              <Component id="jButton5" min="-2" pref="95" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-              <Component id="jButton6" min="-2" pref="95" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jButton8" min="-2" pref="95" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
-              <Component id="jButton9" min="-2" pref="95" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-              <Component id="jButton10" min="-2" pref="95" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="Btn_XuatExcel" min="-2" pref="204" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="Btn_XacNhanThucThi" min="-2" pref="204" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-              <Component id="Btn_AddKeHoachBaoTri" min="-2" pref="126" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-              <Component id="Btn_Exit" min="-2" pref="87" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="330" pref="330" max="-2" attributes="0"/>
+                      <Component id="Btn_XuatExcel" pref="199" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="Btn_addNhiemVuBaoTri" min="-2" pref="95" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="Btn_updateNhiemVuBaoTri" min="-2" pref="86" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="Btn_XacNhanThucThi" min="-2" pref="132" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="Btn_AddKeHoachBaoTri" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="Btn_delete" min="-2" pref="112" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="Btn_Exit" min="-2" pref="87" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jScrollPane2" min="-2" pref="535" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="Btn_addTaiSanBaoTri" min="-2" pref="95" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="Btn_udpateTaiSanBaoTri" min="-2" pref="85" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,34 +85,27 @@
                   <Component id="jLabel8" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="jLabel9" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
-                  <Component id="jScrollPane2" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="Btn_addNhiemVuBaoTri" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="Btn_addTaiSanBaoTri" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="Btn_udpateTaiSanBaoTri" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="Btn_updateNhiemVuBaoTri" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton5" min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="jButton6" min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="jButton4" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="jButton9" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="jButton10" min="-2" pref="33" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="Btn_AddKeHoachBaoTri" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="Btn_XuatExcel" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="Btn_XacNhanThucThi" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="Btn_Exit" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Component id="jButton8" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="427" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="55" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="Btn_XuatExcel" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="Btn_XacNhanThucThi" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="Btn_Exit" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="Btn_AddKeHoachBaoTri" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="Btn_delete" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -128,7 +133,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Panel_IDKeHoach" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -150,7 +155,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Panel_IDKeHoach" min="-2" max="-2" attributes="0"/>
                               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -177,7 +182,7 @@
             <Property name="text" type="java.lang.String" value="Th&#xf4;ng tin chi ti&#x1ebf;t k&#x1ebf; ho&#x1ea1;ch"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JPanel" name="jPanel3">
+        <Container class="javax.swing.JPanel" name="Panel_IDKeHoach">
 
           <Layout>
             <DimensionLayout dim="0">
@@ -215,7 +220,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jLabel3"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -258,7 +262,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jLabel3"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -301,7 +304,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jLabel13"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -352,7 +354,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jLabel3"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -424,43 +425,26 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="Btn_addNhiemVuBaoTri">
       <Properties>
         <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
-      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Btn_addNhiemVuBaoTriMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Btn_XuatExcel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t file Excel"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton8">
+    <Component class="javax.swing.JButton" name="Btn_addTaiSanBaoTri">
       <Properties>
         <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton9">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
-      </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Btn_addTaiSanBaoTriMouseClicked"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton10">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="Btn_Exit">
       <Properties>
@@ -474,6 +458,30 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Th&#xea;m k&#x1ebf; ho&#x1ea1;ch"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="Btn_updateNhiemVuBaoTri">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Btn_updateNhiemVuBaoTriMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Btn_udpateTaiSanBaoTri">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Btn_udpateTaiSanBaoTriMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Btn_delete">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="H&#x1ee7;y k&#x1ebf; ho&#x1ea1;ch"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Btn_deleteMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

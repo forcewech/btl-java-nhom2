@@ -7,6 +7,7 @@ package Controllers;
 import Interfaces.CheckRole;
 import Interfaces.ErrorAuthen;
 import Interfaces.ErrorDatabase;
+import Interfaces.NotifyNormal;
 import Models.KeHoachBaoTri;
 import Models.KeHoachBaoTriDAO;
 import Models.NghiepVuBaoTriTaiSan;
@@ -17,7 +18,11 @@ import Models.NhiemVuBaoTriDAO;
 import Models.TaiSanBaoTri;
 import Models.TaiSanBaoTriDAO;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import view.ChiTietKeHoachBaoTriView;
 import view.QuanLyBaoTriTaiSanView;
 
@@ -114,6 +119,10 @@ public class KeHoachBaoTriController {
         quanLyBaoTriTaiSanView.setVisible(false);
     }
     
+    public String randomIDWith6Char() {
+        return UUID.randomUUID().toString().substring(0, 6);
+    }
+    
     public List<KeHoachBaoTri> hienThiTatCaKeHoachBaoTri() {
         try {
             return keHoachBaoTriDAO.getAllKeHoachBaoTriChuaThucThi();
@@ -162,4 +171,89 @@ public class KeHoachBaoTriController {
         }
     }
     
+    public void deleteKeHoachBaoTri(KeHoachBaoTri keHoachBaoTri) {
+        try {
+            ArrayList<NhiemVuBaoTri> nhiemVuBaoTriList = (ArrayList<NhiemVuBaoTri>)nhiemVuBaoTriDAO.getAllNhiemVuBaoTriByiDKeHoachBaoTri(keHoachBaoTri.getiD());
+            nhiemVuBaoTriList.forEach(nhiemVuBaoTri -> {
+                try {
+                    taiSanBaoTriDAO.delTaiSanBaoTriByiDNhiemVuBaoTri(nhiemVuBaoTri.getiD());
+                } catch (SQLException ex) {
+                    ErrorDatabase errorDatabase = new ErrorDatabase();
+                    errorDatabase.HienThiThongBaoLoi(ex.getMessage());
+                }
+            });
+            nhiemVuBaoTriDAO.delNhiemVuBaoTriByiDKeHoachBaoTri(keHoachBaoTri.getiD());
+            keHoachBaoTriDAO.deleteKeHoachBaoTri(keHoachBaoTri.getiD());
+        } catch(SQLException ex) {
+            ErrorDatabase errorDatabase = new ErrorDatabase();
+            errorDatabase.HienThiThongBaoLoi(ex.getMessage());
+        }
+    }
+    
+    public void addNhiemVuBaoTri(NhiemVuBaoTri nhiemVuBaoTri) {
+        try {
+            nhiemVuBaoTriDAO.addOneNhiemVuBaoTri(nhiemVuBaoTri);
+            NotifyNormal notifyNormal = new NotifyNormal("Thêm nhiệm vụ bảo trì thành công");
+            notifyNormal.showNotify();
+        } catch(SQLException ex) {
+            ErrorDatabase errorDatabase = new ErrorDatabase();
+            errorDatabase.HienThiThongBaoLoi(ex.getMessage());
+        }
+    }
+    
+    public void updateNhiemVuBaoTri(NhiemVuBaoTri nhiemVuBaoTri) {
+        try {
+            nhiemVuBaoTriDAO.updateNhiemVuBaoTri(nhiemVuBaoTri);
+            NotifyNormal notifyNormal = new NotifyNormal("Update nhiệm vụ bảo trì thành công");
+            notifyNormal.showNotify();
+        } catch(SQLException ex) {
+            ErrorDatabase errorDatabase = new ErrorDatabase();
+            errorDatabase.HienThiThongBaoLoi(ex.getMessage());
+        }
+    }
+    
+    public void deleteNhiemVuBaoTri(NhiemVuBaoTri nhiemVuBaoTri) {
+        try {
+            taiSanBaoTriDAO.delTaiSanBaoTriByiDNhiemVuBaoTri(nhiemVuBaoTri.getiD());
+            nhiemVuBaoTriDAO.delNhiemVuBaoTriByID(nhiemVuBaoTri.getiD());
+            NotifyNormal notifyNormal = new NotifyNormal("Delete nhiệm vụ bảo trì thành công");
+            notifyNormal.showNotify();
+        } catch(SQLException ex) {
+            ErrorDatabase errorDatabase = new ErrorDatabase();
+            errorDatabase.HienThiThongBaoLoi(ex.getMessage());
+        }
+    }
+    
+    public void addTaiSanBaoTri(TaiSanBaoTri taiSanBaoTri) {
+        try {
+            taiSanBaoTriDAO.addOneTaiSanBaoTri(taiSanBaoTri);
+            NotifyNormal notifyNormal = new NotifyNormal("Thêm tài sản bảo trì thành công");
+            notifyNormal.showNotify();
+        } catch(SQLException ex) {
+            ErrorDatabase errorDatabase = new ErrorDatabase();
+            errorDatabase.HienThiThongBaoLoi(ex.getMessage());
+        }
+    }
+    
+    public void updateTaiSanBaotri(TaiSanBaoTri taiSanBaoTri) {
+        try {
+            taiSanBaoTriDAO.updateTaiSanBaoTri(taiSanBaoTri);
+            NotifyNormal notifyNormal = new NotifyNormal("update tài sản bảo trì thành công");
+            notifyNormal.showNotify();
+        } catch(SQLException ex) {
+            ErrorDatabase errorDatabase = new ErrorDatabase();
+            errorDatabase.HienThiThongBaoLoi(ex.getMessage());
+        }
+    }
+    
+    public void deleteTaiSanBaoTri(TaiSanBaoTri taiSanBaoTri) {
+        try {
+            taiSanBaoTriDAO.delTaiSanBaoTriByID(taiSanBaoTri.getiD());
+            NotifyNormal notifyNormal = new NotifyNormal("Delete tài sản bảo trì thành công");
+            notifyNormal.showNotify();
+        } catch(SQLException ex) {
+            ErrorDatabase errorDatabase = new ErrorDatabase();
+            errorDatabase.HienThiThongBaoLoi(ex.getMessage());
+        }
+    }
 }
