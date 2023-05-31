@@ -50,6 +50,33 @@ public class KeHoachBaoTriDAO {
         return listKHBT;
     }
     
+    public List<KeHoachBaoTri> getAllKeHoachBaoTri() throws SQLException{
+        List<KeHoachBaoTri> listKHBT = new ArrayList<>();
+        
+        conn = DatabaseHelper.getDBConnection();
+        
+        String query = "select * from KeHoachBaoTri";
+        
+        Statement sttm = null;
+        
+        sttm = conn.createStatement();
+        
+        ResultSet result = sttm.executeQuery(query);
+        
+        while(result.next()) {
+            KeHoachBaoTri khbt = new KeHoachBaoTri();
+            khbt.setiD(result.getString(1));
+            khbt.setThoiGianBatDau(result.getDate(2).toLocalDate());
+            khbt.setThoiGianKetThuc(result.getDate(3).toLocalDate());
+            khbt.setGhiChu(result.getString(4));
+            khbt.setTrangThai(result.getBoolean(5));
+            khbt.setAnhXacNhan(result.getString(6));
+            
+            listKHBT.add(khbt);
+        }
+        return listKHBT;
+    }
+    
     public int addKeHoachBaoTri(KeHoachBaoTri kehoach) throws SQLException{
         String addQuery = "insert into KeHoachBaoTri(iD, thoiGianBatDau, thoiGianKetThuc, ghiChu, trangThai, anhXacNhan) "
                 + "values (?, ?, ?, ?, 0, ?)";
@@ -122,16 +149,17 @@ public class KeHoachBaoTriDAO {
         return -1;
     }
     
-    public int xacNhanThucThi(String iD) throws SQLException {
+    public int xacNhanThucThi(KeHoachBaoTri keHoachBaoTri) throws SQLException {
         String addQuery = "update KeHoachBaoTri set "
-                + "trangThai = ? where iD = ?";
+                + "trangThai = ?, anhXacNhan = ? where iD = ?";
 
         conn = DatabaseHelper.getDBConnection();
 
         pttm = conn.prepareStatement(addQuery);
 
         pttm.setBoolean(1, true);
-        pttm.setString(2, iD);
+        pttm.setString(2, keHoachBaoTri.getAnhXacNhan());
+        pttm.setString(3, keHoachBaoTri.getiD());
 
         if(pttm.executeUpdate() > 0) {
             System.out.println("Update thành công");

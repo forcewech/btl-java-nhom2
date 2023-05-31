@@ -14,7 +14,9 @@ import Models.TaiSanBaoTri;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -33,8 +35,8 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
     private KeHoachBaoTri keHoachBaoTri;
     private NhiemVuBaoTri nhiemVuBaoTriCurrentChoice;
     private TaiSanBaoTri taiSanBaoTriCurrentChoice;
+    private HashMap<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> nhiemVuBaoTriLinkNghiepVuBaoTriList;
     private List<NhiemVuBaoTri> nhiemVuBaoTriList;
-    private List<TaiSanBaoTri> taiSanBaoTrisList;
     private List<NghiepVuBaoTriTaiSan> nghiepVuBaoTriTaiSanList;
     private boolean isAddKeHoachBaoTri;
     DefaultTableModel defaultTableNhiemVuBaoTri;
@@ -102,10 +104,6 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
         return nhiemVuBaoTriList;
     }
 
-    public List<TaiSanBaoTri> getTaiSanBaoTrisList() {
-        return taiSanBaoTrisList;
-    }
-
     public void setKeHoachBaoTriController(KeHoachBaoTriController keHoachBaoTriController) {
         this.keHoachBaoTriController = keHoachBaoTriController;
     }
@@ -118,8 +116,12 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
         this.nhiemVuBaoTriList = nhiemVuBaoTriList;
     }
 
-    public void setTaiSanBaoTrisList(List<TaiSanBaoTri> taiSanBaoTrisList) {
-        this.taiSanBaoTrisList = taiSanBaoTrisList;
+    public HashMap<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> getNhiemVuBaoTriLinkNghiepVuBaoTriList() {
+        return nhiemVuBaoTriLinkNghiepVuBaoTriList;
+    }
+
+    public void setNhiemVuBaoTriLinkNghiepVuBaoTriList(HashMap<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> nhiemVuBaoTriLinkNghiepVuBaoTriList) {
+        this.nhiemVuBaoTriLinkNghiepVuBaoTriList = nhiemVuBaoTriLinkNghiepVuBaoTriList;
     }
     
     public ChiTietKeHoachBaoTriView() {
@@ -146,6 +148,8 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
         this.keHoachBaoTriController = keHoachBaoTriController;
         this.keHoachBaoTriController.setChiTietKeHoachBaoTriView(this);
         this.isAddKeHoachBaoTri = true;
+        
+        this.nhiemVuBaoTriLinkNghiepVuBaoTriList = new HashMap<>();
         
         KhoiTaoDuLieuChoAddKeHoach();
     }
@@ -245,6 +249,13 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
     }
     
     public void hienThiTaiSanBaoTriByAddKeHoachBaoTri() {
+        for (Map.Entry<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> entry : nhiemVuBaoTriLinkNghiepVuBaoTriList.entrySet()) {
+            NhiemVuBaoTri nhiemVuBaotriFromTaiSanBaoTriLinkNghiepVuBaoTriList = entry.getKey();
+            if(nhiemVuBaotriFromTaiSanBaoTriLinkNghiepVuBaoTriList.getiD().equals(nhiemVuBaoTriCurrentChoice.getiD())) {
+                nghiepVuBaoTriTaiSanList = (ArrayList<NghiepVuBaoTriTaiSan>)entry.getValue();
+                break;
+            }
+        }
         hienThiTaiSanBaoTri();
     }
     
@@ -483,6 +494,11 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(NhiemVuBaoTriContainer);
 
         Btn_XacNhanThucThi.setText("Xác nhận thực thi");
+        Btn_XacNhanThucThi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_XacNhanThucThiMouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -529,6 +545,11 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
         });
 
         Btn_AddKeHoachBaoTri.setText("Thêm kế hoạch");
+        Btn_AddKeHoachBaoTri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_AddKeHoachBaoTriMouseClicked(evt);
+            }
+        });
 
         Btn_updateNhiemVuBaoTri.setText("Cập nhật");
         Btn_updateNhiemVuBaoTri.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -661,7 +682,8 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
 
     private void Btn_udpateTaiSanBaoTriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_udpateTaiSanBaoTriMouseClicked
         if(isAddKeHoachBaoTri) {
-            
+            Add_UpdateTaiSanBaoTri add_UpdateTaiSanBaoTri = new Add_UpdateTaiSanBaoTri(keHoachBaoTriController, taiSanBaoTriCurrentChoice, true);
+            add_UpdateTaiSanBaoTri.setVisible(true);
         } else {
             Add_UpdateTaiSanBaoTri add_UpdateTaiSanBaoTri = new Add_UpdateTaiSanBaoTri(keHoachBaoTriController, taiSanBaoTriCurrentChoice, false);
             add_UpdateTaiSanBaoTri.setVisible(true);
@@ -693,7 +715,13 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
 
     private void Btn_addTaiSanBaoTriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_addTaiSanBaoTriMouseClicked
         if(isAddKeHoachBaoTri) {
-            
+            if(nhiemVuBaoTriCurrentChoice != null) {
+                Add_UpdateTaiSanBaoTri add_UpdateTaiSanBaoTri = new Add_UpdateTaiSanBaoTri(keHoachBaoTriController, nhiemVuBaoTriCurrentChoice, true);
+                add_UpdateTaiSanBaoTri.setVisible(true);
+            } else {
+                ErrorNormal errorNormal = new ErrorNormal("Bạn chưa chọn nhiệm vụ bảo trì");
+                errorNormal.HienThiThongBaoLoi();
+            }
         } else {
             if(nhiemVuBaoTriCurrentChoice != null) {
                 Add_UpdateTaiSanBaoTri add_UpdateTaiSanBaoTri = new Add_UpdateTaiSanBaoTri(keHoachBaoTriController, nhiemVuBaoTriCurrentChoice, false);
@@ -704,6 +732,24 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_Btn_addTaiSanBaoTriMouseClicked
+
+    private void Btn_AddKeHoachBaoTriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AddKeHoachBaoTriMouseClicked
+        ArrayList<TaiSanBaoTri> taiSanBaoTrisList = new ArrayList<>();
+        for(Map.Entry<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> entry : nhiemVuBaoTriLinkNghiepVuBaoTriList.entrySet()) {
+            entry.getValue().forEach(nghiepVuBaoTriTaiSan -> {
+                taiSanBaoTrisList.add(nghiepVuBaoTriTaiSan.getTaiSanBaoTri());
+            });
+        }
+        
+        keHoachBaoTriController.addCompletedKeHoachBaoTri(keHoachBaoTri, nhiemVuBaoTriList, taiSanBaoTrisList);
+        this.dispose();
+        keHoachBaoTriController.hienThiKeHoachBaoTriView();
+    }//GEN-LAST:event_Btn_AddKeHoachBaoTriMouseClicked
+
+    private void Btn_XacNhanThucThiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_XacNhanThucThiMouseClicked
+        XacNhanThucThiView xacNhanThucThiView = new XacNhanThucThiView(keHoachBaoTriController, keHoachBaoTri, this);
+        xacNhanThucThiView.setVisible(true);
+    }//GEN-LAST:event_Btn_XacNhanThucThiMouseClicked
 
     private void navigateToTatCaKeHoachBaoTri() {
         keHoachBaoTriController.hienThiKeHoachBaoTriView();

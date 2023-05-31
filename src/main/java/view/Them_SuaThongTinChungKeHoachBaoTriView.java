@@ -254,16 +254,18 @@ public class Them_SuaThongTinChungKeHoachBaoTriView extends javax.swing.JFrame {
         keHoachBaoTri = new KeHoachBaoTri();
         
         keHoachBaoTri.setiD(UUID.randomUUID().toString().substring(0, 6));
-        keHoachBaoTri.setThoiGianBatDau(LocalDate.parse(TF_ThoiGianThucHien.getText(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
-        keHoachBaoTri.setThoiGianKetThuc(LocalDate.parse(TF_ThoiGianKetThuc.getText(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+        keHoachBaoTri.setThoiGianBatDau(LocalDate.parse(TF_ThoiGianThucHien.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        keHoachBaoTri.setThoiGianKetThuc(LocalDate.parse(TF_ThoiGianKetThuc.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         keHoachBaoTri.setGhiChu(TF_GhiChu.getText());
+        keHoachBaoTri.setAnhXacNhan("");
+        keHoachBaoTri.setTrangThai(false);
         
         keHoachBaoTriController.getChiTietKeHoachBaoTriView().setKeHoachBaoTri(keHoachBaoTri);
     }
     
     private void updateThongTinChungKeHoachBaoTri() throws DateTimeException {
-        keHoachBaoTri.setThoiGianBatDau(LocalDate.parse(TF_ThoiGianThucHien.getText(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
-        keHoachBaoTri.setThoiGianKetThuc(LocalDate.parse(TF_ThoiGianKetThuc.getText(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+        keHoachBaoTri.setThoiGianBatDau(LocalDate.parse(TF_ThoiGianThucHien.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        keHoachBaoTri.setThoiGianKetThuc(LocalDate.parse(TF_ThoiGianKetThuc.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         keHoachBaoTri.setGhiChu(TF_GhiChu.getText());
         
         keHoachBaoTriController.updateKeHoachBaoTri(keHoachBaoTri);

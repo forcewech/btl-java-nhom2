@@ -23,7 +23,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import static java.util.Map.entry;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -36,7 +38,6 @@ public class Add_UpdateTaiSanBaoTri extends javax.swing.JFrame {
     private TaiSanBaoTri taiSanBaoTri;
     private NhiemVuBaoTri nhiemVuBaoTri;
     private boolean isAddKeHoachBaoTri;
-    private boolean isAddTaiSanBaoTri;
     private HashMap<String, String> phongMayHashMap;
     private HashMap<String, String> taiSanHashMap;
     
@@ -50,7 +51,6 @@ public class Add_UpdateTaiSanBaoTri extends javax.swing.JFrame {
         this.keHoachBaoTriController = keHoachBaoTriController;
         this.taiSanBaoTri = taiSanBaoTri;
         this.isAddKeHoachBaoTri = isAddKeHoachBaoTri;
-        this.isAddTaiSanBaoTri = false;
         
         hienThiUIforUpdate();
     }
@@ -60,7 +60,6 @@ public class Add_UpdateTaiSanBaoTri extends javax.swing.JFrame {
         this.keHoachBaoTriController = keHoachBaoTriController;
         this.nhiemVuBaoTri = nhiemVuBaoTri;
         this.isAddKeHoachBaoTri = isAddKeHoachBaoTri;
-        this.isAddTaiSanBaoTri = true;
         
         hienThiUIforAdd();
     }
@@ -282,15 +281,41 @@ public class Add_UpdateTaiSanBaoTri extends javax.swing.JFrame {
 
     private void Btn_updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_updateMouseClicked
         if(isAddKeHoachBaoTri) {
-        
+            try {
+                NghiepVuBaoTriTaiSan newNghiepVuBaoTriTaiSan = new NghiepVuBaoTriTaiSan();
+                
+                newNghiepVuBaoTriTaiSan.setTaiSanBaoTri(getTaiSanBaoTribyForm());
+                newNghiepVuBaoTriTaiSan.setTaiSan(getTaiSanIncludeIDAndName());
+                newNghiepVuBaoTriTaiSan.setPhongMay(getPhongMayIncludeiDAndName());
+                
+                HashMap<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> nhiemVuBaoTriLinkNghiepVuBaoTri = (HashMap<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>>)keHoachBaoTriController.getChiTietKeHoachBaoTriView().getNhiemVuBaoTriLinkNghiepVuBaoTriList();
+                
+                for(Map.Entry<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> entry : nhiemVuBaoTriLinkNghiepVuBaoTri.entrySet()) {
+                    NhiemVuBaoTri nhiemVuBaoTriFromNhiemVuBaoTriLinkNghiepVuBaoTri = entry.getKey();
+                    
+                    if(nhiemVuBaoTriFromNhiemVuBaoTriLinkNghiepVuBaoTri.getiD().equals(taiSanBaoTri.getiDNhiemVuBaoTri())) {
+                        ArrayList<NghiepVuBaoTriTaiSan> nghiepVuBaoTriTaiSansList = (ArrayList<NghiepVuBaoTriTaiSan>) entry.getValue();
+                        
+                        for(int i=0; i<nghiepVuBaoTriTaiSansList.size(); i++) {
+                            if(nghiepVuBaoTriTaiSansList.get(i).getTaiSanBaoTri().getiD().equals(taiSanBaoTri.getiD())) {
+                                nghiepVuBaoTriTaiSansList.set(i, newNghiepVuBaoTriTaiSan);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                this.dispose();
+                keHoachBaoTriController.getChiTietKeHoachBaoTriView().hienThiTaiSanBaoTriByAddKeHoachBaoTri();
+            } catch (NumberFormatException ex) {
+                ErrorNormal errorNormal = new ErrorNormal(ex.getMessage());
+                errorNormal.HienThiThongBaoLoi();
+            }
         }else {
             try {
                 keHoachBaoTriController.updateTaiSanBaotri(getTaiSanBaoTribyForm());
                 this.dispose();
                 keHoachBaoTriController.getChiTietKeHoachBaoTriView().hienThiNhiemVuBaoTriByUpDateKeHoachBaoTri();
-            } catch (SQLException ex) {
-                ErrorDatabase errorDatabase = new ErrorDatabase();
-                errorDatabase.HienThiThongBaoLoi(ex.getMessage());
             } catch (NumberFormatException ex) {
                 ErrorNormal errorNormal = new ErrorNormal(ex.getMessage());
                 errorNormal.HienThiThongBaoLoi();
@@ -300,16 +325,65 @@ public class Add_UpdateTaiSanBaoTri extends javax.swing.JFrame {
 
     private void Btn_DeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_DeleteMouseClicked
         if(isAddKeHoachBaoTri) {
-        
+            try {
+                HashMap<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> nhiemVuBaoTriLinkNghiepVuBaoTri = (HashMap<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>>)keHoachBaoTriController.getChiTietKeHoachBaoTriView().getNhiemVuBaoTriLinkNghiepVuBaoTriList();
+                
+                for(Map.Entry<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> entry : nhiemVuBaoTriLinkNghiepVuBaoTri.entrySet()) {
+                    NhiemVuBaoTri nhiemVuBaoTriFromNhiemVuBaoTriLinkNghiepVuBaoTri = entry.getKey();
+                    
+                    if(nhiemVuBaoTriFromNhiemVuBaoTriLinkNghiepVuBaoTri.getiD().equals(taiSanBaoTri.getiDNhiemVuBaoTri())) {
+                        ArrayList<NghiepVuBaoTriTaiSan> nghiepVuBaoTriTaiSansList = (ArrayList<NghiepVuBaoTriTaiSan>) entry.getValue();
+                        
+                        for(int i=0; i<nghiepVuBaoTriTaiSansList.size(); i++) {
+                            if(nghiepVuBaoTriTaiSansList.get(i).getTaiSanBaoTri().getiD().equals(taiSanBaoTri.getiD())) {
+                                nghiepVuBaoTriTaiSansList.remove(i);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                this.dispose();
+                keHoachBaoTriController.getChiTietKeHoachBaoTriView().hienThiTaiSanBaoTriByAddKeHoachBaoTri();
+            } catch (NumberFormatException ex) {
+                ErrorNormal errorNormal = new ErrorNormal(ex.getMessage());
+                errorNormal.HienThiThongBaoLoi();
+            }
         }else {
             keHoachBaoTriController.deleteTaiSanBaoTri(taiSanBaoTri);
+            this.dispose();
             keHoachBaoTriController.getChiTietKeHoachBaoTriView().hienThiNhiemVuBaoTriByUpDateKeHoachBaoTri();
         }
     }//GEN-LAST:event_Btn_DeleteMouseClicked
 
     private void Btn_addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_addMouseClicked
         if(isAddKeHoachBaoTri) {
-            
+            try {
+                NghiepVuBaoTriTaiSan newNghiepVuBaoTriTaiSan = new NghiepVuBaoTriTaiSan();
+                
+                newNghiepVuBaoTriTaiSan.setTaiSanBaoTri(getTaiSanBaoTriToAddTaiSanBaoTribyForm());
+                newNghiepVuBaoTriTaiSan.setTaiSan(getTaiSanIncludeIDAndName());
+                newNghiepVuBaoTriTaiSan.setPhongMay(getPhongMayIncludeiDAndName());
+                
+                HashMap<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> nhiemVuBaoTriLinkNghiepVuBaoTri = (HashMap<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>>)keHoachBaoTriController.getChiTietKeHoachBaoTriView().getNhiemVuBaoTriLinkNghiepVuBaoTriList();
+                
+                for(Map.Entry<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> entry : nhiemVuBaoTriLinkNghiepVuBaoTri.entrySet()) {
+                    NhiemVuBaoTri nhiemVuBaoTriFromNhiemVuBaoTriLinkNghiepVuBaoTri = entry.getKey();
+                    
+                    if(nhiemVuBaoTriFromNhiemVuBaoTriLinkNghiepVuBaoTri.getiD().equals(nhiemVuBaoTri.getiD())) {
+                        entry.getValue().add(newNghiepVuBaoTriTaiSan);
+                        break;
+                    }
+                }
+                this.dispose();
+                keHoachBaoTriController.getChiTietKeHoachBaoTriView().hienThiTaiSanBaoTriByAddKeHoachBaoTri();
+            } catch (SQLException ex) {
+                ErrorDatabase errorDatabase = new ErrorDatabase();
+                errorDatabase.HienThiThongBaoLoi(ex.getMessage());
+            } catch (NumberFormatException ex) {
+                ErrorNormal errorNormal = new ErrorNormal(ex.getMessage());
+                errorNormal.HienThiThongBaoLoi();
+            }
         } else {
             try {
                 keHoachBaoTriController.addTaiSanBaoTri(getTaiSanBaoTriToAddTaiSanBaoTribyForm());
@@ -325,6 +399,18 @@ public class Add_UpdateTaiSanBaoTri extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Btn_addMouseClicked
 
+    
+    private TaiSanBaoTri getTaiSanBaoTribyForm() throws NumberFormatException {
+        TaiSanBaoTri taiSanBaoTribyform = new TaiSanBaoTri();
+        taiSanBaoTribyform.setiD(taiSanBaoTri.getiD());
+        taiSanBaoTribyform.setiDNhiemVuBaoTri(taiSanBaoTri.getiDNhiemVuBaoTri());
+        taiSanBaoTribyform.setiDTaiSanPhongMay(taiSanBaoTri.getiDTaiSanPhongMay());
+        taiSanBaoTribyform.setYeuCauBaoTri(TF_yeuCauBaoTri.getText());
+        taiSanBaoTribyform.setSoLuong(Integer.parseInt(TF_soLuong.getText()));
+        
+        return taiSanBaoTribyform;
+    }
+    
     private TaiSanBaoTri getTaiSanBaoTriToAddTaiSanBaoTribyForm() throws SQLException, NumberFormatException {
         TaiSanBaoTri taiSanBaoTribyform = new TaiSanBaoTri();
         
@@ -337,28 +423,16 @@ public class Add_UpdateTaiSanBaoTri extends javax.swing.JFrame {
         return taiSanBaoTribyform;
     }
     
-    private TaiSanBaoTri getTaiSanBaoTribyForm() throws SQLException, NumberFormatException {
-        TaiSanBaoTri taiSanBaoTribyform = new TaiSanBaoTri();
-        taiSanBaoTribyform.setiD(taiSanBaoTri.getiD());
-        taiSanBaoTribyform.setiDNhiemVuBaoTri(taiSanBaoTri.getiDNhiemVuBaoTri());
-        taiSanBaoTribyform.setiDTaiSanPhongMay(getTaiSanPhongMaybyForm().getiD());
-        taiSanBaoTribyform.setYeuCauBaoTri(TF_yeuCauBaoTri.getText());
-        taiSanBaoTribyform.setSoLuong(Integer.parseInt(TF_soLuong.getText()));
+    private TaiSanPhongMay getTaiSanPhongMaybyForm() throws SQLException {
+        TaiSan taiSan = getTaiSanIncludeIDAndName();
         
-        return taiSanBaoTribyform;
+        PhongMay phongMay = getPhongMayIncludeiDAndName();
+        
+        return getTaiSanPhongMaybyiDTaiSan_iDPhongMay(taiSan.getMaTaiSan(), phongMay.getMaPhong());
     }
     
-    private TaiSanPhongMay getTaiSanPhongMaybyForm() throws SQLException {
-        String tenTaiSan = (String) CB_TaiSan.getSelectedItem();
-        String iDTaiSan = "";
-        
-        for (Map.Entry<String, String> entry : taiSanHashMap.entrySet()) {
-            if (entry.getValue().equals(tenTaiSan)) {
-                iDTaiSan = entry.getKey();
-                break;
-            }
-        }
-        
+    private PhongMay getPhongMayIncludeiDAndName() {
+        PhongMay phongMay = new PhongMay();
         String tenPhongMay = (String) CB_PhongMay.getSelectedItem();
         String iDPhongMay = "";
         
@@ -368,8 +442,25 @@ public class Add_UpdateTaiSanBaoTri extends javax.swing.JFrame {
                 break;
             }
         }
+        phongMay.setMaPhong(iDPhongMay);
+        phongMay.setTenPhong(tenPhongMay);
+        return phongMay;
+    }
+    
+    private TaiSan getTaiSanIncludeIDAndName() {
+        TaiSan taiSan = new TaiSan();
+        String tenTaiSan = (String) CB_TaiSan.getSelectedItem();
+        String iDTaiSan = "";
         
-        return getTaiSanPhongMaybyiDTaiSan_iDPhongMay(iDTaiSan, iDPhongMay);
+        for (Map.Entry<String, String> entry : taiSanHashMap.entrySet()) {
+            if (entry.getValue().equals(tenTaiSan)) {
+                iDTaiSan = entry.getKey();
+                break;
+            }
+        }
+        taiSan.setMaTaiSan(iDTaiSan);
+        taiSan.setTenTaiSan(tenTaiSan);
+        return taiSan;
     }
     
     // Thịnh thêm get bằng iDTaiSan và iDPhongMay

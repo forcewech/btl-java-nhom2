@@ -8,9 +8,13 @@ import Controllers.KeHoachBaoTriController;
 import Interfaces.ErrorNormal;
 import Interfaces.NotifyNormal;
 import Models.KeHoachBaoTri;
+import Models.NghiepVuBaoTriTaiSan;
 import Models.NhiemVuBaoTri;
 import Models.TaiSanBaoTri;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -304,7 +308,7 @@ public class Add_UpdateNhiemVuBaoTriView extends javax.swing.JFrame {
     
     private void Btn_deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_deleteMouseClicked
         if(isAddKeHoachBaoTri) {
-            deNhiemVuBaoTriByAddKeHoachBaoTri();
+            deleteNhiemVuBaoTriByAddKeHoachBaoTri();
             this.dispose();
             keHoachBaoTriController.getChiTietKeHoachBaoTriView().hienThiNhiemVuBaoTriforAdd();
         } else {
@@ -314,21 +318,23 @@ public class Add_UpdateNhiemVuBaoTriView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Btn_deleteMouseClicked
 
-    private void deNhiemVuBaoTriByAddKeHoachBaoTri() {
+    private void deleteNhiemVuBaoTriByAddKeHoachBaoTri() {
         
-        ArrayList<TaiSanBaoTri> taiSanBaoTrisList = (ArrayList<TaiSanBaoTri>)keHoachBaoTriController.getChiTietKeHoachBaoTriView().getTaiSanBaoTrisList();
+        HashMap<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> taiSanBaoTriLinkNghiepVuBaoTri = keHoachBaoTriController.getChiTietKeHoachBaoTriView().getNhiemVuBaoTriLinkNghiepVuBaoTriList();
         ArrayList<NhiemVuBaoTri> nhiemVuBaoTrisList = (ArrayList<NhiemVuBaoTri>)keHoachBaoTriController.getChiTietKeHoachBaoTriView().getNhiemVuBaoTriList();
         
-        
-        
-        // Chưa hoàn thiện
-        
-        for(int i=0; i<taiSanBaoTrisList.size(); i++) {
-            taiSanBaoTrisList.remove(taiSanBaoTrisList.get(i));
+        for(int i=0; i<nhiemVuBaoTrisList.size(); i++) {
+            if(nhiemVuBaoTri.getiD().equals(nhiemVuBaoTrisList.get(i).getiD())) {
+                nhiemVuBaoTrisList.remove(i);
+                break;
+            }
         }
         
-        for(int i=0; i<nhiemVuBaoTrisList.size(); i++) {
-            
+        for (Map.Entry<NhiemVuBaoTri, List<NghiepVuBaoTriTaiSan>> entry : taiSanBaoTriLinkNghiepVuBaoTri.entrySet()) {
+            NhiemVuBaoTri nhiemVuBaotriFromTaiSanBaoTriLinkNghiepVuBaoTriList = entry.getKey();
+            if(nhiemVuBaotriFromTaiSanBaoTriLinkNghiepVuBaoTriList.getiD().equals(nhiemVuBaoTri.getiD())) {
+                taiSanBaoTriLinkNghiepVuBaoTri.remove(entry.getKey());
+            }
         }
         
     }
@@ -369,6 +375,7 @@ public class Add_UpdateNhiemVuBaoTriView extends javax.swing.JFrame {
         nhiemVuBaoTri.setChiPhi(chiPhi);
 
         keHoachBaoTriController.getChiTietKeHoachBaoTriView().getNhiemVuBaoTriList().add(nhiemVuBaoTri);
+        keHoachBaoTriController.getChiTietKeHoachBaoTriView().getNhiemVuBaoTriLinkNghiepVuBaoTriList().put(nhiemVuBaoTri, new ArrayList<NghiepVuBaoTriTaiSan>());
     }
     
     private void addNhiemVuBaoTriByUpdateKeHoachBaoTri() throws NumberFormatException {

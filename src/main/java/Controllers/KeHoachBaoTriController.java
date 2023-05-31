@@ -256,4 +256,30 @@ public class KeHoachBaoTriController {
             errorDatabase.HienThiThongBaoLoi(ex.getMessage());
         }
     }
+    
+    public void addCompletedKeHoachBaoTri(KeHoachBaoTri keHoachBaoTri, List<NhiemVuBaoTri> nhiemVuBaoTrisList, List<TaiSanBaoTri> taiSanBaoTrisList) {
+        try {
+            keHoachBaoTriDAO.addKeHoachBaoTri(keHoachBaoTri);
+            nhiemVuBaoTriDAO.addMoreNhiemVuBaoTri(nhiemVuBaoTrisList);
+            taiSanBaoTriDAO.addMoreTaiSanBaoTri(taiSanBaoTrisList);
+            NotifyNormal notifyNormal = new NotifyNormal("Đã thêm kế hoạch bảo trì mới");
+            notifyNormal.showNotify();
+        } catch(SQLException ex) {
+            ErrorDatabase errorDatabase = new ErrorDatabase();
+            errorDatabase.HienThiThongBaoLoi(ex.getMessage());
+        }
+    }
+    
+    public int xacNhanThucThiKeHoach(KeHoachBaoTri keHoachBaoTri) {
+        try {
+            keHoachBaoTriDAO.xacNhanThucThi(keHoachBaoTri);
+            NotifyNormal notifyNormal = new NotifyNormal("Đã thêm kế hoạch vào quá trình thực thi");
+            notifyNormal.showNotify();
+            return 1;
+        } catch(SQLException ex) {
+            ErrorDatabase errorDatabase = new ErrorDatabase();
+            errorDatabase.HienThiThongBaoLoi(ex.getMessage());
+            return -1;
+        }
+    }
 }
