@@ -49,6 +49,35 @@ public class NhiemVuHoanThanhDAO {
         return -1;
     }
     
+     public int addMoreNhiemVuHoanThanh(List<NhiemVuHoanThanh> nvht) throws SQLException {
+        StringBuilder query = new StringBuilder("insert into NhiemVuHoanThanh(iD, soLuongDaHoanThanh, danhGiaNhiemVu) values ");
+        
+        ArrayList<NhiemVuHoanThanh> nvhtList = (ArrayList<NhiemVuHoanThanh>)nvht;
+        
+        if(!nvht.isEmpty()) {
+            for (NhiemVuHoanThanh nvhtChild : nvhtList) {
+                query.append("(?, ?, ?),");
+            }
+
+            query.deleteCharAt(query.length() - 1);
+
+            conn = Database.DatabaseHelper.getDBConnection();
+            pttm = conn.prepareStatement(query.toString());
+            int numColumnInOneTable = 3;
+            for(int i=0; i<nvhtList.size(); i++) {
+                pttm.setString(i*numColumnInOneTable + 1, nvhtList.get(i).getiD());
+                pttm.setInt(i*numColumnInOneTable + 2, nvhtList.get(i).getSoLuongDaHoanThanh());
+                pttm.setString(i*numColumnInOneTable + 3, nvhtList.get(i).getDanhGiaNhiemVu());
+            }
+
+            if(pttm.executeUpdate()> 0) {
+                System.out.println("Insert thanh cong");
+                return 1;
+            }
+        }
+        return -1;
+    }
+    
     public int updateNhiemVuHoanThanh(NhiemVuHoanThanh nvht) throws SQLException {
         String query = "update NhiemVuHoanThanh set soLuongDaHoanThanh = ?, danhGiaNhiemVu = ? where iD = ?";
         conn = Database.DatabaseHelper.getDBConnection();

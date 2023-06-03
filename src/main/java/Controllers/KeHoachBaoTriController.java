@@ -8,6 +8,8 @@ import Interfaces.CheckRole;
 import Interfaces.ErrorAuthen;
 import Interfaces.ErrorDatabase;
 import Interfaces.NotifyNormal;
+import Models.HoanThanhBaoTri;
+import Models.HoanThanhBaoTriDAO;
 import Models.KeHoachBaoTri;
 import Models.KeHoachBaoTriDAO;
 import Models.NghiepVuBaoTriTaiSan;
@@ -15,6 +17,8 @@ import Models.NghiepVuBaoTriTaiSanDAO;
 import Models.NguoiDung;
 import Models.NhiemVuBaoTri;
 import Models.NhiemVuBaoTriDAO;
+import Models.NhiemVuHoanThanh;
+import Models.NhiemVuHoanThanhDAO;
 import Models.TaiSanBaoTri;
 import Models.TaiSanBaoTriDAO;
 import java.sql.SQLException;
@@ -37,8 +41,10 @@ public class KeHoachBaoTriController {
     private KeHoachBaoTriDAO keHoachBaoTriDAO;
     private NhiemVuBaoTriDAO nhiemVuBaoTriDAO;
     private TaiSanBaoTriDAO taiSanBaoTriDAO;
+    private NhiemVuHoanThanhDAO nhiemVuHoanThanhDAO;
     private ChiTietKeHoachBaoTriView chiTietKeHoachBaoTriView;
     private NghiepVuBaoTriTaiSanDAO nghiepVuBaoTriTaiSanDAO;
+    private HoanThanhBaoTriDAO hoanThanhBaoTriDAO;
 
     public QuanLyBaoTriTaiSanView getQuanLyBaoTriTaiSanView() {
         return quanLyBaoTriTaiSanView;
@@ -100,12 +106,20 @@ public class KeHoachBaoTriController {
         this.quanLyBaoTriTaiSanView = quanLyBaoTriTaiSanView;
         this.nguoiDung = nguoiDung;
         this.checkRole = checkManager;
+        initDAO();
+    }
+    
+    private void initDAO() {
         keHoachBaoTriDAO = new KeHoachBaoTriDAO();
         nhiemVuBaoTriDAO = new NhiemVuBaoTriDAO();
         taiSanBaoTriDAO = new TaiSanBaoTriDAO();
         nghiepVuBaoTriTaiSanDAO = new NghiepVuBaoTriTaiSanDAO();
+        nhiemVuHoanThanhDAO = new NhiemVuHoanThanhDAO();
+        hoanThanhBaoTriDAO = new HoanThanhBaoTriDAO();
     }
     
+    
+    // navigate đến các view
     public void hienThiKeHoachBaoTriView() {
         if(checkRole.checkRole(nguoiDung.getTen(), nguoiDung.getMatKhau()) != null) {
             quanLyBaoTriTaiSanView.setVisible(true);
@@ -119,10 +133,32 @@ public class KeHoachBaoTriController {
         quanLyBaoTriTaiSanView.setVisible(false);
     }
     
+    public void navigateQuanLyBaoTriViewAndUpdateKeHoachBaotriTable() {
+        quanLyBaoTriTaiSanView.setVisible(true);
+        quanLyBaoTriTaiSanView.showTatCaKeHoachByDataSQL();
+    }
+    
+    public void navigateQuanLyBaoTriViewAndUpdateKeHoachBaotriTable_ThucThiBaoTriTable() {
+        quanLyBaoTriTaiSanView.setVisible(true);
+        quanLyBaoTriTaiSanView.showTatCaKeHoachByDataSQL();
+        quanLyBaoTriTaiSanView.showTatCaKeHoachDangThucThibySQL();
+    }
+    
+    public void navigateChiTietKeHoachBaoTriViewAndUpdateThongTinChung() {
+        chiTietKeHoachBaoTriView.setVisible(true);
+        chiTietKeHoachBaoTriView.hienThiThongTinChung();
+    }
+    
+    
+    
     public String randomIDWith6Char() {
         return UUID.randomUUID().toString().substring(0, 6);
     }
     
+    
+    
+    
+    // api thao tác dữ liệu
     public List<KeHoachBaoTri> hienThiTatCaKeHoachBaoTri() {
         try {
             return keHoachBaoTriDAO.getAllKeHoachBaoTriChuaThucThi();
@@ -259,9 +295,16 @@ public class KeHoachBaoTriController {
     
     public void addCompletedKeHoachBaoTri(KeHoachBaoTri keHoachBaoTri, List<NhiemVuBaoTri> nhiemVuBaoTrisList, List<TaiSanBaoTri> taiSanBaoTrisList) {
         try {
+            HoanThanhBaoTri hoanThanhBaoTri = new HoanThanhBaoTri(keHoachBaoTri.getiD(), false, "");
             keHoachBaoTriDAO.addKeHoachBaoTri(keHoachBaoTri);
+            hoanThanhBaoTriDAO.addHoanThanhBaoTri(hoanThanhBaoTri);
             nhiemVuBaoTriDAO.addMoreNhiemVuBaoTri(nhiemVuBaoTrisList);
             taiSanBaoTriDAO.addMoreTaiSanBaoTri(taiSanBaoTrisList);
+            ArrayList<NhiemVuHoanThanh> nhiemVuHoanThanhsList = new ArrayList<>();
+            taiSanBaoTrisList.forEach(taiSanBaoTri -> {
+                nhiemVuHoanThanhsList.add(new NhiemVuHoanThanh(taiSanBaoTri.getiD(), 0, ""));
+            });
+            nhiemVuHoanThanhDAO.addMoreNhiemVuHoanThanh(nhiemVuHoanThanhsList);
             NotifyNormal notifyNormal = new NotifyNormal("Đã thêm kế hoạch bảo trì mới");
             notifyNormal.showNotify();
         } catch(SQLException ex) {
@@ -282,4 +325,5 @@ public class KeHoachBaoTriController {
             return -1;
         }
     }
+    
 }

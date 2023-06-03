@@ -24,14 +24,32 @@ public class HoanThanhBaoTriDAO {
         
         conn = DatabaseHelper.getDBConnection();
         
-        String query = "insert into HoanThanhBaoTri(iD, daHoanThanh, lyDoKetThuc) values (?, 1, ?)";
+        
+        String query = "insert into HoanThanhBaoTri(iD, daHoanThanh, lyDoKetThuc) values (?, ?, ?)";
         
         pttm = conn.prepareStatement(query);
         pttm.setString(1, hoanThanhBaoTri.getiD());
-        pttm.setString(2, hoanThanhBaoTri.getLyDoKeThucSom());
+        pttm.setBoolean(2, hoanThanhBaoTri.isDaHoanThanh());
+        pttm.setString(3, hoanThanhBaoTri.getLyDoKeThucSom());
         
         if(pttm.executeUpdate()> 0) {
-            System.out.println("Insert thanh cong vao bang HOanThanhBaoTri");
+            System.out.println("Insert thanh cong vao bang HoanThanhBaoTri");
+            return 1;
+        }
+        return -1;
+    }
+    
+    public int updateHoanThanhBaoTri(HoanThanhBaoTri hoanThanhBaoTri) throws SQLException {
+        conn = Database.DatabaseHelper.getDBConnection();
+        String query = "update HoanThanhBaoTri set daHoanThanh = ?, lyDoKetThuc = ? where HoanThanhBaoTri.iD = ?";
+        
+        pttm = conn.prepareStatement(query);
+        pttm.setBoolean(1, hoanThanhBaoTri.isDaHoanThanh());
+        pttm.setString(2, hoanThanhBaoTri.getLyDoKeThucSom());
+        pttm.setString(3, hoanThanhBaoTri.getiD());
+        
+        if(pttm.executeUpdate()> 0) {
+            System.out.println("Update thanh cong vao bang HoanThanhBaoTri");
             return 1;
         }
         return -1;

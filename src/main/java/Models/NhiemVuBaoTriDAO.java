@@ -119,6 +119,22 @@ public class NhiemVuBaoTriDAO {
         return -1;
     }
     
+    public int updateDanhGiaNhiemVuBaoTri(NhiemVuBaoTri nhiemVuBaoTri) throws SQLException {
+        conn = Database.DatabaseHelper.getDBConnection();
+        
+        String query = "update NhiemVubaoTri set danhGia = ? where iD = ?";
+        
+        pttm = conn.prepareStatement(query);
+        pttm.setString(1, nhiemVuBaoTri.getDanhGia());
+        pttm.setString(2, nhiemVuBaoTri.getiD());
+        
+        if(pttm.executeUpdate() > 0) {
+            System.out.println("Update NhiemVuBaoTri thanh cong");
+            return 1;
+        }
+        return -1;
+    }
+    
     public int delNhiemVuBaoTriByID(String iD) throws SQLException {
         conn = Database.DatabaseHelper.getDBConnection();
         

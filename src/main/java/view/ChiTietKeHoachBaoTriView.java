@@ -5,6 +5,7 @@
 package view;
 
 import Controllers.KeHoachBaoTriController;
+import Controllers.XuatFileExcel;
 import Interfaces.ErrorNormal;
 import Interfaces.NotifyNormal;
 import Models.KeHoachBaoTri;
@@ -13,10 +14,13 @@ import Models.NhiemVuBaoTri;
 import Models.TaiSanBaoTri;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -134,7 +138,6 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
         initComponents();
         
         this.keHoachBaoTriController = keHoachBaoTriController;
-        this.keHoachBaoTriController.setChiTietKeHoachBaoTriView(this);
         this.keHoachBaoTri = keHoachBaoTri;
         this.isAddKeHoachBaoTri = false;
         
@@ -146,7 +149,6 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
         initComponents();
         
         this.keHoachBaoTriController = keHoachBaoTriController;
-        this.keHoachBaoTriController.setChiTietKeHoachBaoTriView(this);
         this.isAddKeHoachBaoTri = true;
         
         this.nhiemVuBaoTriLinkNghiepVuBaoTriList = new HashMap<>();
@@ -159,8 +161,18 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
         
         nhiemVuBaoTriList = (ArrayList<NhiemVuBaoTri>)keHoachBaoTriController.hienThiNhiemVuBaoTri(keHoachBaoTri.getiD());
         
-        defaultTableNhiemVuBaoTri = new DefaultTableModel();
-        defaultTableTaiSanBaoTri = new DefaultTableModel();
+        defaultTableNhiemVuBaoTri = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
+        defaultTableTaiSanBaoTri = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
         
         setUIForUpdateKeHoach();
         hienThiNhiemVuBaoTriforUpDate();
@@ -168,8 +180,18 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
     
     private void KhoiTaoDuLieuChoAddKeHoach() {
         nhiemVuBaoTriList = new ArrayList<>();
-        defaultTableNhiemVuBaoTri = new DefaultTableModel();
-        defaultTableTaiSanBaoTri = new DefaultTableModel();
+        defaultTableNhiemVuBaoTri = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
+        defaultTableTaiSanBaoTri = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
         setUIForAddKeHoach();
         
     }
@@ -529,6 +551,11 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
         });
 
         Btn_XuatExcel.setText("Xuất file Excel");
+        Btn_XuatExcel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_XuatExcelMouseClicked(evt);
+            }
+        });
 
         Btn_addTaiSanBaoTri.setText("Thêm");
         Btn_addTaiSanBaoTri.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -659,7 +686,7 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
 
     private void ThoatCuaSoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThoatCuaSoMouseClicked
         this.dispose();
-        navigateToTatCaKeHoachBaoTri();
+        keHoachBaoTriController.navigateQuanLyBaoTriViewAndUpdateKeHoachBaotriTable();
     }//GEN-LAST:event_ThoatCuaSoMouseClicked
 
     private void Btn_updateNhiemVuBaoTriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_updateNhiemVuBaoTriMouseClicked
@@ -695,7 +722,7 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
         NotifyNormal notifyNormal = new NotifyNormal("Đã xóa kế hoạch bảo trì");
         notifyNormal.showNotify();
         this.dispose();
-        navigateToTatCaKeHoachBaoTri();
+        keHoachBaoTriController.navigateQuanLyBaoTriViewAndUpdateKeHoachBaotriTable();
     }//GEN-LAST:event_Btn_deleteMouseClicked
 
     private void Btn_addNhiemVuBaoTriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_addNhiemVuBaoTriMouseClicked
@@ -743,18 +770,28 @@ public class ChiTietKeHoachBaoTriView extends javax.swing.JFrame {
         
         keHoachBaoTriController.addCompletedKeHoachBaoTri(keHoachBaoTri, nhiemVuBaoTriList, taiSanBaoTrisList);
         this.dispose();
-        keHoachBaoTriController.hienThiKeHoachBaoTriView();
+        keHoachBaoTriController.navigateQuanLyBaoTriViewAndUpdateKeHoachBaotriTable();
     }//GEN-LAST:event_Btn_AddKeHoachBaoTriMouseClicked
 
     private void Btn_XacNhanThucThiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_XacNhanThucThiMouseClicked
-        XacNhanThucThiView xacNhanThucThiView = new XacNhanThucThiView(keHoachBaoTriController, keHoachBaoTri, this);
+        XacNhanThucThiView xacNhanThucThiView = new XacNhanThucThiView(keHoachBaoTriController, keHoachBaoTri);
         xacNhanThucThiView.setVisible(true);
     }//GEN-LAST:event_Btn_XacNhanThucThiMouseClicked
 
-    private void navigateToTatCaKeHoachBaoTri() {
-        keHoachBaoTriController.hienThiKeHoachBaoTriView();
-        keHoachBaoTriController.getQuanLyBaoTriTaiSanView().HienThiTatCaKeHoach();
-    }
+    private void Btn_XuatExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_XuatExcelMouseClicked
+        try {
+            XuatFileExcel xuatFileExcel = new XuatFileExcel("D:/KeHoachBaoTri.xlsx", keHoachBaoTri);
+            xuatFileExcel.ExportExcel();
+            NotifyNormal notifyNormal = new NotifyNormal("Đã xuất file ra file D:/KeHoachBaoTri.xlsx");
+            notifyNormal.showNotify();
+            dispose();
+            keHoachBaoTriController.navigateQuanLyBaoTriViewAndUpdateKeHoachBaotriTable();
+        } catch (IOException ex) {
+            ErrorNormal errorNormal = new ErrorNormal(ex.getMessage());
+            errorNormal.HienThiThongBaoLoi();
+        }
+    }//GEN-LAST:event_Btn_XuatExcelMouseClicked
+
     /**
      * @param args the command line arguments
      */

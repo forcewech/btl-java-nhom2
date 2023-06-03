@@ -6,7 +6,7 @@ package view;
 
 import Controllers.KeHoachBaoTriController;
 import Controllers.ThucThiBaoTriController;
-import Controllers.XemLichSuController;
+import Controllers.LichSuBaoTriController;
 import Interfaces.CheckManager;
 import Interfaces.CheckRole;
 import Models.KeHoachBaoTri;
@@ -18,7 +18,6 @@ import java.util.List;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.basic.BasicListUI;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,10 +27,14 @@ import javax.swing.table.DefaultTableModel;
 public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
 
     private List<KeHoachBaoTri> keHoachBaoTrisList;
+    private List<KeHoachBaoTri> keHoachDangThucThiList;
+    private List<KeHoachBaoTri> keHoachDaHoanThanhList;
     private KeHoachBaoTriController keHoachBaoTriController;
     private ThucThiBaoTriController thucThiBaoTriController;
-    private XemLichSuController xemLichSuBaoTriController;
+    private LichSuBaoTriController lichSuBaoTriController;
     private DefaultTableModel modelTableKeHoachBaoTri;
+    private DefaultTableModel modelTableThucThiKeHoach;
+    private DefaultTableModel modelTableKeHoachDaHoanThanh;
     private NguoiDung nguoiDung;
     private ListSelectionListener listSelectionEventForKeHoachBaoTriTable = new ListSelectionListener() {
         @Override
@@ -50,7 +53,50 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
                 keHoachBaoTriController.anKeHoachBaoTriView();
                 
                 ChiTietKeHoachBaoTriView chiTietKeHoachBaoTriView = new ChiTietKeHoachBaoTriView(keHoachBaoTriController, keHoachBaoTri);
+                keHoachBaoTriController.setChiTietKeHoachBaoTriView(chiTietKeHoachBaoTriView);
                 chiTietKeHoachBaoTriView.setVisible(true);
+            }
+        }
+    };
+    private ListSelectionListener listSelectionEventForKeHoachDangThucThiTable = new ListSelectionListener() {
+        @Override
+        public void valueChanged(ListSelectionEvent event) {
+            if (!event.getValueIsAdjusting()) {
+                int selectedRow = KeHoachDangThucThiTable.getSelectedRow();
+                Object thoiGianBatDau = KeHoachDangThucThiTable.getValueAt(selectedRow, 1);
+                Object thoiGianKetThuc = KeHoachDangThucThiTable.getValueAt(selectedRow, 2);
+                Object ghiChu = KeHoachDangThucThiTable.getValueAt(selectedRow, 3);
+                Object trangThai = KeHoachDangThucThiTable.getValueAt(selectedRow, 4);
+                Object anhXacNhan = KeHoachDangThucThiTable.getValueAt(selectedRow, 5);
+                Object iD = KeHoachDangThucThiTable.getValueAt(selectedRow, 6);
+                
+                KeHoachBaoTri keHoachDangThucThi = new KeHoachBaoTri(iD.toString().trim(), (LocalDate)thoiGianBatDau, (LocalDate)thoiGianKetThuc, ghiChu.toString().trim(), trangThai.toString().equals("Đã được xác nhận") ? true : false , anhXacNhan.toString());
+                
+                thucThiBaoTriController.getQuanLyBaoTriTaiSanView().setVisible(false);
+                
+                ChiTietThucThiBaoTriView chiTietThucThiBaoTriView = new ChiTietThucThiBaoTriView(thucThiBaoTriController, keHoachDangThucThi);
+                chiTietThucThiBaoTriView.setVisible(true);
+            }
+        }
+    };
+    private ListSelectionListener listSelectionEventForKeHoachDaHoanThanhTable = new ListSelectionListener() {
+        @Override
+        public void valueChanged(ListSelectionEvent event) {
+            if (!event.getValueIsAdjusting()) {
+                int selectedRow = KeHoachDaHoanThanhTable.getSelectedRow();
+                Object thoiGianBatDau = KeHoachDaHoanThanhTable.getValueAt(selectedRow, 1);
+                Object thoiGianKetThuc = KeHoachDaHoanThanhTable.getValueAt(selectedRow, 2);
+                Object ghiChu = KeHoachDaHoanThanhTable.getValueAt(selectedRow, 3);
+                Object trangThai = KeHoachDaHoanThanhTable.getValueAt(selectedRow, 4);
+                Object anhXacNhan = KeHoachDaHoanThanhTable.getValueAt(selectedRow, 5);
+                Object iD = KeHoachDaHoanThanhTable.getValueAt(selectedRow, 6);
+                
+                KeHoachBaoTri keHoachDangThucThi = new KeHoachBaoTri(iD.toString().trim(), (LocalDate)thoiGianBatDau, (LocalDate)thoiGianKetThuc, ghiChu.toString().trim(), trangThai.toString().equals("Đã được xác nhận") ? true : false , anhXacNhan.toString());
+                
+                lichSuBaoTriController.getQuanLyBaoTriTaiSanView().setVisible(false);
+                
+                LichSuBaoTriView lichSuBaoTriView = new LichSuBaoTriView(lichSuBaoTriController, keHoachDangThucThi);
+                lichSuBaoTriView.setVisible(true);
             }
         }
     };
@@ -60,18 +106,20 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
         nguoiDung = new NguoiDung("user1", "Nguyễn Văn Thịnh", "thinh156", "1234", "thinhpk26@gmail.com", "Manager");
         CheckManager CheckManager = new CheckManager();
         keHoachBaoTriController = new KeHoachBaoTriController(this, this.nguoiDung, CheckManager);
-        
+        thucThiBaoTriController = new ThucThiBaoTriController(this, nguoiDung);
+        lichSuBaoTriController = new LichSuBaoTriController(this, nguoiDung);
         hienThiUI();
-        HienThiTatCaKeHoach();
+        setInitData();
     }
     
     public QuanLyBaoTriTaiSanView(NguoiDung nguoiDung, CheckRole checkRole) {
         this.nguoiDung = nguoiDung;
         NameUserContainer.setText(nguoiDung.getHoTen());
         keHoachBaoTriController = new KeHoachBaoTriController(this, this.nguoiDung, checkRole);
-        
+        thucThiBaoTriController = new ThucThiBaoTriController(this, this.nguoiDung);
+        lichSuBaoTriController = new LichSuBaoTriController(this, this.nguoiDung);
         hienThiUI();
-        HienThiTatCaKeHoach();
+        setInitData();
     }
     
     private void hienThiUI() {     
@@ -79,11 +127,18 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
         Btn_KeHoachBaoTri.setBackground(new Color(242, 242, 242));
         Btn_ThucThiBaoTri.setBackground(Color.WHITE);
         Btn_XemLichSu.setBackground(Color.WHITE);
-        initUIForKeHoachBaoTriTable();
+        setUIInitForKeHoachBaoTriTable();
+        setUIInitForKeHoachDangThucThiTable();
+        setUIInitForKeHoachDaHoanThanhTable();
     }
     
-    private void initUIForKeHoachBaoTriTable() {
-        modelTableKeHoachBaoTri = new DefaultTableModel();
+    private void setUIInitForKeHoachBaoTriTable() {
+        modelTableKeHoachBaoTri = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         
         modelTableKeHoachBaoTri.addColumn("STT");
         modelTableKeHoachBaoTri.addColumn("Thời gian bắt đầu");
@@ -94,9 +149,18 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
         modelTableKeHoachBaoTri.addColumn("ID");
     }
     
-    public void HienThiTatCaKeHoach() {
+    private void setInitData() {
+        showTatCaKeHoachByDataSQL();
+        showTatCaKeHoachDangThucThibySQL();
+        showAllKeHoachDaHoanThanhbySQL();
+    }
+    
+    public void showTatCaKeHoachByDataSQL() {
         keHoachBaoTrisList = (ArrayList<KeHoachBaoTri>)keHoachBaoTriController.hienThiTatCaKeHoachBaoTri();
-        
+        showforTatCaKeHoachTable();
+    }
+    
+    private void showforTatCaKeHoachTable() {
         removeHienThiChiTietKeHoachEvent();
         modelTableKeHoachBaoTri.setRowCount(0);
         for(int i=0; i<keHoachBaoTrisList.size(); i++) {
@@ -107,13 +171,7 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
         ThongTinCoBanKeHoachContainer.setModel(modelTableKeHoachBaoTri); 
         addHienThiChiTietKeHoachEvent();
         
-        setUIForThongTinCoBanKeHoachContainer();
-    }
-    
-    private void setUIForThongTinCoBanKeHoachContainer() {
-        ThongTinCoBanKeHoachContainer.getColumnModel().getColumn(0).setMaxWidth(50);
-        ThongTinCoBanKeHoachContainer.getColumnModel().getColumn(6).setMaxWidth(0);
-        ThongTinCoBanKeHoachContainer.getColumnModel().getColumn(6).setMinWidth(0);
+        setStyleForKeHoachBaoTriTable();
     }
     
     private void addHienThiChiTietKeHoachEvent() {
@@ -124,7 +182,137 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
         ListSelectionModel selectionModel = ThongTinCoBanKeHoachContainer.getSelectionModel();
         selectionModel.removeListSelectionListener(listSelectionEventForKeHoachBaoTriTable);
     }
-
+    
+    private void setStyleForKeHoachBaoTriTable() {
+        ThongTinCoBanKeHoachContainer.getColumnModel().getColumn(0).setMaxWidth(50);
+        ThongTinCoBanKeHoachContainer.getColumnModel().getColumn(5).setMaxWidth(0);
+        ThongTinCoBanKeHoachContainer.getColumnModel().getColumn(6).setMaxWidth(0);
+        ThongTinCoBanKeHoachContainer.getColumnModel().getColumn(4).setMaxWidth(0);
+    }
+    
+    // Thực thi kế hoạch bảo trì
+    private void setUIInitForKeHoachDangThucThiTable() {
+        modelTableThucThiKeHoach = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
+        modelTableThucThiKeHoach.addColumn("STT");
+        modelTableThucThiKeHoach.addColumn("Thời gian bắt đầu");
+        modelTableThucThiKeHoach.addColumn("Thoi gian kết thúc");
+        modelTableThucThiKeHoach.addColumn("Ghi chú");
+        modelTableThucThiKeHoach.addColumn("Trạng thái");
+        modelTableThucThiKeHoach.addColumn("Ảnh xác nhận");
+        modelTableThucThiKeHoach.addColumn("ID");
+    }
+    
+    public void showTatCaKeHoachDangThucThibySQL() {
+        keHoachDangThucThiList = (ArrayList<KeHoachBaoTri>)thucThiBaoTriController.getKeHoachDangThucThi();
+        setTatCaKeHoachDangThucThiForTable();
+    }
+    
+    private void setTatCaKeHoachDangThucThiForTable() {
+        removeChoiceRowInKeHoachDangThucThiTableEvent();
+        modelTableThucThiKeHoach.setRowCount(0);
+        
+        for(int i=0; i<keHoachDangThucThiList.size(); i++) {
+            Object stt = (i+1) + "";
+            Object thoiGianBatDau = keHoachDangThucThiList.get(i).getThoiGianBatDau();
+            Object thoiGianKetThuc = keHoachDangThucThiList.get(i).getThoiGianKetThuc();
+            Object ghiChu = keHoachDangThucThiList.get(i).getGhiChu();
+            Object trangThai = keHoachDangThucThiList.get(i).getTrangThai() ? "Đã được xác nhận": "Chưa được xác nhận";
+            Object anhXacNhan = keHoachDangThucThiList.get(i).getAnhXacNhan();
+            Object iD = keHoachDangThucThiList.get(i).getiD();
+            Object[] duLieuHienThi = {stt, thoiGianBatDau, thoiGianKetThuc, ghiChu, trangThai, anhXacNhan, iD};
+            modelTableThucThiKeHoach.addRow(duLieuHienThi);
+        }
+        
+        KeHoachDangThucThiTable.setModel(modelTableThucThiKeHoach); 
+        
+        addChoiceRowInKeHoachDangThucThiTableEvent();
+        
+        setStyleForKeHoachDaThucThiTable();
+    }
+    
+    private void addChoiceRowInKeHoachDangThucThiTableEvent() {
+        KeHoachDangThucThiTable.getSelectionModel().addListSelectionListener(listSelectionEventForKeHoachDangThucThiTable);
+    }
+    
+    private void removeChoiceRowInKeHoachDangThucThiTableEvent() {
+        ListSelectionModel selectionModel = KeHoachDangThucThiTable.getSelectionModel();
+        selectionModel.removeListSelectionListener(listSelectionEventForKeHoachDangThucThiTable);
+    }
+    
+    private void setStyleForKeHoachDaThucThiTable() {
+        KeHoachDangThucThiTable.getColumnModel().getColumn(0).setMaxWidth(50);
+        KeHoachDangThucThiTable.getColumnModel().getColumn(5).setMaxWidth(0);
+        KeHoachDangThucThiTable.getColumnModel().getColumn(6).setMaxWidth(0);
+        KeHoachDangThucThiTable.getColumnModel().getColumn(4).setMaxWidth(0);
+    }
+    
+    // Kế hoạch bảo trì đã hoàn thành
+    private void setUIInitForKeHoachDaHoanThanhTable() {
+        modelTableKeHoachDaHoanThanh = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
+        modelTableKeHoachDaHoanThanh.addColumn("STT");
+        modelTableKeHoachDaHoanThanh.addColumn("Thời gian bắt đầu");
+        modelTableKeHoachDaHoanThanh.addColumn("Thoi gian kết thúc");
+        modelTableKeHoachDaHoanThanh.addColumn("Ghi chú");
+        modelTableKeHoachDaHoanThanh.addColumn("Trạng thái");
+        modelTableKeHoachDaHoanThanh.addColumn("Ảnh xác nhận");
+        modelTableKeHoachDaHoanThanh.addColumn("ID");
+    }
+    
+    public void showAllKeHoachDaHoanThanhbySQL() {
+        keHoachDaHoanThanhList = (ArrayList<KeHoachBaoTri>)lichSuBaoTriController.getKeHoachBaoTriDaHoanThanh();
+        setTatCaKeHoachDaHoanThanhForTable();
+    }
+    
+    private void setTatCaKeHoachDaHoanThanhForTable() {
+        removeChoiceRowInKeHoachDaHoanThanhTableEvent();
+        modelTableKeHoachDaHoanThanh.setRowCount(0);
+        
+        for(int i=0; i<keHoachDaHoanThanhList.size(); i++) {
+            Object stt = (i+1) + "";
+            Object thoiGianBatDau = keHoachDaHoanThanhList.get(i).getThoiGianBatDau();
+            Object thoiGianKetThuc = keHoachDaHoanThanhList.get(i).getThoiGianKetThuc();
+            Object ghiChu = keHoachDaHoanThanhList.get(i).getGhiChu();
+            Object trangThai = keHoachDaHoanThanhList.get(i).getTrangThai() ? "Đã được xác nhận": "Chưa được xác nhận";
+            Object anhXacNhan = keHoachDaHoanThanhList.get(i).getAnhXacNhan();
+            Object iD = keHoachDaHoanThanhList.get(i).getiD();
+            Object[] duLieuHienThi = {stt, thoiGianBatDau, thoiGianKetThuc, ghiChu, trangThai, anhXacNhan, iD};
+            modelTableKeHoachDaHoanThanh.addRow(duLieuHienThi);
+        }
+        
+        KeHoachDaHoanThanhTable.setModel(modelTableKeHoachDaHoanThanh); 
+        
+        addChoiceRowInKeHoachDaHoanThanhTableEvent();
+        
+        setStyleForKeHoachDaHoanThanhTable();
+    }
+    
+    private void addChoiceRowInKeHoachDaHoanThanhTableEvent() {
+        KeHoachDaHoanThanhTable.getSelectionModel().addListSelectionListener(listSelectionEventForKeHoachDaHoanThanhTable);
+    }
+    
+    private void removeChoiceRowInKeHoachDaHoanThanhTableEvent() {
+        ListSelectionModel selectionModel = KeHoachDaHoanThanhTable.getSelectionModel();
+        selectionModel.removeListSelectionListener(listSelectionEventForKeHoachDaHoanThanhTable);
+    }
+    
+    private void setStyleForKeHoachDaHoanThanhTable() {
+        KeHoachDaHoanThanhTable.getColumnModel().getColumn(0).setMaxWidth(50);
+        KeHoachDaHoanThanhTable.getColumnModel().getColumn(5).setMaxWidth(0);
+        KeHoachDaHoanThanhTable.getColumnModel().getColumn(6).setMaxWidth(0);
+        KeHoachDaHoanThanhTable.getColumnModel().getColumn(4).setMaxWidth(0);
+    }  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -154,8 +342,14 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         ThongTinCoBanKeHoachContainer = new javax.swing.JTable();
         Btn_addKeHoachBaoTri = new javax.swing.JButton();
-        ThucThiBaoTriContentContainer = new javax.swing.JPanel();
         XemLichSuContentContainer = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        KeHoachDaHoanThanhTable = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        ThucThiBaoTriContentContainer = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        KeHoachDangThucThiTable = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1300, 718));
@@ -282,6 +476,7 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
         );
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 153, 51));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Quản lý bảo trì tài sản");
 
@@ -290,6 +485,8 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
 
         IconUsernameController.setText("Admin:");
 
+        NameUserContainer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        NameUserContainer.setForeground(new java.awt.Color(204, 51, 0));
         NameUserContainer.setText("Name User");
 
         javax.swing.GroupLayout UsernameContainerLayout = new javax.swing.GroupLayout(UsernameContainer);
@@ -377,31 +574,87 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
 
         CoverContentContainer.addTab("tab1", KeHoachBaoTriContentContainer);
 
-        javax.swing.GroupLayout ThucThiBaoTriContentContainerLayout = new javax.swing.GroupLayout(ThucThiBaoTriContentContainer);
-        ThucThiBaoTriContentContainer.setLayout(ThucThiBaoTriContentContainerLayout);
-        ThucThiBaoTriContentContainerLayout.setHorizontalGroup(
-            ThucThiBaoTriContentContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
-        );
-        ThucThiBaoTriContentContainerLayout.setVerticalGroup(
-            ThucThiBaoTriContentContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
-        );
+        KeHoachDaHoanThanhTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(KeHoachDaHoanThanhTable);
 
-        CoverContentContainer.addTab("tab2", ThucThiBaoTriContentContainer);
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(153, 153, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Lịch sử bảo trì");
 
         javax.swing.GroupLayout XemLichSuContentContainerLayout = new javax.swing.GroupLayout(XemLichSuContentContainer);
         XemLichSuContentContainer.setLayout(XemLichSuContentContainerLayout);
         XemLichSuContentContainerLayout.setHorizontalGroup(
             XemLichSuContentContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGroup(XemLichSuContentContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, XemLichSuContentContainerLayout.createSequentialGroup()
+                .addContainerGap(402, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(343, 343, 343))
         );
         XemLichSuContentContainerLayout.setVerticalGroup(
             XemLichSuContentContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+            .addGroup(XemLichSuContentContainerLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(218, Short.MAX_VALUE))
         );
 
         CoverContentContainer.addTab("tab3", XemLichSuContentContainer);
+
+        KeHoachDangThucThiTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(KeHoachDangThucThiTable);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Các bảo trì đang thực hiện");
+
+        javax.swing.GroupLayout ThucThiBaoTriContentContainerLayout = new javax.swing.GroupLayout(ThucThiBaoTriContentContainer);
+        ThucThiBaoTriContentContainer.setLayout(ThucThiBaoTriContentContainerLayout);
+        ThucThiBaoTriContentContainerLayout.setHorizontalGroup(
+            ThucThiBaoTriContentContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ThucThiBaoTriContentContainerLayout.createSequentialGroup()
+                .addContainerGap(391, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(350, 350, 350))
+        );
+        ThucThiBaoTriContentContainerLayout.setVerticalGroup(
+            ThucThiBaoTriContentContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ThucThiBaoTriContentContainerLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(224, Short.MAX_VALUE))
+        );
+
+        CoverContentContainer.addTab("tab2", ThucThiBaoTriContentContainer);
 
         MainContentContainer.add(CoverContentContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -40, 1000, 750));
 
@@ -456,14 +709,14 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_KeHoachBaoTriMouseClicked
 
     private void Btn_ThucThiBaoTriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_ThucThiBaoTriMouseClicked
-        CoverContentContainer.setSelectedIndex(1);
+        CoverContentContainer.setSelectedIndex(2);
         Btn_ThucThiBaoTri.setBackground(new Color(242, 242, 242));
         Btn_KeHoachBaoTri.setBackground(Color.WHITE);
         Btn_XemLichSu.setBackground(Color.WHITE);
     }//GEN-LAST:event_Btn_ThucThiBaoTriMouseClicked
 
     private void Btn_XemLichSuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_XemLichSuMouseClicked
-        CoverContentContainer.setSelectedIndex(2);
+        CoverContentContainer.setSelectedIndex(1);
         Btn_XemLichSu.setBackground(new Color(242, 242, 242));
         Btn_ThucThiBaoTri.setBackground(Color.WHITE);
         Btn_KeHoachBaoTri.setBackground(Color.WHITE);
@@ -471,14 +724,11 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
 
     private void Btn_addKeHoachBaoTriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_addKeHoachBaoTriMouseClicked
         ChiTietKeHoachBaoTriView chiTietKeHoachBaoTriView = new ChiTietKeHoachBaoTriView(keHoachBaoTriController);
+        keHoachBaoTriController.setChiTietKeHoachBaoTriView(chiTietKeHoachBaoTriView);
         chiTietKeHoachBaoTriView.setVisible(true);
         keHoachBaoTriController.anKeHoachBaoTriView();
     }//GEN-LAST:event_Btn_addKeHoachBaoTriMouseClicked
 
-    
-    
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -515,6 +765,22 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
         });
     }
 
+    public void setKeHoachBaoTrisList(List<KeHoachBaoTri> keHoachBaoTrisList) {
+        this.keHoachBaoTrisList = keHoachBaoTrisList;
+    }
+
+    public void setKeHoachDangThucThiList(List<KeHoachBaoTri> keHoachDangThucThiList) {
+        this.keHoachDangThucThiList = keHoachDangThucThiList;
+    }
+
+    public List<KeHoachBaoTri> getKeHoachBaoTrisList() {
+        return keHoachBaoTrisList;
+    }
+
+    public List<KeHoachBaoTri> getKeHoachDangThucThiList() {
+        return keHoachDangThucThiList;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Btn_KeHoachBaoTri;
     private javax.swing.JPanel Btn_ThucThiBaoTri;
@@ -525,6 +791,8 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
     private javax.swing.JLabel IconUsernameController;
     private javax.swing.JPanel InformationWindowContainer;
     private javax.swing.JPanel KeHoachBaoTriContentContainer;
+    private javax.swing.JTable KeHoachDaHoanThanhTable;
+    private javax.swing.JTable KeHoachDangThucThiTable;
     private javax.swing.JPanel MainContentContainer;
     private javax.swing.JLabel NameUserContainer;
     private javax.swing.JPanel Panel_Navbar;
@@ -536,7 +804,11 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }

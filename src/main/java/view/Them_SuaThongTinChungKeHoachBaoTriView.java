@@ -8,7 +8,6 @@ import Controllers.KeHoachBaoTriController;
 import Interfaces.ErrorNormal;
 import Interfaces.NotifyNormal;
 import Models.KeHoachBaoTri;
-import Models.NguoiDung;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -211,65 +210,43 @@ public class Them_SuaThongTinChungKeHoachBaoTriView extends javax.swing.JFrame {
     }
     
     private void Btn_xacNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_xacNhanMouseClicked
-        if(isAddKeHoachBaoTri) {
-            try {
-                addThongTinChungKeHoachBaoTriIntoKeHoachBaoTriView();
-                NotifyNormal notifyNormal = new NotifyNormal("Đã thêm thông tin chung cho kế hoạch");
-                notifyNormal.showNotify();
-                navigateKeHoachBaoTriViewByAddKeHoach();
-            } catch(DateTimeException ex) {
-                ErrorNormal errorNormal = new ErrorNormal("Bạn nhập sai định dạng ngày tháng - vd: 2014/03/04 (năm, tháng, ngày)" + "\n" + ex.getMessage());
-                errorNormal.HienThiThongBaoLoi();
-            }
-        } else {
-            try {
-                updateThongTinChungKeHoachBaoTri();
-                NotifyNormal notifyNormal = new NotifyNormal("Update thông tin chung thành công");
-                notifyNormal.showNotify();
-                navigateKeHoachBaoTriViewByUpdateKeHoach();
-            } catch(DateTimeException ex) {
-                ErrorNormal errorNormal = new ErrorNormal("Bạn nhập sai định dạng ngày tháng - vd: 2014/03/04 (năm, tháng, ngày)");
-                errorNormal.HienThiThongBaoLoi();
-            }
-        }
+        updateThongTinChungKeHoachBaoTri();
+        dispose();
+        keHoachBaoTriController.navigateChiTietKeHoachBaoTriViewAndUpdateThongTinChung();
     }//GEN-LAST:event_Btn_xacNhanMouseClicked
 
     private void Btn_CancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_CancelMouseClicked
         this.dispose();
     }//GEN-LAST:event_Btn_CancelMouseClicked
 
-    private void navigateKeHoachBaoTriViewByAddKeHoach() {
-        keHoachBaoTriController.getChiTietKeHoachBaoTriView().setVisible(true);
-        keHoachBaoTriController.getChiTietKeHoachBaoTriView().hienThiThongTinChung();
-        this.dispose();
+    private void updateThongTinChungKeHoachBaoTri() {
+        KeHoachBaoTri newKeHoachBaoTri = new KeHoachBaoTri();
+        
+        try {
+            newKeHoachBaoTri.setThoiGianBatDau(LocalDate.parse(TF_ThoiGianThucHien.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            newKeHoachBaoTri.setThoiGianKetThuc(LocalDate.parse(TF_ThoiGianKetThuc.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            newKeHoachBaoTri.setGhiChu(TF_GhiChu.getText());
+        } catch(DateTimeException ex) {
+            ErrorNormal errorNormal = new ErrorNormal("Bạn nhập sai định dạng ngày tháng - vd: 2014-03-04 (năm, tháng, ngày)");
+            errorNormal.HienThiThongBaoLoi();
+        }
+        
+        if(isAddKeHoachBaoTri) {
+            newKeHoachBaoTri.setiD(UUID.randomUUID().toString().substring(0, 6));
+            newKeHoachBaoTri.setAnhXacNhan("");
+            newKeHoachBaoTri.setTrangThai(false);
+            keHoachBaoTriController.getChiTietKeHoachBaoTriView().setKeHoachBaoTri(newKeHoachBaoTri);
+        } else {
+            newKeHoachBaoTri.setiD(keHoachBaoTri.getiD());
+            newKeHoachBaoTri.setAnhXacNhan(keHoachBaoTri.getAnhXacNhan());
+            newKeHoachBaoTri.setTrangThai(keHoachBaoTri.getTrangThai());
+            keHoachBaoTriController.updateKeHoachBaoTri(newKeHoachBaoTri);
+            NotifyNormal notifyNormal = new NotifyNormal("Update thông tin chung thành công");
+            notifyNormal.showNotify();
+        }
     }
     
-    private void navigateKeHoachBaoTriViewByUpdateKeHoach() {
-        keHoachBaoTriController.getChiTietKeHoachBaoTriView().setVisible(true);
-        keHoachBaoTriController.getChiTietKeHoachBaoTriView().hienThiThongTinChung();
-        this.dispose();
-    }
     
-    private void addThongTinChungKeHoachBaoTriIntoKeHoachBaoTriView() throws DateTimeException{
-        keHoachBaoTri = new KeHoachBaoTri();
-        
-        keHoachBaoTri.setiD(UUID.randomUUID().toString().substring(0, 6));
-        keHoachBaoTri.setThoiGianBatDau(LocalDate.parse(TF_ThoiGianThucHien.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        keHoachBaoTri.setThoiGianKetThuc(LocalDate.parse(TF_ThoiGianKetThuc.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        keHoachBaoTri.setGhiChu(TF_GhiChu.getText());
-        keHoachBaoTri.setAnhXacNhan("");
-        keHoachBaoTri.setTrangThai(false);
-        
-        keHoachBaoTriController.getChiTietKeHoachBaoTriView().setKeHoachBaoTri(keHoachBaoTri);
-    }
-    
-    private void updateThongTinChungKeHoachBaoTri() throws DateTimeException {
-        keHoachBaoTri.setThoiGianBatDau(LocalDate.parse(TF_ThoiGianThucHien.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        keHoachBaoTri.setThoiGianKetThuc(LocalDate.parse(TF_ThoiGianKetThuc.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        keHoachBaoTri.setGhiChu(TF_GhiChu.getText());
-        
-        keHoachBaoTriController.updateKeHoachBaoTri(keHoachBaoTri);
-    }
     /**
      * @param args the command line arguments
      */

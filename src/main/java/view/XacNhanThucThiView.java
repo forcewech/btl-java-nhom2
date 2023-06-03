@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -23,7 +24,6 @@ public class XacNhanThucThiView extends javax.swing.JFrame {
     private File selectedFile;
     private BufferedImage selectedImage;
     private KeHoachBaoTriController keHoachBaoTriController;
-    private ChiTietKeHoachBaoTriView chiTietKeHoachBaoTriView;
     private KeHoachBaoTri keHoachBaoTri;
     
     
@@ -31,10 +31,9 @@ public class XacNhanThucThiView extends javax.swing.JFrame {
         initComponents();
     }
     
-    public XacNhanThucThiView(KeHoachBaoTriController keHoachBaoTriController, KeHoachBaoTri keHoachBaoTri, ChiTietKeHoachBaoTriView chiTietKeHoachBaoTriView) {
+    public XacNhanThucThiView(KeHoachBaoTriController keHoachBaoTriController, KeHoachBaoTri keHoachBaoTri) {
         initComponents();
         this.keHoachBaoTriController = keHoachBaoTriController;
-        this.chiTietKeHoachBaoTriView = chiTietKeHoachBaoTriView;
         this.keHoachBaoTri = keHoachBaoTri;
     }
 
@@ -158,12 +157,13 @@ public class XacNhanThucThiView extends javax.swing.JFrame {
 
     private void Btn_confirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_confirmMouseClicked
         try {
-            luuTruFile();
+            if(!luuTruFile()) {
+                return;
+            }
             if(keHoachBaoTriController.xacNhanThucThiKeHoach(keHoachBaoTri) == 1) {
                 this.dispose();
-                chiTietKeHoachBaoTriView.dispose();
-                keHoachBaoTriController.hienThiKeHoachBaoTriView();
-                keHoachBaoTriController.getQuanLyBaoTriTaiSanView().HienThiTatCaKeHoach();
+                keHoachBaoTriController.getChiTietKeHoachBaoTriView().dispose();
+                keHoachBaoTriController.navigateQuanLyBaoTriViewAndUpdateKeHoachBaotriTable_ThucThiBaoTriTable();
             }
         } catch (IOException ex) {
             ErrorNormal errorNormal = new ErrorNormal(ex.getMessage());
@@ -171,18 +171,26 @@ public class XacNhanThucThiView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Btn_confirmMouseClicked
 
-    private void luuTruFile() throws IOException {
+    private boolean luuTruFile() throws IOException {
         String extension = "";
         
-        String fileName = selectedFile.getName();
-        int i = fileName.lastIndexOf('.');
-        if (i > 0 && i < fileName.length() - 1) {
-            extension = fileName.substring(i + 1).toLowerCase();
-        }        
-        File linkFile = new File("D:\\btl-java-nhom2\\src\\main\\java\\icons\\" + fileName);
+        if(selectedFile != null) {
+            String fileName = selectedFile.getName();
+            int i = fileName.lastIndexOf('.');
+            if (i > 0 && i < fileName.length() - 1) {
+                extension = fileName.substring(i + 1).toLowerCase();
+            }        
+            File pathFolder = new File("src\\main\\java\\icons");
+            File pathFile = new File(pathFolder.getAbsolutePath() + "\\" + fileName);
 
-        ImageIO.write(selectedImage, extension, linkFile);
-        keHoachBaoTri.setAnhXacNhan(linkFile.toString());
+            ImageIO.write(selectedImage, extension, pathFile);
+            keHoachBaoTri.setAnhXacNhan(fileName);
+            return true;
+        } else {
+            ErrorNormal errorNormal = new ErrorNormal("Bạn chưa chọn ảnh");
+            errorNormal.HienThiThongBaoLoi();
+        }
+        return false;
     }
     
     
