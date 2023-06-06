@@ -100,6 +100,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ki&#x1ec3;m k&#xea; t&#xe0;i s&#x1ea3;n"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton3">
           <Properties>

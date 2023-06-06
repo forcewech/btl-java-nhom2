@@ -8,7 +8,6 @@ import Models.TaiSan;
 import Models.TaiSanDAO;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -28,11 +27,11 @@ public class JFTaiSan extends javax.swing.JFrame {
         fillTable();
     }
 
-    public void fillTable(){
+    public void updateTable() {
         DefaultTableModel tSModel = (DefaultTableModel) jTableTaiSan.getModel();
         tSModel.setRowCount(0);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        for( TaiSan ts : tSDAO.getAll()){
+        for (TaiSan ts : tSDAO.getAll()) {
             Object dataRow[] = new Object[7];
             dataRow[0] = ts.getMaTaiSan();
             dataRow[1] = ts.getTenTaiSan();
@@ -43,6 +42,10 @@ public class JFTaiSan extends javax.swing.JFrame {
             dataRow[6] = ts.getGia();
             tSModel.addRow(dataRow);
         }
+    }
+    
+    public void fillTable(){
+        updateTable();
     }
     
     /**
@@ -75,7 +78,6 @@ public class JFTaiSan extends javax.swing.JFrame {
         jButtonXoa = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTaiSan = new javax.swing.JTable();
-        jLabelThongBaoTaiSan = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -160,10 +162,6 @@ public class JFTaiSan extends javax.swing.JFrame {
             jTableTaiSan.getColumnModel().getColumn(2).setPreferredWidth(30);
         }
 
-        jLabelThongBaoTaiSan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelThongBaoTaiSan.setText("Thông báo");
-        jLabelThongBaoTaiSan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
         jButton1.setText("Làm mới");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,9 +177,9 @@ public class JFTaiSan extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
                         .addComponent(QUANLYTAISAN)
-                        .addContainerGap(362, Short.MAX_VALUE))
+                        .addContainerGap(327, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -210,7 +208,7 @@ public class JFTaiSan extends javax.swing.JFrame {
                                     .addComponent(jTextFieldNgayTrangBi)
                                     .addComponent(jTextFieldGia)
                                     .addComponent(jTextFieldTrangThai))))
-                        .addGap(83, 83, 83)
+                        .addGap(77, 77, 77)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -220,9 +218,7 @@ public class JFTaiSan extends javax.swing.JFrame {
                         .addGap(53, 53, 53))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelThongBaoTaiSan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                .addComponent(jScrollPane1)
                 .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
@@ -264,9 +260,7 @@ public class JFTaiSan extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jTextFieldGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabelThongBaoTaiSan)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -278,7 +272,10 @@ public class JFTaiSan extends javax.swing.JFrame {
         TaiSan ts = getModel();
         jTextFieldMaTaiSan.setEnabled(false);
         if(tSDAO.update(ts) > 0)
-            jLabelThongBaoTaiSan.setText("Sua thanh cong");
+        {
+            JOptionPane.showMessageDialog(this, "Sửa thành công!");
+            updateTable();
+        }       
     }//GEN-LAST:event_jButtonSuaActionPerformed
     
     public void resetForm(){
@@ -309,6 +306,7 @@ public class JFTaiSan extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         resetForm();
+        jTextFieldMaTaiSan.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
     
     TaiSanDAO tSDAO = new TaiSanDAO();
@@ -316,8 +314,10 @@ public class JFTaiSan extends javax.swing.JFrame {
     private void jButtonThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThemActionPerformed
         // TODO add your handling code here:
         TaiSan ts = getModel();
-        if(tSDAO.add(ts) > 0)
-            jLabelThongBaoTaiSan.setText("Them thanh cong");
+        if(tSDAO.add(ts) > 0){
+            JOptionPane.showMessageDialog(this, "Thêm thành công!");
+            updateTable();
+        }           
     }//GEN-LAST:event_jButtonThemActionPerformed
 
     public void setModel(TaiSan ts){     
@@ -326,34 +326,42 @@ public class JFTaiSan extends javax.swing.JFrame {
         jTextFieldSoLuong.setText(Integer.toString(ts.getSoLuong()));
         jTextFieldTrangThai.setText(ts.getTrangThai());
         jTextFieldHangSanXuat.setText(ts.getHangSanXuat());
+        
         LocalDate ngayTrangBi = ts.getNgayTrangBi();
         String ngayTrangBiString = ngayTrangBi.toString(); 
         jTextFieldNgayTrangBi.setText(ngayTrangBiString);
+        
         jTextFieldGia.setText(Double.toString(ts.getGia()));
     }
     
     private void jButtonTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTimActionPerformed
         // TODO add your handling code here:
+        jTextFieldMaTaiSan.setEnabled(false);
         if(jTextFieldMaTaiSan.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Ban chua nhap ma tai san");
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập mã tài sản");
         } else {
             TaiSan ts = tSDAO.findTSByID(jTextFieldMaTaiSan.getText());
             if(ts != null)
                 setModel(ts);
             else
-                JOptionPane.showMessageDialog(this, "khong tim thay tai san");
+                JOptionPane.showMessageDialog(this, "Không tìm thấy tài sản");
         }
     }//GEN-LAST:event_jButtonTimActionPerformed
 
     private void jButtonXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXoaActionPerformed
         // TODO add your handling code here:
         if(jTextFieldMaTaiSan.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Ban chua nhap ma tai san");
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập mã tài sản");
         } else {
-            if(tSDAO.delete(jTextFieldMaTaiSan.getText()) > 0)
-                jLabelThongBaoTaiSan.setText("Xoa thanh cong");
-            else
-                jLabelThongBaoTaiSan.setText("Khong tim thay tai san");
+            int result = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa?", "Xác nhận", JOptionPane.YES_NO_CANCEL_OPTION);    
+            if (result == JOptionPane.YES_OPTION) {
+                if(tSDAO.delete(jTextFieldMaTaiSan.getText()) > 0) {
+                    JOptionPane.showMessageDialog(this, "Xóa thành công!");
+                    updateTable();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Không tìm thấy tài sản!");
+                }
+            }
         }
     }//GEN-LAST:event_jButtonXoaActionPerformed
 
@@ -420,7 +428,6 @@ public class JFTaiSan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabelThongBaoTaiSan;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTaiSan;
     private javax.swing.JTextField jTextFieldGia;
