@@ -25,14 +25,15 @@ public class NhiemVuThayDoiTaiSanDAO {
     public int add(NhiemVuThayDoiTaiSan nvtdts){
         try {
             String sSQL = """
-                          insert NhiemVuThayDoiTaiSan(iD, iDKeHoachThayDoiTaiSan,tenNhiemVu, chiTietNhiemVu)
-                          values(?,?,?,?)""";
+                          insert NhiemVuThayDoiTaiSan(iD, iDKeHoachThayDoiTaiSan,tenNhiemVu, chiTietNhiemVu, tienDo)
+                          values(?,?,?,?,?)""";
             conn = DatabaseHelper.getDBConnection();
             sttm = conn.prepareStatement(sSQL); 
             sttm.setString(1, nvtdts.getiD());
             sttm.setString(2, nvtdts.getiDKeHoachThayDoiTaiSan());
             sttm.setString(3, nvtdts.getTenNhiemVu());            
-            sttm.setString(4, nvtdts.getChiTietNhiemVu());          
+            sttm.setString(4, nvtdts.getChiTietNhiemVu());    
+            sttm.setString(5, nvtdts.getTienDo());
             if(sttm.executeUpdate()>0){
                 System.out.println("insert thanh cong");
                 return 1;
@@ -45,13 +46,14 @@ public class NhiemVuThayDoiTaiSanDAO {
     
     public int update(NhiemVuThayDoiTaiSan nvtdts){
         try {
-            String sSQL = "update NhiemVuThayDoiTaiSan set iDKeHoachThayDoiTaiSan=?, tenNhiemVu=?, chiTietNhiemVu=? where iD=?";
+            String sSQL = "update NhiemVuThayDoiTaiSan set iDKeHoachThayDoiTaiSan=?, tenNhiemVu=?, chiTietNhiemVu=?, tienDo=? where iD=?";
             conn = DatabaseHelper.getDBConnection();
             sttm = conn.prepareStatement(sSQL); 
             sttm.setString(1, nvtdts.getiDKeHoachThayDoiTaiSan());
             sttm.setString(2, nvtdts.getTenNhiemVu());
             sttm.setString(3, nvtdts.getChiTietNhiemVu());
-            sttm.setString(4, nvtdts.getiD());
+            sttm.setString(4, nvtdts.getTienDo());
+            sttm.setString(5, nvtdts.getiD());
             if(sttm.executeUpdate()>0){
                 System.out.println("update thanh cong");
                 return 1;
@@ -93,6 +95,7 @@ public class NhiemVuThayDoiTaiSanDAO {
                 nvtdts.setiDKeHoachThayDoiTaiSan(rs.getString(2));
                 nvtdts.setTenNhiemVu(rs.getString(3));
                 nvtdts.setChiTietNhiemVu(rs.getString(4));
+                nvtdts.setTienDo(rs.getString(5));
                 ls.add(nvtdts);
             }
         } catch (Exception e) {
@@ -124,6 +127,7 @@ public class NhiemVuThayDoiTaiSanDAO {
                 nvtdts.setiDKeHoachThayDoiTaiSan(rs.getString(2));
                 nvtdts.setTenNhiemVu(rs.getString(3));
                 nvtdts.setChiTietNhiemVu(rs.getString(4));
+                nvtdts.setTienDo(rs.getString(5));
                 return nvtdts;
             }
         } catch (Exception e) {
@@ -155,7 +159,8 @@ public class NhiemVuThayDoiTaiSanDAO {
                 NhiemVuThayDoiTaiSan nvtdts = new NhiemVuThayDoiTaiSan();               
                 nvtdts.setiD(rs.getString(1));
                 nvtdts.setTenNhiemVu(rs.getString(3));
-                nvtdts.setChiTietNhiemVu(rs.getString(4));               
+                nvtdts.setChiTietNhiemVu(rs.getString(4)); 
+                nvtdts.setTienDo(rs.getString(5));
                 ls.add(nvtdts);
             }
         } catch (Exception e) {

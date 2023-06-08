@@ -29,11 +29,12 @@ public class JFNhiemVuThayDoiTaiSan extends javax.swing.JFrame {
         nvtdtsModel.setRowCount(0);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for(NhiemVuThayDoiTaiSan nvtdts : nvtdtsDAO.getAll()){
-            Object dataRow[] = new Object[4];
+            Object dataRow[] = new Object[5];
             dataRow[0] = nvtdts.getiD();
             dataRow[1] = nvtdts.getiDKeHoachThayDoiTaiSan();
             dataRow[2] = nvtdts.getTenNhiemVu();
             dataRow[3] = nvtdts.getChiTietNhiemVu();
+            dataRow[4] = nvtdts.getTienDo();
             nvtdtsModel.addRow(dataRow);
         }
     }
@@ -43,6 +44,7 @@ public class JFNhiemVuThayDoiTaiSan extends javax.swing.JFrame {
         jTextFieldIDKeHoachThayDoiTaiSan.setText(""); 
         jTextFieldTenNhiemVu.setText(""); 
         jTextFieldChiTietNhiemVu.setText("");
+        jTextFieldTienDo.setText("");
     }
     
     public NhiemVuThayDoiTaiSan getModel(){
@@ -51,6 +53,7 @@ public class JFNhiemVuThayDoiTaiSan extends javax.swing.JFrame {
         nvtdts.setiDKeHoachThayDoiTaiSan(jTextFieldIDKeHoachThayDoiTaiSan.getText().trim());
         nvtdts.setTenNhiemVu(jTextFieldTenNhiemVu.getText().trim());
         nvtdts.setChiTietNhiemVu(jTextFieldChiTietNhiemVu.getText().trim());
+        nvtdts.setTienDo(jTextFieldTienDo.getText().trim());
         return nvtdts;
     }
     
@@ -61,6 +64,7 @@ public class JFNhiemVuThayDoiTaiSan extends javax.swing.JFrame {
         jTextFieldIDKeHoachThayDoiTaiSan.setText(nvtdts.getiDKeHoachThayDoiTaiSan());
         jTextFieldTenNhiemVu.setText(nvtdts.getTenNhiemVu());
         jTextFieldChiTietNhiemVu.setText(nvtdts.getChiTietNhiemVu());
+        jTextFieldTienDo.setText(nvtdts.getTienDo());
     }
     
     /**
@@ -88,6 +92,8 @@ public class JFNhiemVuThayDoiTaiSan extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableNhiemVuThayDoiTaiSan = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        jTextFieldTienDo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,17 +145,17 @@ public class JFNhiemVuThayDoiTaiSan extends javax.swing.JFrame {
 
         jTableNhiemVuThayDoiTaiSan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "ID kế hoạch thay đổi tài sản", "Tên nhiệm vụ", "Chi tiết nhiệm vụ"
+                "ID", "ID kế hoạch thay đổi tài sản", "Tên nhiệm vụ", "Chi tiết nhiệm vụ", "Tiến độ"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -163,6 +169,8 @@ public class JFNhiemVuThayDoiTaiSan extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableNhiemVuThayDoiTaiSan);
 
+        jLabel6.setText("Tiến độ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -173,19 +181,20 @@ public class JFNhiemVuThayDoiTaiSan extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldID)
                     .addComponent(jTextFieldChiTietNhiemVu, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
                     .addComponent(jTextFieldTenNhiemVu)
-                    .addComponent(jTextFieldIDKeHoachThayDoiTaiSan))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                    .addComponent(jTextFieldIDKeHoachThayDoiTaiSan)
+                    .addComponent(jTextFieldTienDo))
+                .addGap(141, 141, 141)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -224,7 +233,10 @@ public class JFNhiemVuThayDoiTaiSan extends javax.swing.JFrame {
                     .addComponent(jTextFieldChiTietNhiemVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextFieldTienDo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                 .addContainerGap())
@@ -279,7 +291,7 @@ public class JFNhiemVuThayDoiTaiSan extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Xóa thành công!");
                     fillTable();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Không tìm thấy tài sản!");
+                    JOptionPane.showMessageDialog(this, "Không tìm thấy nhiệm vụ!");
                 }
             }
         }
@@ -351,11 +363,13 @@ public class JFNhiemVuThayDoiTaiSan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableNhiemVuThayDoiTaiSan;
     private javax.swing.JTextField jTextFieldChiTietNhiemVu;
     private javax.swing.JTextField jTextFieldID;
     private javax.swing.JTextField jTextFieldIDKeHoachThayDoiTaiSan;
     private javax.swing.JTextField jTextFieldTenNhiemVu;
+    private javax.swing.JTextField jTextFieldTienDo;
     // End of variables declaration//GEN-END:variables
 }
