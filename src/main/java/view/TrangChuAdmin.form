@@ -62,7 +62,7 @@
                               <Component id="jButton4" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
                               <Component id="jButton5" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
                               <Component id="jButton6" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
-                              <Component id="jButton8" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
+                              <Component id="Btn_QuanLyBaoTri" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
                               <Component id="jButton7" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
                               <Component id="jButton1" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
                           </Group>
@@ -96,7 +96,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButton6" min="-2" pref="46" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton8" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="Btn_QuanLyBaoTri" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButton7" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace pref="16" max="32767" attributes="0"/>
@@ -148,10 +148,13 @@
             <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; th&#xf4;ng tin ph&#xf2;ng m&#xe1;y"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton8">
+        <Component class="javax.swing.JButton" name="Btn_QuanLyBaoTri">
           <Properties>
             <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; b&#x1ea3;o tr&#xec;"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Btn_QuanLyBaoTriMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBox1">
           <Properties>

@@ -112,10 +112,11 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
         setInitData();
     }
     
-    public QuanLyBaoTriTaiSanView(NguoiDung nguoiDung, CheckRole checkRole) {
+    public QuanLyBaoTriTaiSanView(TrangChuAdmin trangChuAdmin, NguoiDung nguoiDung, CheckRole checkRole) {
         this.nguoiDung = nguoiDung;
         NameUserContainer.setText(nguoiDung.getHoTen());
         keHoachBaoTriController = new KeHoachBaoTriController(this, this.nguoiDung, checkRole);
+        keHoachBaoTriController.setTrangChuAdminView(trangChuAdmin);
         thucThiBaoTriController = new ThucThiBaoTriController(this, this.nguoiDung);
         lichSuBaoTriController = new LichSuBaoTriController(this, this.nguoiDung);
         hienThiUI();
@@ -350,6 +351,7 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         KeHoachDangThucThiTable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
+        Btn_Cancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1300, 718));
@@ -611,7 +613,7 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
 
         CoverContentContainer.addTab("tab3", XemLichSuContentContainer);
@@ -651,12 +653,19 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
 
         CoverContentContainer.addTab("tab2", ThucThiBaoTriContentContainer);
 
-        MainContentContainer.add(CoverContentContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -40, 1000, 750));
+        MainContentContainer.add(CoverContentContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -40, 1000, 690));
+
+        Btn_Cancel.setText("Thoát");
+        Btn_Cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_CancelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout ContentContainerLayout = new javax.swing.GroupLayout(ContentContainer);
         ContentContainer.setLayout(ContentContainerLayout);
@@ -669,6 +678,10 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
                     .addGroup(ContentContainerLayout.createSequentialGroup()
                         .addComponent(InformationWindowContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContentContainerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Btn_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
         ContentContainerLayout.setVerticalGroup(
             ContentContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -676,7 +689,10 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(InformationWindowContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MainContentContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(MainContentContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Btn_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -728,6 +744,10 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
         chiTietKeHoachBaoTriView.setVisible(true);
         keHoachBaoTriController.anKeHoachBaoTriView();
     }//GEN-LAST:event_Btn_addKeHoachBaoTriMouseClicked
+
+    private void Btn_CancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_CancelMouseClicked
+        
+    }//GEN-LAST:event_Btn_CancelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -782,6 +802,7 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btn_Cancel;
     private javax.swing.JPanel Btn_KeHoachBaoTri;
     private javax.swing.JPanel Btn_ThucThiBaoTri;
     private javax.swing.JPanel Btn_XemLichSu;

@@ -29,6 +29,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.ChiTietKeHoachBaoTriView;
 import view.QuanLyBaoTriTaiSanView;
+import view.TrangChuAdmin;
 
 /**
  *
@@ -36,6 +37,7 @@ import view.QuanLyBaoTriTaiSanView;
  */
 public class KeHoachBaoTriController {
     private QuanLyBaoTriTaiSanView quanLyBaoTriTaiSanView;
+    private TrangChuAdmin trangChuAdminView;
     private NguoiDung nguoiDung;
     private CheckRole checkRole;
     private KeHoachBaoTriDAO keHoachBaoTriDAO;
@@ -100,6 +102,14 @@ public class KeHoachBaoTriController {
 
     public void setChiTietKeHoachBaoTriView(ChiTietKeHoachBaoTriView chiTietKeHoachBaoTriView) {
         this.chiTietKeHoachBaoTriView = chiTietKeHoachBaoTriView;
+    }
+
+    public TrangChuAdmin getTrangChuAdminView() {
+        return trangChuAdminView;
+    }
+
+    public void setTrangChuAdminView(TrangChuAdmin trangChuAdminView) {
+        this.trangChuAdminView = trangChuAdminView;
     }
     
     public KeHoachBaoTriController(QuanLyBaoTriTaiSanView quanLyBaoTriTaiSanView, NguoiDung nguoiDung, CheckRole checkManager) {
