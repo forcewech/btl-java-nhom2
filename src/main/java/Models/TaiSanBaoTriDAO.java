@@ -81,26 +81,28 @@ public class TaiSanBaoTriDAO {
         
         ArrayList<TaiSanBaoTri> tsbtList = (ArrayList<TaiSanBaoTri>)tsbt;
         
-        for(int i=0; i<tsbtList.size(); i++) {
-            query.append("(?, ?, ?, ?, ?),");
-        }
-        
-        query.deleteCharAt(query.length() - 1);
-        
-        conn = Database.DatabaseHelper.getDBConnection();
-        pttm = conn.prepareStatement(query.toString());
-        int numColumnInOneTable = 5;
-        for(int i=0; i<tsbtList.size(); i++) {
-            pttm.setString(i*numColumnInOneTable + 1, tsbt.get(i).getiD());
-            pttm.setString(i*numColumnInOneTable + 2, tsbt.get(i).getiDNhiemVuBaoTri());
-            pttm.setString(i*numColumnInOneTable + 3, tsbt.get(i).getiDTaiSanPhongMay());
-            pttm.setInt(i*numColumnInOneTable + 4, tsbt.get(i).getSoLuong());
-            pttm.setString(i*numColumnInOneTable + 5, tsbt.get(i).getYeuCauBaoTri());
-        }
-        
-        if(pttm.executeUpdate()> 0) {
-            System.out.println("Insert thanh cong");
-            return 1;
+        if(!tsbt.isEmpty()) {
+            for (TaiSanBaoTri tsbtList1 : tsbtList) {
+                query.append("(?, ?, ?, ?, ?),");
+            }
+
+            query.deleteCharAt(query.length() - 1);
+
+            conn = Database.DatabaseHelper.getDBConnection();
+            pttm = conn.prepareStatement(query.toString());
+            int numColumnInOneTable = 5;
+            for(int i=0; i<tsbtList.size(); i++) {
+                pttm.setString(i*numColumnInOneTable + 1, tsbt.get(i).getiD());
+                pttm.setString(i*numColumnInOneTable + 2, tsbt.get(i).getiDNhiemVuBaoTri());
+                pttm.setString(i*numColumnInOneTable + 3, tsbt.get(i).getiDTaiSanPhongMay());
+                pttm.setInt(i*numColumnInOneTable + 4, tsbt.get(i).getSoLuong());
+                pttm.setString(i*numColumnInOneTable + 5, tsbt.get(i).getYeuCauBaoTri());
+            }
+
+            if(pttm.executeUpdate()> 0) {
+                System.out.println("Insert thanh cong");
+                return 1;
+            }
         }
         return -1;
     }

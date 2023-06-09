@@ -37,7 +37,7 @@ public class HoanThanhBaoTri {
         this.lyDoKeThucSom = lyDoKeThucSom;
     }
 
-    public HoanThanhBaoTri(String iD, boolean daHoanThanh, String lyDoKeThucSom, KeHoachBaoTri keHoachBaoTri) {
+    public HoanThanhBaoTri(String iD, boolean daHoanThanh, String lyDoKeThucSom) {
         this.iD = iD;
         this.daHoanThanh = daHoanThanh;
         this.lyDoKeThucSom = lyDoKeThucSom;

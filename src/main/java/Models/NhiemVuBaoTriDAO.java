@@ -24,7 +24,7 @@ public class NhiemVuBaoTriDAO {
     public List<NhiemVuBaoTri> getAllNhiemVuBaoTriByiDKeHoachBaoTri(String iDKeHoachBaoTri) throws SQLException {
         conn = Database.DatabaseHelper.getDBConnection();
         
-        String query = "select * from NhiemVubaoTri join KeHoachBaoTri on NhiemVubaoTri.iD = KeHoachBaoTri.iD where KeHoachBaoTri.iD = " + "'" + iDKeHoachBaoTri + "'";
+        String query = "select * from NhiemVubaoTri join KeHoachBaoTri on NhiemVubaoTri.iDKeHoachBaoTri = KeHoachBaoTri.iD where KeHoachBaoTri.iD = " + "'" + iDKeHoachBaoTri + "'";
         
         sttm = conn.createStatement();
         ResultSet result = sttm.executeQuery(query);
@@ -40,6 +40,8 @@ public class NhiemVuBaoTriDAO {
             nvbt.setChiTietNhiemVu(result.getString(4));
             nvbt.setDanhGia(result.getString(5));
             nvbt.setChiPhi(result.getInt(6));
+            
+            listNV.add(nvbt);
         }
         
         return listNV;
@@ -68,30 +70,32 @@ public class NhiemVuBaoTriDAO {
         
         StringBuilder query = new StringBuilder("insert into NhiemVubaoTri(iD, iDKeHoachBaoTri, tenNhiemVu, chiTietNhiemVu, danhGia, chiPhi) values ");
         ArrayList<NhiemVuBaoTri> khbts = (ArrayList<NhiemVuBaoTri>) nhiemVuBaoTris;
-        khbts.forEach(nhiemVuBaoTri -> {
-            query.append("(?, ?, ?, ?, ?, ?),");
-        });
-        query.deleteCharAt(query.length() - 1);
-        
-        pttm = conn.prepareStatement(query.toString());
-        
-        // Khoảng cách các dấu hỏi
-        int distance = 6;
-        
-        // Thêm các giá trị cho dãy truy vẫn
-        for(int i=0; i<khbts.size(); i++) {
-            NhiemVuBaoTri nhiemVuBaoTriChild = khbts.get(i);
-            pttm.setString((i * distance) + 1, nhiemVuBaoTriChild.getiD());
-            pttm.setString((i * distance) + 2, nhiemVuBaoTriChild.getiDKeHoachBaoTri());
-            pttm.setString((i * distance) + 3, nhiemVuBaoTriChild.getTenNhiemVu());
-            pttm.setString((i * distance) + 4, nhiemVuBaoTriChild.getChiTietNhiemVu());
-            pttm.setString((i * distance) + 5, nhiemVuBaoTriChild.getDanhGia());
-            pttm.setInt((i * distance) + 6, nhiemVuBaoTriChild.getChiPhi());
-        }
-        
-        if(pttm.executeUpdate() > 0) {
-            System.out.println("Insert thanh cong");
-            return 1;
+        if(khbts != null && !khbts.isEmpty()) {
+            khbts.forEach(nhiemVuBaoTri -> {
+                query.append("(?, ?, ?, ?, ?, ?),");
+            });
+            query.deleteCharAt(query.length() - 1);
+
+            pttm = conn.prepareStatement(query.toString());
+
+            // Khoảng cách các dấu hỏi
+            int distance = 6;
+
+            // Thêm các giá trị cho dãy truy vẫn
+            for(int i=0; i<khbts.size(); i++) {
+                NhiemVuBaoTri nhiemVuBaoTriChild = khbts.get(i);
+                pttm.setString((i * distance) + 1, nhiemVuBaoTriChild.getiD());
+                pttm.setString((i * distance) + 2, nhiemVuBaoTriChild.getiDKeHoachBaoTri());
+                pttm.setString((i * distance) + 3, nhiemVuBaoTriChild.getTenNhiemVu());
+                pttm.setString((i * distance) + 4, nhiemVuBaoTriChild.getChiTietNhiemVu());
+                pttm.setString((i * distance) + 5, nhiemVuBaoTriChild.getDanhGia());
+                pttm.setInt((i * distance) + 6, nhiemVuBaoTriChild.getChiPhi());
+            }
+
+            if(pttm.executeUpdate() > 0) {
+                System.out.println("Insert thanh cong");
+                return 1;
+            }
         }
         return -1;
     }
@@ -107,6 +111,22 @@ public class NhiemVuBaoTriDAO {
         pttm.setString(3, nhiemVuBaoTri.getDanhGia());
         pttm.setInt(4, nhiemVuBaoTri.getChiPhi());
         pttm.setString(5, nhiemVuBaoTri.getiD());
+        
+        if(pttm.executeUpdate() > 0) {
+            System.out.println("Update NhiemVuBaoTri thanh cong");
+            return 1;
+        }
+        return -1;
+    }
+    
+    public int updateDanhGiaNhiemVuBaoTri(NhiemVuBaoTri nhiemVuBaoTri) throws SQLException {
+        conn = Database.DatabaseHelper.getDBConnection();
+        
+        String query = "update NhiemVubaoTri set danhGia = ? where iD = ?";
+        
+        pttm = conn.prepareStatement(query);
+        pttm.setString(1, nhiemVuBaoTri.getDanhGia());
+        pttm.setString(2, nhiemVuBaoTri.getiD());
         
         if(pttm.executeUpdate() > 0) {
             System.out.println("Update NhiemVuBaoTri thanh cong");

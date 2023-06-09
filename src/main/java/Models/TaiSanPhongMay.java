@@ -13,7 +13,6 @@ public class TaiSanPhongMay {
     private String iDTaiSan;
     private String iDPhongMay;
     private int soLuong;
-    private String trangThai;
 
     public TaiSanPhongMay() {
     }
@@ -22,13 +21,13 @@ public class TaiSanPhongMay {
         this.iD = iD;
     }
 
-    public TaiSanPhongMay(String iD, String iDTaiSan, String iDPhongMay, int soLuong, String trangThai) {
+    public TaiSanPhongMay(String iD, String iDTaiSan, String iDPhongMay, int soLuong) {
         this.iD = iD;
         this.iDTaiSan = iDTaiSan;
         this.iDPhongMay = iDPhongMay;
         this.soLuong = soLuong;
-        this.trangThai = trangThai;
     }
+
 
     public String getiD() {
         return iD;
@@ -57,22 +56,14 @@ public class TaiSanPhongMay {
     public int getSoLuong() {
         return soLuong;
     }
-
+    
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
 
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
-
     @Override
     public String toString() {
-        return "TaiSanPhongMay{" + "iD=" + iD + ", iDTaiSan=" + iDTaiSan + ", iDPhongMay=" + iDPhongMay + ", soLuong=" + soLuong + ", ghiChu=" + trangThai + '}';
+        return "TaiSanPhongMay{" + "iD=" + iD + ", iDTaiSan=" + iDTaiSan + ", iDPhongMay=" + iDPhongMay + ", soLuong=" + soLuong ;
     }  
-    
+
 }

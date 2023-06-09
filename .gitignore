@@ -20,7 +20,10 @@
 #        return null;
 #    }
 
-/src/main/java/Database/DatabaseHelper.java
 /src/main/java/com/mycompany/java/nhom2/
 /src/main/java/Database/
+<<<<<<< HEAD
+=======
+/src/main/java/Session
+>>>>>>> master
 /target/

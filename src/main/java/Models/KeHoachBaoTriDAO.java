@@ -28,7 +28,94 @@ public class KeHoachBaoTriDAO {
         
         conn = DatabaseHelper.getDBConnection();
         
-        String query = "select * from KeHoachBaoTri join HoanThanhBaoTri on KeHoachBaoTri.iD = HoanThanhBaoTri.iD where trangThai = 0";
+        String query = "select * from KeHoachBaoTri where trangThai = 0";
+        
+        Statement sttm = null;
+        
+        sttm = conn.createStatement();
+        
+        ResultSet result = sttm.executeQuery(query);
+        
+        while(result.next()) {
+            KeHoachBaoTri khbt = new KeHoachBaoTri();
+            khbt.setiD(result.getString(1));
+            khbt.setThoiGianBatDau(result.getDate(2).toLocalDate());
+            khbt.setThoiGianKetThuc(result.getDate(3).toLocalDate());
+            khbt.setGhiChu(result.getString(4));
+            khbt.setTrangThai(result.getBoolean(5));
+            khbt.setAnhXacNhan(result.getString(6));
+            
+            listKHBT.add(khbt);
+        }
+        return listKHBT;
+    }
+    
+    public List<KeHoachBaoTri> getAllKeHoachDangThucThi() throws SQLException{
+        List<KeHoachBaoTri> listKHBT = new ArrayList<>();
+        
+        conn = DatabaseHelper.getDBConnection();
+        
+        String query = """
+                       select KeHoachBaoTri.* from KeHoachBaoTri 
+                       join HoanThanhBaoTri on KeHoachBaoTri.iD = HoanThanhBaoTri.iD
+                       where trangThai = 1 and daHoanThanh = 0""";
+        
+        Statement sttm = null;
+        
+        sttm = conn.createStatement();
+        
+        ResultSet result = sttm.executeQuery(query);
+        
+        while(result.next()) {
+            KeHoachBaoTri khbt = new KeHoachBaoTri();
+            khbt.setiD(result.getString(1));
+            khbt.setThoiGianBatDau(result.getDate(2).toLocalDate());
+            khbt.setThoiGianKetThuc(result.getDate(3).toLocalDate());
+            khbt.setGhiChu(result.getString(4));
+            khbt.setTrangThai(result.getBoolean(5));
+            khbt.setAnhXacNhan(result.getString(6));
+            
+            listKHBT.add(khbt);
+        }
+        return listKHBT;
+    }
+    
+    public List<KeHoachBaoTri> getAllKeHoachDaHoanThanh() throws SQLException{
+        List<KeHoachBaoTri> listKHBT = new ArrayList<>();
+        
+        conn = DatabaseHelper.getDBConnection();
+        
+        String query = """
+                       select KeHoachBaoTri.* from KeHoachBaoTri 
+                       join HoanThanhBaoTri on KeHoachBaoTri.iD = HoanThanhBaoTri.iD
+                       where daHoanThanh = 1""";
+        
+        Statement sttm = null;
+        
+        sttm = conn.createStatement();
+        
+        ResultSet result = sttm.executeQuery(query);
+        
+        while(result.next()) {
+            KeHoachBaoTri khbt = new KeHoachBaoTri();
+            khbt.setiD(result.getString(1));
+            khbt.setThoiGianBatDau(result.getDate(2).toLocalDate());
+            khbt.setThoiGianKetThuc(result.getDate(3).toLocalDate());
+            khbt.setGhiChu(result.getString(4));
+            khbt.setTrangThai(result.getBoolean(5));
+            khbt.setAnhXacNhan(result.getString(6));
+            
+            listKHBT.add(khbt);
+        }
+        return listKHBT;
+    }
+    
+    public List<KeHoachBaoTri> getAllKeHoachBaoTri() throws SQLException{
+        List<KeHoachBaoTri> listKHBT = new ArrayList<>();
+        
+        conn = DatabaseHelper.getDBConnection();
+        
+        String query = "select * from KeHoachBaoTri";
         
         Statement sttm = null;
         
@@ -122,16 +209,17 @@ public class KeHoachBaoTriDAO {
         return -1;
     }
     
-    public int xacNhanThucThi(String iD) throws SQLException {
+    public int xacNhanThucThi(KeHoachBaoTri keHoachBaoTri) throws SQLException {
         String addQuery = "update KeHoachBaoTri set "
-                + "trangThai = ? where iD = ?";
+                + "trangThai = ?, anhXacNhan = ? where iD = ?";
 
         conn = DatabaseHelper.getDBConnection();
 
         pttm = conn.prepareStatement(addQuery);
 
         pttm.setBoolean(1, true);
-        pttm.setString(2, iD);
+        pttm.setString(2, keHoachBaoTri.getAnhXacNhan());
+        pttm.setString(3, keHoachBaoTri.getiD());
 
         if(pttm.executeUpdate() > 0) {
             System.out.println("Update thành công");
@@ -174,7 +262,28 @@ public class KeHoachBaoTriDAO {
             
             listNV.add(nvbt);
         }
+        result.close();
         return listNV;
     }
     
+    public boolean checkKeHoachBaoTriThucThiDayDu(KeHoachBaoTri keHoachBaoTri) throws SQLException {
+        conn = DatabaseHelper.getDBConnection();
+        Statement sttm = conn.createStatement();
+        
+        String query = "select NhiemVubaoTri.iDKeHoachBaoTri from NhiemVubaoTri\n" +
+            "where NhiemVubaoTri.iDKeHoachBaoTri = '" + keHoachBaoTri.getiD() + "'" + "\n" +
+            "group by NhiemVubaoTri.iDKeHoachBaoTri\n" +
+            "having COUNT(NhiemVuBaoTri.iDKeHoachBaoTri) = (select COUNT(NhiemVubaoTri.iDKeHoachBaoTri) as tong from NhiemVubaoTri\n" +
+            "left join TaiSanBaoTri on TaiSanBaoTri.iDNhiemVuBaoTri = NhiemVubaoTri.iD\n" +
+            "left join NhiemVuHoanThanh on TaiSanBaoTri.iD = NhiemVuHoanThanh.iD\n" +
+            "where NhiemVubaoTri.iDKeHoachBaoTri = '" + keHoachBaoTri.getiD() + "'" + " and (TaiSanBaoTri.soLuong = NhiemVuHoanThanh.soLuongDaHoanThanh or TaiSanBaoTri.iD is null)\n" +
+            "group by NhiemVubaoTri.iDKeHoachBaoTri)";
+        
+        ResultSet result = sttm.executeQuery(query);
+        
+        if(result.next()) {
+            return true;
+        }
+        return false;
+    }
 }
