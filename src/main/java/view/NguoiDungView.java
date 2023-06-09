@@ -399,7 +399,7 @@ public class NguoiDungView extends javax.swing.JFrame {
                 NguoiDungDAO dao = new NguoiDungDAO();
                 NguoiDung pm1 = new NguoiDung("ND"+randomInt,jMaTS.getText().trim(),jMaTS2.getText().trim(),jTenTS.getText().trim(),jDvTinh.getText().trim(),jTinhTrang.getText().trim());
                 dao.add(pm1);
-                JOptionPane.showMessageDialog(null, "Thêm người dùng thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Thêm người dùng thành công", "Thông báo", JOptionPane.WARNING_MESSAGE);
                 dsNguoiDung.add(pm1);
                 LoadTableTS(dsNguoiDung);
                 resetTxt();                
@@ -416,7 +416,6 @@ public class NguoiDungView extends javax.swing.JFrame {
         if(dongchon != -1){                        
             int response = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa không?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             try{
-                NguoiDungDAO dao = new NguoiDungDAO();
                 if (response == JOptionPane.YES_OPTION){
                 //JOptionPane.showMessageDialog(null, "Trường mã sẽ không được cập nhật!", "Thông báo", JOptionPane.WARNING_MESSAGE);
                 //Lấy người dùng từ danh sách để sửa
@@ -427,7 +426,6 @@ public class NguoiDungView extends javax.swing.JFrame {
                 ndung.setMatKhau(jTenTS.getText());
                 ndung.setEmail(jDvTinh.getText());
                 ndung.setRole(jTinhTrang.getText());
-                dao.update(ndung);
                 //Hiển thị lại bảng sau khi sửa
                 LoadTableTS(dsNguoiDung);
                 //Đặt lại các điều khiển

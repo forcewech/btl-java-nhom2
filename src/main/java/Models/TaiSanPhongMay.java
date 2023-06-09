@@ -6,57 +6,54 @@ package Models;
 
 /**
  *
- * @author admin
+ * @author thinh
  */
 public class TaiSanPhongMay {
-    private String maTaiSanPM, maTaiSan, maPhongMay;
-    private double soLuong;
+    private String iD;
+    private String iDTaiSan;
+    private String iDPhongMay;
+    private int soLuong;
 
-    public TaiSanPhongMay() {
+    public String getiD() {
+        return iD;
     }
 
-    public TaiSanPhongMay(String maTaiSanPM, String maTaiSan, String maPhongMay, double soLuong) {
-        this.maTaiSanPM = maTaiSanPM;
-        this.maTaiSan = maTaiSan;
-        this.maPhongMay = maPhongMay;
-        this.soLuong = soLuong;
+    public String getiDTaiSan() {
+        return iDTaiSan;
     }
 
-    public String getMaTaiSanPM() {
-        return maTaiSanPM;
+    public String getiDPhongMay() {
+        return iDPhongMay;
     }
 
-    public void setMaTaiSanPM(String maTaiSanPM) {
-        this.maTaiSanPM = maTaiSanPM;
-    }
-
-    public String getMaTaiSan() {
-        return maTaiSan;
-    }
-
-    public void setMaTaiSan(String maTaiSan) {
-        this.maTaiSan = maTaiSan;
-    }
-
-    public String getMaPhongMay() {
-        return maPhongMay;
-    }
-
-    public void setMaPhongMay(String maPhongMay) {
-        this.maPhongMay = maPhongMay;
-    }
-
-    public double getSoLuong() {
+    public int getSoLuong() {
         return soLuong;
     }
 
-    public void setSoLuong(double soLuong) {
+    public void setiD(String iD) {
+        this.iD = iD;
+    }
+
+    public void setiDTaiSan(String iDTaiSan) {
+        this.iDTaiSan = iDTaiSan;
+    }
+
+    public void setiDPhongMay(String iDPhongMay) {
+        this.iDPhongMay = iDPhongMay;
+    }
+
+    public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
 
-    @Override
-    public String toString() {
-        return "TaiSanPhongMay{" + "maTaiSanPM=" + maTaiSanPM + ", maTaiSan=" + maTaiSan + ", maPhongMay=" + maPhongMay + ", soLuong=" + soLuong + '}';
+    public TaiSanPhongMay(String iD, String iDTaiSan, String iDPhongMay, int soLuong) {
+        this.iD = iD;
+        this.iDTaiSan = iDTaiSan;
+        this.iDPhongMay = iDPhongMay;
+        this.soLuong = soLuong;
+    }
+
+    public TaiSanPhongMay() {
     }
     
 }
