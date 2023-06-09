@@ -4,13 +4,17 @@
  */
 package Models;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author IT SUP
  */
 public class TaiSan {
-    private String maTaiSan, tenTaiSan, trangThai, hangSanXuat, ngayTrangBi;
-    private double soLuong, gia;
+    private String maTaiSan, tenTaiSan, trangThai, hangSanXuat; 
+    private LocalDate ngayTrangBi;
+    private double gia;
+    private int soLuong;
 
     public TaiSan() {
     }
@@ -19,7 +23,7 @@ public class TaiSan {
         this.maTaiSan = maTaiSan;
     }
     
-    public TaiSan(String maTaiSan, String tenTaiSan, double soLuong, String trangThai, String hangSanXuat, String ngayTrangBi, double gia) {
+    public TaiSan(String maTaiSan, String tenTaiSan, int soLuong, String trangThai, String hangSanXuat, LocalDate ngayTrangBi, double gia) {
         this.maTaiSan = maTaiSan;
         this.tenTaiSan = tenTaiSan;
         this.trangThai = trangThai;
@@ -61,19 +65,19 @@ public class TaiSan {
         this.hangSanXuat = hangSanXuat;
     }
 
-    public String getNgayTrangBi() {
+    public LocalDate getNgayTrangBi() {
         return ngayTrangBi;
     }
 
-    public void setNgayTrangBi(String ngayTrangBi) {
+    public void setNgayTrangBi(LocalDate ngayTrangBi) {
         this.ngayTrangBi = ngayTrangBi;
     }
 
-    public double getSoLuong() {
+    public int getSoLuong() {
         return soLuong;
     }
 
-    public void setSoLuong(double soLuong) {
+    public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
 

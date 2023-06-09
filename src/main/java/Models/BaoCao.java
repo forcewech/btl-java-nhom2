@@ -4,33 +4,36 @@
  */
 package Models;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author IT SUP
  */
 public class BaoCao {
-    private String maBaoCao, nguoiKiemKe, ngayThucHien, loaiKiemKe;
-
+    private LocalDate ngayThucHien;
+    private String phong, nguoiKiemKe, tenTaiSan; 
+    private int soLuong;
+    private String ghiChu;
+    
     public BaoCao() {
     }
 
-    public BaoCao(String maBaoCao) {
-        this.maBaoCao = maBaoCao;
-    }
-
-    public BaoCao(String maBaoCao, String nguoiKiemKe, String ngayThucHien, String loaiKiemKe) {
-        this.maBaoCao = maBaoCao;
-        this.nguoiKiemKe = nguoiKiemKe;
+    public BaoCao(LocalDate ngayThucHien, String phong, String nguoiKiemKe, String tenTaiSan, int soLuong, String ghiChu) {
         this.ngayThucHien = ngayThucHien;
-        this.loaiKiemKe = loaiKiemKe;
-    }   
+        this.phong = phong;
+        this.nguoiKiemKe = nguoiKiemKe;
+        this.tenTaiSan = tenTaiSan;
+        this.soLuong = soLuong;
+        this.ghiChu = ghiChu;
+    }    
 
-    public String getMaBaoCao() {
-        return maBaoCao;
+    public String getPhong() {
+        return phong;
     }
 
-    public void setMaBaoCao(String maBaoCao) {
-        this.maBaoCao = maBaoCao;
+    public void setPhong(String phong) {
+        this.phong = phong;
     }
 
     public String getNguoiKiemKe() {
@@ -39,27 +42,42 @@ public class BaoCao {
 
     public void setNguoiKiemKe(String nguoiKiemKe) {
         this.nguoiKiemKe = nguoiKiemKe;
-    }   
-    
-    public String getNgayThucHien() {
+    }
+
+    public String getTenTaiSan() {
+        return tenTaiSan;
+    }
+
+    public void setTenTaiSan(String tenTaiSan) {
+        this.tenTaiSan = tenTaiSan;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
+
+    public LocalDate getNgayThucHien() {
         return ngayThucHien;
     }
 
-    public void setNgayThucHien(String ngayThucHien) {
+    public void setNgayThucHien(LocalDate ngayThucHien) {
         this.ngayThucHien = ngayThucHien;
-    }
-
-    public String getLoaiKiemKe() {
-        return loaiKiemKe;
-    }
-
-    public void setLoaiKiemKe(String loaiKiemKe) {
-        this.loaiKiemKe = loaiKiemKe;
-    }
+    }  
 
     @Override
     public String toString() {
-        return "BaoCao{" + "maBaoCao=" + maBaoCao + ", nguoiKiemKe=" + nguoiKiemKe + ", ngayThucHien=" + ngayThucHien + ", loaiKiemKe=" + loaiKiemKe + '}';
-    }
-        
+        return "BaoCao{" + "ngayThucHien=" + ngayThucHien + ", phong=" + phong + ", nguoiKiemKe=" + nguoiKiemKe + ", tenTaiSan=" + tenTaiSan + ", soLuong=" + soLuong + ", ghiChu=" + ghiChu + '}';
+    }     
 }

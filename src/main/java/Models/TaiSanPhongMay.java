@@ -6,13 +6,20 @@ package Models;
 
 /**
  *
- * @author admin
+ * @author thinh
  */
 public class TaiSanPhongMay {
-    private String iD, iDTaiSan, iDPhongMay;
+
+    private String iD;
+    private String iDTaiSan;
+    private String iDPhongMay;
     private int soLuong;
 
     public TaiSanPhongMay() {
+    }
+
+    public TaiSanPhongMay(String iD) {
+        this.iD = iD;
     }
 
     public TaiSanPhongMay(String iD, String iDTaiSan, String iDPhongMay, int soLuong) {
@@ -58,5 +65,4 @@ public class TaiSanPhongMay {
     public String toString() {
         return "TaiSanPhongMay{" + "iD=" + iD + ", iDTaiSan=" + iDTaiSan + ", iDPhongMay=" + iDPhongMay + ", soLuong=" + soLuong + '}';
     }
-    
 }

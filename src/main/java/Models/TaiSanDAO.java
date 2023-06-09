@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Date;
 
 /**
  *
@@ -29,10 +30,10 @@ public class TaiSanDAO {
             sttm = conn.prepareStatement(sSQL); 
             sttm.setString(1, ts.getMaTaiSan());
             sttm.setString(2, ts.getTenTaiSan());
-            sttm.setDouble(3, ts.getSoLuong());
+            sttm.setInt(3, ts.getSoLuong());
             sttm.setString(4, ts.getTrangThai());
             sttm.setString(5, ts.getHangSanXuat());
-            sttm.setString(6, ts.getNgayTrangBi());
+            sttm.setDate(6, Date.valueOf(ts.getNgayTrangBi()));
             sttm.setDouble(7, ts.getGia());  
             if(sttm.executeUpdate()>0){
                 System.out.println("insert thanh cong");
@@ -50,10 +51,10 @@ public class TaiSanDAO {
             conn = DatabaseHelper.getDBConnection();
             sttm = conn.prepareStatement(sSQL); 
             sttm.setString(1, ts.getTenTaiSan());
-            sttm.setDouble(2, ts.getSoLuong());
+            sttm.setInt(2, ts.getSoLuong());
             sttm.setString(3, ts.getTrangThai());
-            sttm.setString(4, ts.getHangSanXuat());
-            sttm.setString(5, ts.getNgayTrangBi());
+            sttm.setString(4, ts.getHangSanXuat());           
+            sttm.setDate(5, Date.valueOf(ts.getNgayTrangBi()));
             sttm.setDouble(6, ts.getGia());  
             sttm.setString(7, ts.getMaTaiSan());
             if(sttm.executeUpdate()>0){
@@ -66,12 +67,12 @@ public class TaiSanDAO {
         return -1;
     }
     
-    public int delete(TaiSan ts){
+    public int delete(String maTaiSan){
         try {
             String sSQL = "delete TaiSan where maTaiSan=?";
             conn = DatabaseHelper.getDBConnection();
             sttm = conn.prepareStatement(sSQL);   
-            sttm.setString(1, ts.getMaTaiSan());
+            sttm.setString(1, maTaiSan);
             if(sttm.executeUpdate()>0){
                 System.out.println("delete thanh cong");
                 return 1;
@@ -95,10 +96,10 @@ public class TaiSanDAO {
                 TaiSan ts = new TaiSan();
                 ts.setMaTaiSan(rs.getString(1));
                 ts.setTenTaiSan(rs.getString(2));
-                ts.setSoLuong(rs.getDouble(3));
+                ts.setSoLuong(rs.getInt(3));
                 ts.setTrangThai(rs.getString(4));
                 ts.setHangSanXuat(rs.getString(5));
-                ts.setNgayTrangBi(rs.getString(6));
+                ts.setNgayTrangBi(rs.getDate(6).toLocalDate());
                 ts.setGia(rs.getDouble(7));
                 ls.add(ts);
             }
@@ -129,10 +130,10 @@ public class TaiSanDAO {
                 TaiSan ts = new TaiSan();
                 ts.setMaTaiSan(rs.getString(1));
                 ts.setTenTaiSan(rs.getString(2));
-                ts.setSoLuong(rs.getDouble(3));
+                ts.setSoLuong(rs.getInt(3));
                 ts.setTrangThai(rs.getString(4));
                 ts.setHangSanXuat(rs.getString(5));
-                ts.setNgayTrangBi(rs.getString(6));
+                ts.setNgayTrangBi(rs.getDate(6).toLocalDate());
                 ts.setGia(rs.getDouble(7));
                 return ts;
             }
