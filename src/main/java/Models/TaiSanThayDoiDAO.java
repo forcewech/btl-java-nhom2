@@ -4,6 +4,10 @@
  */
 package Models;
 
+import Models.TaiSan;
+import Models.TaiSanDAO;
+import Models.TaiSanPhongMay;
+import Models.TaiSanThayDoi;
 import Database.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,8 +34,8 @@ public class TaiSanThayDoiDAO {
             sttm.setString(1, tstd.getMaTaiSan());
             sttm.setString(2, tstd.getiDTaiSanPhongMay());
             sttm.setString(3, tstd.getiDKeHoachThayDoiTaiSan());
-            sttm.setInt(3, tstd.getSoLuong());
-            sttm.setString(4, tstd.getTrangThai());
+            sttm.setInt(4, tstd.getSoLuong());
+            sttm.setString(5, tstd.getTrangThai());
             if(sttm.executeUpdate()>0){
                 System.out.println("insert thanh cong");
                 return 1;
@@ -62,12 +66,12 @@ public class TaiSanThayDoiDAO {
         return -1;
     }
     
-    public int delete(TaiSanThayDoi tstd){
+    public int delete(String maTaiSan){
         try {
             String sSQL = "delete TaiSanThayDoi where maTaiSan=?";
             conn = DatabaseHelper.getDBConnection();
             sttm = conn.prepareStatement(sSQL);   
-            sttm.setString(1, tstd.getMaTaiSan());
+            sttm.setString(1, maTaiSan);
             if(sttm.executeUpdate()>0){
                 System.out.println("delete thanh cong");
                 return 1;
@@ -110,5 +114,71 @@ public class TaiSanThayDoiDAO {
         }
         return ls;
     } 
+    
+    public TaiSanThayDoi findTSByID(String maTaiSan){        
+        ResultSet rs = null;
+        Statement sttm = null;
+        try {
+            String sSQL = "select * from TaiSanThayDoi where maTaiSan='" + maTaiSan + "'";
+            conn = DatabaseHelper.getDBConnection();
+            sttm = conn.createStatement();
+            rs = sttm.executeQuery(sSQL);
+            while(rs.next()){
+                TaiSanThayDoi tstd = new TaiSanThayDoi();
+                tstd.setMaTaiSan(rs.getString(1));
+                tstd.setiDTaiSanPhongMay(rs.getString(2));
+                tstd.setiDKeHoachThayDoiTaiSan(rs.getString(3));    
+                tstd.setSoLuong(rs.getInt(4));
+                tstd.setTrangThai(rs.getString(5));
+                           
+                return tstd;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
+        } 
+        finally {
+            try {
+                rs.close();
+                sttm.close();
+                conn.close();
+            } catch (Exception e){
+                
+            }
+        }
+        return null;
+    } 
+    
+    public List<TaiSanThayDoi> getTaiSanThayDoiByiDKeHoachThayDoiTaiSan(String iDKeHoachThayDoiTaiSan){
+        List<TaiSanThayDoi> ls = new ArrayList<>();
+        ResultSet rs = null;
+        Statement sttm = null;
+        TaiSanDAO tsDAO = new TaiSanDAO();
+        try {
+            String sSQL = "select * from TaiSanThayDoi where iDKeHoachThayDoiTaiSan =" + "'" + iDKeHoachThayDoiTaiSan + "'";
+            conn = DatabaseHelper.getDBConnection();
+            sttm = conn.createStatement();
+            rs = sttm.executeQuery(sSQL);
+            while(rs.next()){
+                TaiSanThayDoi tstd = new TaiSanThayDoi();
+                tstd.setMaTaiSan(rs.getString(1));
+                tstd.setiDTaiSanPhongMay(rs.getString(2));               
+                tstd.setSoLuong(rs.getInt(4));
+                tstd.setTrangThai(rs.getString(5));               
+                ls.add(tstd);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
+        } 
+        finally {
+            try {
+                rs.close();
+                sttm.close();
+                conn.close();
+            } catch (Exception e){
+                
+            }
+        }
+        return ls;
+    }
     
 }

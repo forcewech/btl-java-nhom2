@@ -10,7 +10,7 @@ package Models;
  * @author IT SUP
  */
 public class NhiemVuThayDoiTaiSan {
-    private String iD, iDKeHoachThayDoiTaiSan,tenNhiemVu, chiTietNhiemVu;
+    private String iD, iDKeHoachThayDoiTaiSan,tenNhiemVu, chiTietNhiemVu, tienDo;
 
     public NhiemVuThayDoiTaiSan() {
     }
@@ -19,12 +19,13 @@ public class NhiemVuThayDoiTaiSan {
         this.iD = iD;
     }
 
-    public NhiemVuThayDoiTaiSan(String iD, String iDKeHoachThayDoiTaiSan, String tenNhiemVu, String chiTietNhiemVu) {
+    public NhiemVuThayDoiTaiSan(String iD, String iDKeHoachThayDoiTaiSan, String tenNhiemVu, String chiTietNhiemVu, String tienDo) {
         this.iD = iD;
         this.iDKeHoachThayDoiTaiSan = iDKeHoachThayDoiTaiSan;
         this.tenNhiemVu = tenNhiemVu;
         this.chiTietNhiemVu = chiTietNhiemVu;
-    }   
+        this.tienDo = tienDo;
+    } 
 
     public String getiD() {
         return iD;
@@ -58,11 +59,17 @@ public class NhiemVuThayDoiTaiSan {
         this.chiTietNhiemVu = chiTietNhiemVu;
     }
 
+    public String getTienDo() {
+        return tienDo;
+    }
+
+    public void setTienDo(String tienDo) {
+        this.tienDo = tienDo;
+    }
+
     @Override
     public String toString() {
-        return "NhiemVuThayDoiTaiSan{" + "iD=" + iD + ", iDKeHoachThayDoiTaiSan=" + iDKeHoachThayDoiTaiSan + ", tenNhiemVu=" + tenNhiemVu + ", chiTietNhiemVu=" + chiTietNhiemVu + '}';
+        return "NhiemVuThayDoiTaiSan{" + "iD=" + iD + ", iDKeHoachThayDoiTaiSan=" + iDKeHoachThayDoiTaiSan + ", tenNhiemVu=" + tenNhiemVu + ", chiTietNhiemVu=" + chiTietNhiemVu + ", tienDo=" + tienDo + '}';
     }
-    
-    
-       
+
 }

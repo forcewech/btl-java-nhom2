@@ -8,6 +8,8 @@ import Controllers.KeHoachBaoTriController;
 import Controllers.TrangChuAdminController;
 import Interfaces.CheckManager;
 import Models.NguoiDung;
+import view.JFTaiSan;
+import view.QuanLyBaoTriTaiSanView;
 
 /**
  *
@@ -62,8 +64,19 @@ public class TrangChuAdmin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton2.setIcon(new javax.swing.ImageIcon("D:\\btl-java-nhom2\\src\\main\\java\\icons\\d7311b47ce21107f4930.jpg")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/d7311b47ce21107f4930.jpg"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Quản lý tài sản");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Quản lý thay đổi tài sản");
 
@@ -166,6 +179,17 @@ public class TrangChuAdmin extends javax.swing.JFrame {
         ndview.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JFTaiSan jfts = new JFTaiSan();
+        jfts.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -176,6 +200,7 @@ public class TrangChuAdmin extends javax.swing.JFrame {
         quanLyBaoTriTaiSanView.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Btn_QuanLyBaoTriMouseClicked
+
 
     /**
      * @param args the command line arguments

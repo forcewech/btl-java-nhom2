@@ -6,6 +6,7 @@ package Models;
 
 import Database.DatabaseHelper;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,12 +25,12 @@ public class KeHoachThayDoiTaiSanDAO {
         try {
             String sSQL = """
                           insert KeHoachThayDoiTaiSan(maKeHoach, thoiGianBatDau, thoiGianKetThuc)
-                          values(?,?,?,?,?)""";
+                          values(?,?,?)""";
             conn = DatabaseHelper.getDBConnection();
             sttm = conn.prepareStatement(sSQL); 
             sttm.setString(1, khtdts.getMaKeHoach());
-            sttm.setString(2, khtdts.getThoiGianBatDau());
-            sttm.setString(3, khtdts.getThoiGianKetThuc()); 
+            sttm.setDate(2, Date.valueOf(khtdts.getThoiGianBatDau()));
+            sttm.setDate(3, Date.valueOf(khtdts.getThoiGianKetThuc())); 
             if(sttm.executeUpdate()>0){
                 System.out.println("insert thanh cong");
                 return 1;
@@ -45,8 +46,8 @@ public class KeHoachThayDoiTaiSanDAO {
             String sSQL = "update KeHoachThayDoiTaiSan set thoiGianBatDau=?, thoiGianKetThuc=? where maKeHoach=?";
             conn = DatabaseHelper.getDBConnection();
             sttm = conn.prepareStatement(sSQL); 
-            sttm.setString(1, khtdts.getThoiGianBatDau());
-            sttm.setString(2, khtdts.getThoiGianKetThuc());
+            sttm.setDate(1, Date.valueOf(khtdts.getThoiGianBatDau()));
+            sttm.setDate(2, Date.valueOf(khtdts.getThoiGianKetThuc()));
             sttm.setString(3, khtdts.getMaKeHoach());
             if(sttm.executeUpdate()>0){
                 System.out.println("update thanh cong");
@@ -86,8 +87,8 @@ public class KeHoachThayDoiTaiSanDAO {
             while(rs.next()){
                 KeHoachThayDoiTaiSan khtdts = new KeHoachThayDoiTaiSan();
                 khtdts.setMaKeHoach(rs.getString(1));
-                khtdts.setThoiGianBatDau(rs.getString(2));
-                khtdts.setThoiGianKetThuc(rs.getString(3));
+                khtdts.setThoiGianBatDau(rs.getDate(2).toLocalDate());
+                khtdts.setThoiGianKetThuc(rs.getDate(3).toLocalDate());
                 ls.add(khtdts);
             }
         } catch (Exception e) {
@@ -105,7 +106,7 @@ public class KeHoachThayDoiTaiSanDAO {
         return ls;
     } 
     
-    public KeHoachThayDoiTaiSan findTSByID(String maKeHoach){        
+    public KeHoachThayDoiTaiSan findKHTDTSByID(String maKeHoach){        
         ResultSet rs = null;
         Statement sttm = null;
         try {
@@ -116,8 +117,8 @@ public class KeHoachThayDoiTaiSanDAO {
             while(rs.next()){
                 KeHoachThayDoiTaiSan khtdts = new KeHoachThayDoiTaiSan();
                 khtdts.setMaKeHoach(rs.getString(1));
-                khtdts.setThoiGianBatDau(rs.getString(2));
-                khtdts.setThoiGianKetThuc(rs.getString(3));
+                khtdts.setThoiGianBatDau(rs.getDate(2).toLocalDate());
+                khtdts.setThoiGianKetThuc(rs.getDate(3).toLocalDate());
                 return khtdts;
             }
         } catch (Exception e) {

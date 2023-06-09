@@ -4,12 +4,15 @@
  */
 package Models;
 
+import Models.DanhGia;
 import Database.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -39,7 +42,7 @@ public class DanhGiaDAO {
     
     public int update(DanhGia dg){
         try {
-            String sSQL = "update DanhGia set danhGia=?, where maPhieu=?";
+            String sSQL = "update DanhGia set danhGia=? where maPhieu=?";
             conn = DatabaseHelper.getDBConnection();
             sttm = conn.prepareStatement(sSQL); 
             sttm.setString(1, dg.getDanhGia());
@@ -54,7 +57,7 @@ public class DanhGiaDAO {
         return -1;
     }
     
-    public DanhGia findTSByID(String maPhieu){        
+    public DanhGia findDGByID(String maPhieu){        
         ResultSet rs = null;
         Statement sttm = null;
         try {
@@ -82,4 +85,35 @@ public class DanhGiaDAO {
         }
         return null;
     }
+    
+    public List<DanhGia> getAll(){
+        List<DanhGia> ls = new ArrayList<>();
+        ResultSet rs = null;
+        Statement sttm = null;
+        try {
+            String sSQL = "select * from DanhGia";
+            conn = DatabaseHelper.getDBConnection();
+            sttm = conn.createStatement();
+            rs = sttm.executeQuery(sSQL);
+            while(rs.next()){
+                DanhGia dg = new DanhGia();
+                dg.setMaPhieu(rs.getString(1));
+                dg.setDanhGia(rs.getString(2));              
+                ls.add(dg);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
+        } 
+        finally {
+            try {
+                rs.close();
+                sttm.close();
+                conn.close();
+            } catch (Exception e){
+                
+            }
+        }
+        return ls;
+    }
+    
 }
