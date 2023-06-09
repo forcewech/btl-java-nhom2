@@ -9,54 +9,54 @@ package Models;
  * @author admin
  */
 public class TaiSanPhongMay {
-    private String maTaiSanPM, maTaiSan, maPhongMay;
-    private double soLuong;
+    private String iD, iDTaiSan, iDPhongMay;
+    private int soLuong;
 
     public TaiSanPhongMay() {
     }
 
-    public TaiSanPhongMay(String maTaiSanPM, String maTaiSan, String maPhongMay, double soLuong) {
-        this.maTaiSanPM = maTaiSanPM;
-        this.maTaiSan = maTaiSan;
-        this.maPhongMay = maPhongMay;
+    public TaiSanPhongMay(String iD, String iDTaiSan, String iDPhongMay, int soLuong) {
+        this.iD = iD;
+        this.iDTaiSan = iDTaiSan;
+        this.iDPhongMay = iDPhongMay;
         this.soLuong = soLuong;
     }
 
-    public String getMaTaiSanPM() {
-        return maTaiSanPM;
+    public String getiD() {
+        return iD;
     }
 
-    public void setMaTaiSanPM(String maTaiSanPM) {
-        this.maTaiSanPM = maTaiSanPM;
+    public void setiD(String iD) {
+        this.iD = iD;
     }
 
-    public String getMaTaiSan() {
-        return maTaiSan;
+    public String getiDTaiSan() {
+        return iDTaiSan;
     }
 
-    public void setMaTaiSan(String maTaiSan) {
-        this.maTaiSan = maTaiSan;
+    public void setiDTaiSan(String iDTaiSan) {
+        this.iDTaiSan = iDTaiSan;
     }
 
-    public String getMaPhongMay() {
-        return maPhongMay;
+    public String getiDPhongMay() {
+        return iDPhongMay;
     }
 
-    public void setMaPhongMay(String maPhongMay) {
-        this.maPhongMay = maPhongMay;
+    public void setiDPhongMay(String iDPhongMay) {
+        this.iDPhongMay = iDPhongMay;
     }
 
-    public double getSoLuong() {
+    public int getSoLuong() {
         return soLuong;
     }
 
-    public void setSoLuong(double soLuong) {
+    public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
 
     @Override
     public String toString() {
-        return "TaiSanPhongMay{" + "maTaiSanPM=" + maTaiSanPM + ", maTaiSan=" + maTaiSan + ", maPhongMay=" + maPhongMay + ", soLuong=" + soLuong + '}';
+        return "TaiSanPhongMay{" + "iD=" + iD + ", iDTaiSan=" + iDTaiSan + ", iDPhongMay=" + iDPhongMay + ", soLuong=" + soLuong + '}';
     }
     
 }

@@ -358,7 +358,7 @@ public class TaiSanPhongMayView extends javax.swing.JFrame {
             try{
 //                Connection conn = DatabaseHelper.getDBConnection();
                 TaiSanPhongMayDAO dao = new TaiSanPhongMayDAO();
-                TaiSanPhongMay tspm1 = new TaiSanPhongMay(""+randomInt, jMaTS.getText().trim(),jTenTS.getText().trim(),Double.parseDouble(jTinhTrang.getText().trim()));
+                TaiSanPhongMay tspm1 = new TaiSanPhongMay(""+randomInt, jMaTS.getText().trim(),jTenTS.getText().trim(),Integer.parseInt(jTinhTrang.getText().trim()));
                 dao.add(tspm1);
                 JOptionPane.showMessageDialog(null, "Thêm tài sản vào phòng máy thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 resetTxt();                

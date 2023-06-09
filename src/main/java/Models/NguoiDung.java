@@ -7,7 +7,7 @@ package Models;
 
 /**
  *
- * @author Administrator
+ * @author admin
  */
 public class NguoiDung {
     private String maNguoiDung, hoTen, ten, matKhau, email, role;

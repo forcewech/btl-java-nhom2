@@ -1,8 +1,8 @@
 package view;
 
 import Database.DatabaseHelper;
-import Models.NguoiDungDAO;
 import Models.NguoiDung;
+import Models.NguoiDungDAO;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -321,7 +321,7 @@ public class NguoiDungView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
                  
     private void jComboDMLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDMLocActionPerformed
-        // TODO add your handling code here:
+//         TODO add your handling code here:
         ArrayList<NguoiDung> dsLoc = new ArrayList<>();
         String itemLoc = jComboDMLoc.getSelectedItem().toString();
         if(itemLoc.equalsIgnoreCase("Tất cả")){
@@ -411,7 +411,7 @@ public class NguoiDungView extends javax.swing.JFrame {
 
     private void jButtonSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuaActionPerformed
         // TODO add your handling code here:  
-        //Lấy vị trí của tài sản trong bảng trên giao diện
+//        //Lấy vị trí của tài sản trong bảng trên giao diện
         dongchon = tableTS.getSelectedRow();
         if(dongchon != -1){                        
             int response = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa không?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);

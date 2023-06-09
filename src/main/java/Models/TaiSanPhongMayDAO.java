@@ -20,10 +20,10 @@ public class TaiSanPhongMayDAO {
             String sSQL = "insert TaiSanPhongMay(iD,iDTaiSan,iDPhongMay,soLuong) values(?,?,?,?)";
             conn = DatabaseHelper.getDBConnection();
             sttm = conn.prepareStatement(sSQL);
-            sttm.setString(1, tspm.getMaTaiSanPM());
-            sttm.setString(2, tspm.getMaTaiSan());
-            sttm.setString(3, tspm.getMaPhongMay());
-            sttm.setDouble(4, tspm.getSoLuong());
+            sttm.setString(1, tspm.getiD());
+            sttm.setString(2, tspm.getiDTaiSan());
+            sttm.setString(3, tspm.getiDPhongMay());
+            sttm.setInt(4, tspm.getSoLuong());
             if(sttm.executeUpdate() < 0){
                 System.out.println("Insert thanh cong");
                 return 1;
