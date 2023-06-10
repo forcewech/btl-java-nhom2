@@ -21,6 +21,25 @@ public class TaiSanPhongMayDAO {
     Connection conn = null;
     PreparedStatement sttm = null;
     
+    public int add(TaiSanPhongMay tspm){
+        try {
+            String sSQL = "insert TaiSanPhongMay(iD,iDTaiSan,iDPhongMay,soLuong) values(?,?,?,?)";
+            conn = DatabaseHelper.getDBConnection();
+            sttm = conn.prepareStatement(sSQL);
+            sttm.setString(1, tspm.getiD());
+            sttm.setString(2, tspm.getiDTaiSan());
+            sttm.setString(3, tspm.getiDPhongMay());
+            sttm.setInt(4, tspm.getSoLuong());
+            if(sttm.executeUpdate() < 0){
+                System.out.println("Insert thanh cong");
+                return 1;
+            }
+        }catch(Exception e){
+            System.out.println("Error: "+e.toString());
+        }
+        return -1;
+    }
+    
     public List<TaiSanPhongMay> getTaiSanPhongMayByiDPhongMay(String iDPhongMay){
         List<TaiSanPhongMay> ls = new ArrayList<>();
         ResultSet rs = null;
