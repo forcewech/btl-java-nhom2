@@ -9,41 +9,17 @@ package Models;
  * @author thinh
  */
 public class TaiSanPhongMay {
+
     private String iD;
     private String iDTaiSan;
     private String iDPhongMay;
     private int soLuong;
 
-    public String getiD() {
-        return iD;
+    public TaiSanPhongMay() {
     }
 
-    public String getiDTaiSan() {
-        return iDTaiSan;
-    }
-
-    public String getiDPhongMay() {
-        return iDPhongMay;
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setiD(String iD) {
+    public TaiSanPhongMay(String iD) {
         this.iD = iD;
-    }
-
-    public void setiDTaiSan(String iDTaiSan) {
-        this.iDTaiSan = iDTaiSan;
-    }
-
-    public void setiDPhongMay(String iDPhongMay) {
-        this.iDPhongMay = iDPhongMay;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
     }
 
     public TaiSanPhongMay(String iD, String iDTaiSan, String iDPhongMay, int soLuong) {
@@ -53,7 +29,40 @@ public class TaiSanPhongMay {
         this.soLuong = soLuong;
     }
 
-    public TaiSanPhongMay() {
+    public String getiD() {
+        return iD;
     }
-    
+
+    public void setiD(String iD) {
+        this.iD = iD;
+    }
+
+    public String getiDTaiSan() {
+        return iDTaiSan;
+    }
+
+    public void setiDTaiSan(String iDTaiSan) {
+        this.iDTaiSan = iDTaiSan;
+    }
+
+    public String getiDPhongMay() {
+        return iDPhongMay;
+    }
+
+    public void setiDPhongMay(String iDPhongMay) {
+        this.iDPhongMay = iDPhongMay;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    @Override
+    public String toString() {
+        return "TaiSanPhongMay{" + "iD=" + iD + ", iDTaiSan=" + iDTaiSan + ", iDPhongMay=" + iDPhongMay + ", soLuong=" + soLuong + '}';
+    }
 }

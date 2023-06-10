@@ -4,12 +4,15 @@
  */
 package Models;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author IT SUP
  */
 public class KeHoachKiemKe {
-    private String maKeHoach, thoiGianBatDau, thoiGianKetThuc;
+    private String maKeHoach;
+    private LocalDate thoiGianBatDau, thoiGianKetThuc;
 
     public KeHoachKiemKe() {
     }
@@ -18,7 +21,7 @@ public class KeHoachKiemKe {
         this.maKeHoach = maKeHoach;
     }
 
-    public KeHoachKiemKe(String maKeHoach, String thoiGianBatDau, String thoiGianKetThuc) {
+    public KeHoachKiemKe(String maKeHoach, LocalDate thoiGianBatDau, LocalDate thoiGianKetThuc) {
         this.maKeHoach = maKeHoach;
         this.thoiGianBatDau = thoiGianBatDau;
         this.thoiGianKetThuc = thoiGianKetThuc;
@@ -32,19 +35,19 @@ public class KeHoachKiemKe {
         this.maKeHoach = maKeHoach;
     }
 
-    public String getThoiGianBatDau() {
+    public LocalDate getThoiGianBatDau() {
         return thoiGianBatDau;
     }
 
-    public void setThoiGianBatDau(String thoiGianBatDau) {
+    public void setThoiGianBatDau(LocalDate thoiGianBatDau) {
         this.thoiGianBatDau = thoiGianBatDau;
     }
 
-    public String getThoiGianKetThuc() {
+    public LocalDate getThoiGianKetThuc() {
         return thoiGianKetThuc;
     }
 
-    public void setThoiGianKetThuc(String thoiGianKetThuc) {
+    public void setThoiGianKetThuc(LocalDate thoiGianKetThuc) {
         this.thoiGianKetThuc = thoiGianKetThuc;
     }
 
