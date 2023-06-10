@@ -71,4 +71,19 @@ public class HoanThanhBaoTriDAO {
         
         return htbt;
     }
+    
+    public int deleteHoanThanhBaoTriByIDKeHoachBaoTri(KeHoachBaoTri khbt) throws SQLException {
+        conn = Database.DatabaseHelper.getDBConnection();
+        String query = "Delete HoanThanhBaoTri where HoanThanhBaoTri.iD = ?";
+        
+        pttm = conn.prepareStatement(query);
+        pttm.setString(1, khbt.getiD());
+        
+        if(pttm.executeUpdate()> 0) {
+            System.out.println("Da xoa 1 dòng bang HoanThanhBaoTri");
+            return 1;
+        }
+        return -1;
+    }
+    
 }

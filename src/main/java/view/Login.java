@@ -16,13 +16,19 @@ import javax.swing.*;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+    private DangNhapController dangNhapController;
+    
     public Login() {
         initComponents();
         setSize(1000,600);
         setLocationRelativeTo(null);
+    }
+    
+    public Login(DangNhapController dangNhapController) {
+        initComponents();
+        setSize(1000,600);
+        setLocationRelativeTo(null);
+        this.dangNhapController = dangNhapController;
     }
 
     /**
@@ -156,19 +162,14 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private DangNhapController danhNhapController;
-    private NguoiDungDAO nguoiDungDAO;
     
     private void Click_DangNhap(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Click_DangNhap
         String accountUser = TF_Account.getText();
         String passwordUser = TF_Password.getText();
         if(accountUser.trim().length() == 0 || passwordUser.trim().length() == 0) 
             JOptionPane.showMessageDialog(this,"Phải nhập đầy đủ thông tin!","Thông báo", JOptionPane.WARNING_MESSAGE);
-        else{
-            nguoiDungDAO = new NguoiDungDAO();
-            danhNhapController = new DangNhapController(this, nguoiDungDAO);     
-            danhNhapController.DangNhap(accountUser, passwordUser);
-//            this.dispose();
+        else{   
+            dangNhapController.DangNhap(accountUser, passwordUser);
         }            
 
     }//GEN-LAST:event_Click_DangNhap

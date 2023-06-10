@@ -15,12 +15,14 @@ import view.TrangChuTeacher;
 public class TrangChuTeacherController {
     private TrangChuTeacher trangChuTeacher;
     private NguoiDung nguoiDung;
-    private CheckRole checkRole;
     
-    public TrangChuTeacherController(TrangChuTeacher trangChuTeacher, NguoiDung nguoiDung, CheckRole checkRole) {
-        this.trangChuTeacher = trangChuTeacher;
+    public TrangChuTeacherController(NguoiDung nguoiDung) {
         this.nguoiDung = nguoiDung;
-        this.checkRole = checkRole;
+        initView(nguoiDung);
+    }
+    
+    private void initView(NguoiDung nguoiDung) {
+        trangChuTeacher = new TrangChuTeacher(this, nguoiDung);
     }
     
     public void hienThiTrangChuTeacher() {
