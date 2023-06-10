@@ -7,6 +7,9 @@ package view;
 import Controllers.TrangChuAdminController;
 import Interfaces.CheckManager;
 import Models.NguoiDung;
+import view.JFTaiSan;
+import view.SubMenuQuanLyThayDoiTaiSan;
+import view.SubMenuKiemKe;
 
 /**
  *
@@ -43,9 +46,9 @@ public class TrangChuAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonQLTS = new javax.swing.JButton();
+        jButtonQLTDTS = new javax.swing.JButton();
+        jButtonQLKKTS = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -56,17 +59,28 @@ public class TrangChuAdmin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(885, 546));
 
-        jButton1.setText("Quản lý tài sản");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonQLTS.setText("Quản lý tài sản");
+        jButtonQLTS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonQLTSActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Quản lý thay đổi tài sản");
+        jButtonQLTDTS.setText("Quản lý thay đổi tài sản");
+        jButtonQLTDTS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonQLTDTSActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Quản lý kiểm kê tài sản");
+        jButtonQLKKTS.setText("Quản lý kiểm kê tài sản");
+        jButtonQLKKTS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonQLKKTSActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Quản lý mượn phòng máy");
 
@@ -111,13 +125,13 @@ public class TrangChuAdmin extends javax.swing.JFrame {
                         .addGap(59, 59, 59))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonQLTDTS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonQLKKTS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Btn_QuanLyBaoTri, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonQLTS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(325, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -131,11 +145,11 @@ public class TrangChuAdmin extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonQLTS, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonQLTDTS, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonQLKKTS, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -144,7 +158,7 @@ public class TrangChuAdmin extends javax.swing.JFrame {
                 .addComponent(Btn_QuanLyBaoTri, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -174,11 +188,11 @@ public class TrangChuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonQLTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQLTSActionPerformed
         // TODO add your handling code here:
         JFTaiSan jfts = new JFTaiSan();
         jfts.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonQLTSActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
@@ -191,6 +205,20 @@ public class TrangChuAdmin extends javax.swing.JFrame {
     private void Btn_QuanLyBaoTriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_QuanLyBaoTriMouseClicked
         trangChuAdminController.navigateToQuanLyBaoTriTaiSan();
     }//GEN-LAST:event_Btn_QuanLyBaoTriMouseClicked
+
+    private void jButtonQLTDTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQLTDTSActionPerformed
+        // TODO add your handling code here:
+        SubMenuQuanLyThayDoiTaiSan smqltdts = new SubMenuQuanLyThayDoiTaiSan();
+        smqltdts.setVisible(true);
+        this.setVisible(false);      
+    }//GEN-LAST:event_jButtonQLTDTSActionPerformed
+
+    private void jButtonQLKKTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQLKKTSActionPerformed
+        // TODO add your handling code here:
+        SubMenuKiemKe smkk = new SubMenuKiemKe();
+        smkk.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonQLKKTSActionPerformed
 
 
     /**
@@ -230,12 +258,12 @@ public class TrangChuAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_QuanLyBaoTri;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButtonQLKKTS;
+    private javax.swing.JButton jButtonQLTDTS;
+    private javax.swing.JButton jButtonQLTS;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
