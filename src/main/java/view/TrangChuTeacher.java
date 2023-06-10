@@ -214,10 +214,7 @@ public class TrangChuTeacher extends javax.swing.JFrame {
 
         // TODO add your handling code here:
         JFBaoCaoKiemKe jfbc = new JFBaoCaoKiemKe();
-        jfbc.setVisible(true);
-    }                                        
-
-
+        jfbc.setVisible(true);                                      
         createWindow1();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -225,7 +222,7 @@ public class TrangChuTeacher extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
->>>>>>> master
+
     /**
      * @param args the command line arguments
      */
