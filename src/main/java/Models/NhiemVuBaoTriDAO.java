@@ -22,7 +22,7 @@ public class NhiemVuBaoTriDAO {
     Connection conn;
     
     public List<NhiemVuBaoTri> getAllNhiemVuBaoTriByiDKeHoachBaoTri(String iDKeHoachBaoTri) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         
         String query = "select * from NhiemVubaoTri join KeHoachBaoTri on NhiemVubaoTri.iDKeHoachBaoTri = KeHoachBaoTri.iD where KeHoachBaoTri.iD = " + "'" + iDKeHoachBaoTri + "'";
         
@@ -48,7 +48,7 @@ public class NhiemVuBaoTriDAO {
     }
     
     public int addOneNhiemVuBaoTri(NhiemVuBaoTri nhiemVuBaoTri) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         String query = "insert into NhiemVubaoTri(iD, iDKeHoachBaoTri, tenNhiemVu, chiTietNhiemVu, danhGia, chiPhi) values(?, ?, ?, ?, ?, ?)";
         
         pttm = conn.prepareStatement(query);
@@ -66,7 +66,7 @@ public class NhiemVuBaoTriDAO {
     }
     
     public int addMoreNhiemVuBaoTri(List<NhiemVuBaoTri> nhiemVuBaoTris) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         
         StringBuilder query = new StringBuilder("insert into NhiemVubaoTri(iD, iDKeHoachBaoTri, tenNhiemVu, chiTietNhiemVu, danhGia, chiPhi) values ");
         ArrayList<NhiemVuBaoTri> khbts = (ArrayList<NhiemVuBaoTri>) nhiemVuBaoTris;
@@ -101,7 +101,7 @@ public class NhiemVuBaoTriDAO {
     }
     
     public int updateNhiemVuBaoTri(NhiemVuBaoTri nhiemVuBaoTri) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         
         String query = "update NhiemVubaoTri set tenNhiemVu = ?, chiTietNhiemVu = ?, danhGia = ?, chiPhi = ? where iD = ?";
         
@@ -120,7 +120,7 @@ public class NhiemVuBaoTriDAO {
     }
     
     public int updateDanhGiaNhiemVuBaoTri(NhiemVuBaoTri nhiemVuBaoTri) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         
         String query = "update NhiemVubaoTri set danhGia = ? where iD = ?";
         
@@ -136,7 +136,7 @@ public class NhiemVuBaoTriDAO {
     }
     
     public int delNhiemVuBaoTriByID(String iD) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         
         String query = "delete from NhiemVubaoTri where NhiemVubaoTri.iD = ?";
         
@@ -150,7 +150,7 @@ public class NhiemVuBaoTriDAO {
     }
     
     public int delMoreNhiemVuBaoTriByID(List<String> listID) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         
         StringBuilder query = new StringBuilder("delete from NhiemVubaoTri where ");
         
@@ -175,7 +175,7 @@ public class NhiemVuBaoTriDAO {
     }
     
     public int delNhiemVuBaoTriByiDKeHoachBaoTri(String iDKeHoachBaoTri) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         
         String query = "delete from NhiemVubaoTri where NhiemVubaoTri.iDKeHoachBaoTri = ?";
         

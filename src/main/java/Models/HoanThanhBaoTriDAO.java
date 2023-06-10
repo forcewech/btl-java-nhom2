@@ -4,7 +4,7 @@
  */
 package Models;
 
-import Database.DatabaseHelper;
+import database.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,7 +40,7 @@ public class HoanThanhBaoTriDAO {
     }
     
     public int updateHoanThanhBaoTri(HoanThanhBaoTri hoanThanhBaoTri) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         String query = "update HoanThanhBaoTri set daHoanThanh = ?, lyDoKetThuc = ? where HoanThanhBaoTri.iD = ?";
         
         pttm = conn.prepareStatement(query);
@@ -73,7 +73,7 @@ public class HoanThanhBaoTriDAO {
     }
     
     public int deleteHoanThanhBaoTriByIDKeHoachBaoTri(KeHoachBaoTri khbt) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         String query = "Delete HoanThanhBaoTri where HoanThanhBaoTri.iD = ?";
         
         pttm = conn.prepareStatement(query);

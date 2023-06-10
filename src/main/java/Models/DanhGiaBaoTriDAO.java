@@ -23,7 +23,7 @@ public class DanhGiaBaoTriDAO {
     
     public List<DanhGiaBaoTri> getAllDanhGiaBaoTrisByiDNhiemVuBaoTri(String iDNhiemVuBaoTri) throws SQLException {
         String query = "select * from DanhGiaBaoTri where iDNhiemVuBaoTri = " + "'" + iDNhiemVuBaoTri + "'";
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         sttm = conn.createStatement();
         ResultSet result = sttm.executeQuery(query);
     
@@ -42,7 +42,7 @@ public class DanhGiaBaoTriDAO {
     
     public List<DanhGiaBaoTri> getAllDanhGiaBaoTrisByiDTieuDe(String iDTieuDe) throws SQLException {
         String query = "select * from DanhGiaBaoTri where tieuDe = " + "'" + iDTieuDe + "'";
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         sttm = conn.createStatement();
         ResultSet result = sttm.executeQuery(query);
     
@@ -61,7 +61,7 @@ public class DanhGiaBaoTriDAO {
     
     public List<DanhGiaBaoTri> getAllDanhGiaBaoTrisByDanhGia(int DanhGia) throws SQLException {
         String query = "select * from DanhGiaBaoTri where tieuDe = " + DanhGia;
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         sttm = conn.createStatement();
         ResultSet result = sttm.executeQuery(query);
     
@@ -80,7 +80,7 @@ public class DanhGiaBaoTriDAO {
     
     public int addOneDanhGiaBaoTri(DanhGiaBaoTri dgbt) throws SQLException {
         String query = "insert into DanhGiaBaoTri(iD, tieuDe, iDNhiemVuBaoTri, danhGia, ghiChu) values (?, ?, ?, ?, ?)";
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         pttm = conn.prepareStatement(query);
         pttm.setString(1, dgbt.getiD());
         pttm.setString(2, dgbt.getTieuDe());
@@ -106,7 +106,7 @@ public class DanhGiaBaoTriDAO {
         
         query.deleteCharAt(query.length() - 1);
         
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         pttm = conn.prepareStatement(query.toString());
         int numColumnInOneTable = 5;
         for(int i=0; i<dgbtArrayListList.size(); i++) {
@@ -126,7 +126,7 @@ public class DanhGiaBaoTriDAO {
     
     public int updateDanhGiaBaoTriByiD(DanhGiaBaoTri dgbt) throws SQLException {
         String query = "update DanhGiaBaoTri set danhGia = ?, ghiChu = ? where iD = ?";
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         pttm = conn.prepareStatement(query);
         pttm.setInt(1, dgbt.getDanhGia());
         pttm.setString(2, dgbt.getGhiChu());
@@ -141,7 +141,7 @@ public class DanhGiaBaoTriDAO {
     
     
     public int delTaiSanBaoTriByID(String iD) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         
         String query = "delete from DanhGiaBaoTri where DanhGiaBaoTri.iD = ?";
         
@@ -155,7 +155,7 @@ public class DanhGiaBaoTriDAO {
     }
     
     public int delMoreTaiSanBaoTriByID(List<String> listID) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         
         StringBuilder query = new StringBuilder("delete from DanhGiaBaoTri where ");
         
@@ -179,7 +179,7 @@ public class DanhGiaBaoTriDAO {
     }
     
     public int delTaiSanBaoTriByiDNhiemVuBaoTri(String iDNhiemVuBaoTri) throws SQLException {
-        conn = Database.DatabaseHelper.getDBConnection();
+        conn = database.DatabaseHelper.getDBConnection();
         
         String query = "delete from DanhGiaBaoTri where DanhGiaBaoTri.iDNhiemVuBaoTri = ?";
         

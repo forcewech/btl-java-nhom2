@@ -4,7 +4,7 @@
  */
 package view;
 
-import Database.DatabaseHelper;
+import database.DatabaseHelper;
 import Models.TaiSan;
 import Models.TaiSanDAO;
 import Models.TaiSanPhongMay;

@@ -466,7 +466,7 @@ public class Add_UpdateTaiSanBaoTri extends javax.swing.JFrame {
     // Thịnh thêm get bằng iDTaiSan và iDPhongMay
     public TaiSanPhongMay getTaiSanPhongMaybyiDTaiSan_iDPhongMay(String iDtaiSan, String iDPhongMay) throws SQLException {
         TaiSanPhongMay taiSanPhongMay = new TaiSanPhongMay();
-        Connection conn = Database.DatabaseHelper.getDBConnection();
+        Connection conn = database.DatabaseHelper.getDBConnection();
         Statement sttm = conn.createStatement();
         String query = "select * from TaiSanPhongMay where iDTaiSan =" + "'" + iDtaiSan + "'" + "and iDPhongMay = " + "'" + iDPhongMay +"'";
         ResultSet result = sttm.executeQuery(query);
