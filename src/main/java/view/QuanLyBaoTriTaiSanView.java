@@ -7,6 +7,7 @@ package view;
 import Controllers.KeHoachBaoTriController;
 import Controllers.ThucThiBaoTriController;
 import Controllers.LichSuBaoTriController;
+import Controllers.QuanLyBaoTriController;
 import Interfaces.CheckManager;
 import Interfaces.CheckRole;
 import Models.KeHoachBaoTri;
@@ -29,6 +30,7 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
     private List<KeHoachBaoTri> keHoachBaoTrisList;
     private List<KeHoachBaoTri> keHoachDangThucThiList;
     private List<KeHoachBaoTri> keHoachDaHoanThanhList;
+    private QuanLyBaoTriController quanLyBaoTriController;
     private KeHoachBaoTriController keHoachBaoTriController;
     private ThucThiBaoTriController thucThiBaoTriController;
     private LichSuBaoTriController lichSuBaoTriController;
@@ -104,22 +106,22 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
     public QuanLyBaoTriTaiSanView() {
         initComponents();   
         nguoiDung = new NguoiDung("user1", "Nguyễn Văn Thịnh", "thinh156", "1234", "thinhpk26@gmail.com", "Manager");
-        CheckManager CheckManager = new CheckManager();
-        keHoachBaoTriController = new KeHoachBaoTriController(this, this.nguoiDung, CheckManager);
+        keHoachBaoTriController = new KeHoachBaoTriController(this, nguoiDung);
         thucThiBaoTriController = new ThucThiBaoTriController(this, nguoiDung);
         lichSuBaoTriController = new LichSuBaoTriController(this, nguoiDung);
         hienThiUI();
         setInitData();
     }
     
-    public QuanLyBaoTriTaiSanView(TrangChuAdmin trangChuAdmin, NguoiDung nguoiDung, CheckRole checkRole) {
-        this.nguoiDung = nguoiDung;
-        NameUserContainer.setText(nguoiDung.getHoTen());
-        keHoachBaoTriController = new KeHoachBaoTriController(this, this.nguoiDung, checkRole);
-        keHoachBaoTriController.setTrangChuAdminView(trangChuAdmin);
-        thucThiBaoTriController = new ThucThiBaoTriController(this, this.nguoiDung);
-        lichSuBaoTriController = new LichSuBaoTriController(this, this.nguoiDung);
+    public QuanLyBaoTriTaiSanView(QuanLyBaoTriController quanLyBaoTriController) {
+        initComponents();
+        this.quanLyBaoTriController = quanLyBaoTriController;
+        this.keHoachBaoTriController = quanLyBaoTriController.getKeHoachBaoTriController();
+        this.thucThiBaoTriController = quanLyBaoTriController.getThucThiBaoTriController();
+        this.lichSuBaoTriController = quanLyBaoTriController.getLichSuBaoTriController();
         hienThiUI();
+        String hoTenNguoiDung = this.quanLyBaoTriController.getNguoiDung().getHoTen();
+        NameUserContainer.setText(hoTenNguoiDung);
         setInitData();
     }
     
@@ -560,18 +562,22 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
         KeHoachBaoTriContentContainer.setLayout(KeHoachBaoTriContentContainerLayout);
         KeHoachBaoTriContentContainerLayout.setHorizontalGroup(
             KeHoachBaoTriContentContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
             .addGroup(KeHoachBaoTriContentContainerLayout.createSequentialGroup()
-                .addComponent(Btn_addKeHoachBaoTri, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(KeHoachBaoTriContentContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(KeHoachBaoTriContentContainerLayout.createSequentialGroup()
+                        .addComponent(Btn_addKeHoachBaoTri, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE)))
         );
         KeHoachBaoTriContentContainerLayout.setVerticalGroup(
             KeHoachBaoTriContentContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, KeHoachBaoTriContentContainerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
                 .addComponent(Btn_addKeHoachBaoTri, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         CoverContentContainer.addTab("tab1", KeHoachBaoTriContentContainer);
@@ -674,7 +680,7 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
             .addGroup(ContentContainerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ContentContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MainContentContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MainContentContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE)
                     .addGroup(ContentContainerLayout.createSequentialGroup()
                         .addComponent(InformationWindowContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -746,7 +752,7 @@ public class QuanLyBaoTriTaiSanView extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_addKeHoachBaoTriMouseClicked
 
     private void Btn_CancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_CancelMouseClicked
-        
+        quanLyBaoTriController.navigateToTrangChuAdminView();
     }//GEN-LAST:event_Btn_CancelMouseClicked
 
     /**

@@ -48,74 +48,9 @@ public class KeHoachBaoTriController {
     private NghiepVuBaoTriTaiSanDAO nghiepVuBaoTriTaiSanDAO;
     private HoanThanhBaoTriDAO hoanThanhBaoTriDAO;
 
-    public QuanLyBaoTriTaiSanView getQuanLyBaoTriTaiSanView() {
-        return quanLyBaoTriTaiSanView;
-    }
-
-    public NguoiDung getNguoiDung() {
-        return nguoiDung;
-    }
-
-    public CheckRole getCheckRole() {
-        return checkRole;
-    }
-
-    public KeHoachBaoTriDAO getKeHoachBaoTriDAO() {
-        return keHoachBaoTriDAO;
-    }
-
-    public NhiemVuBaoTriDAO getNhiemVuBaoTriDAO() {
-        return nhiemVuBaoTriDAO;
-    }
-
-    public TaiSanBaoTriDAO getTaiSanBaoTriDAO() {
-        return taiSanBaoTriDAO;
-    }
-
-    public ChiTietKeHoachBaoTriView getChiTietKeHoachBaoTriView() {
-        return chiTietKeHoachBaoTriView;
-    }
-
-    public void setQuanLyBaoTriTaiSanView(QuanLyBaoTriTaiSanView quanLyBaoTriTaiSanView) {
-        this.quanLyBaoTriTaiSanView = quanLyBaoTriTaiSanView;
-    }
-
-    public void setNguoiDung(NguoiDung nguoiDung) {
-        this.nguoiDung = nguoiDung;
-    }
-
-    public void setCheckRole(CheckRole checkRole) {
-        this.checkRole = checkRole;
-    }
-
-    public void setKeHoachBaoTriDAO(KeHoachBaoTriDAO keHoachBaoTriDAO) {
-        this.keHoachBaoTriDAO = keHoachBaoTriDAO;
-    }
-
-    public void setNhiemVuBaoTriDAO(NhiemVuBaoTriDAO nhiemVuBaoTriDAO) {
-        this.nhiemVuBaoTriDAO = nhiemVuBaoTriDAO;
-    }
-
-    public void setTaiSanBaoTriDAO(TaiSanBaoTriDAO taiSanBaoTriDAO) {
-        this.taiSanBaoTriDAO = taiSanBaoTriDAO;
-    }
-
-    public void setChiTietKeHoachBaoTriView(ChiTietKeHoachBaoTriView chiTietKeHoachBaoTriView) {
-        this.chiTietKeHoachBaoTriView = chiTietKeHoachBaoTriView;
-    }
-
-    public TrangChuAdmin getTrangChuAdminView() {
-        return trangChuAdminView;
-    }
-
-    public void setTrangChuAdminView(TrangChuAdmin trangChuAdminView) {
-        this.trangChuAdminView = trangChuAdminView;
-    }
-    
-    public KeHoachBaoTriController(QuanLyBaoTriTaiSanView quanLyBaoTriTaiSanView, NguoiDung nguoiDung, CheckRole checkManager) {
+    public KeHoachBaoTriController(QuanLyBaoTriTaiSanView quanLyBaoTriTaiSanView, NguoiDung nguoiDung) {
         this.quanLyBaoTriTaiSanView = quanLyBaoTriTaiSanView;
         this.nguoiDung = nguoiDung;
-        this.checkRole = checkManager;
         initDAO();
     }
     
@@ -127,7 +62,6 @@ public class KeHoachBaoTriController {
         nhiemVuHoanThanhDAO = new NhiemVuHoanThanhDAO();
         hoanThanhBaoTriDAO = new HoanThanhBaoTriDAO();
     }
-    
     
     // navigate đến các view
     public void hienThiKeHoachBaoTriView() {
@@ -229,6 +163,7 @@ public class KeHoachBaoTriController {
                 }
             });
             nhiemVuBaoTriDAO.delNhiemVuBaoTriByiDKeHoachBaoTri(keHoachBaoTri.getiD());
+            hoanThanhBaoTriDAO.deleteHoanThanhBaoTriByIDKeHoachBaoTri(keHoachBaoTri);
             keHoachBaoTriDAO.deleteKeHoachBaoTri(keHoachBaoTri.getiD());
         } catch(SQLException ex) {
             ErrorDatabase errorDatabase = new ErrorDatabase();
@@ -336,4 +271,67 @@ public class KeHoachBaoTriController {
         }
     }
     
+    public QuanLyBaoTriTaiSanView getQuanLyBaoTriTaiSanView() {
+        return quanLyBaoTriTaiSanView;
+    }
+
+    public NguoiDung getNguoiDung() {
+        return nguoiDung;
+    }
+
+    public CheckRole getCheckRole() {
+        return checkRole;
+    }
+
+    public KeHoachBaoTriDAO getKeHoachBaoTriDAO() {
+        return keHoachBaoTriDAO;
+    }
+
+    public NhiemVuBaoTriDAO getNhiemVuBaoTriDAO() {
+        return nhiemVuBaoTriDAO;
+    }
+
+    public TaiSanBaoTriDAO getTaiSanBaoTriDAO() {
+        return taiSanBaoTriDAO;
+    }
+
+    public ChiTietKeHoachBaoTriView getChiTietKeHoachBaoTriView() {
+        return chiTietKeHoachBaoTriView;
+    }
+
+    public void setQuanLyBaoTriTaiSanView(QuanLyBaoTriTaiSanView quanLyBaoTriTaiSanView) {
+        this.quanLyBaoTriTaiSanView = quanLyBaoTriTaiSanView;
+    }
+
+    public void setNguoiDung(NguoiDung nguoiDung) {
+        this.nguoiDung = nguoiDung;
+    }
+
+    public void setCheckRole(CheckRole checkRole) {
+        this.checkRole = checkRole;
+    }
+
+    public void setKeHoachBaoTriDAO(KeHoachBaoTriDAO keHoachBaoTriDAO) {
+        this.keHoachBaoTriDAO = keHoachBaoTriDAO;
+    }
+
+    public void setNhiemVuBaoTriDAO(NhiemVuBaoTriDAO nhiemVuBaoTriDAO) {
+        this.nhiemVuBaoTriDAO = nhiemVuBaoTriDAO;
+    }
+
+    public void setTaiSanBaoTriDAO(TaiSanBaoTriDAO taiSanBaoTriDAO) {
+        this.taiSanBaoTriDAO = taiSanBaoTriDAO;
+    }
+
+    public void setChiTietKeHoachBaoTriView(ChiTietKeHoachBaoTriView chiTietKeHoachBaoTriView) {
+        this.chiTietKeHoachBaoTriView = chiTietKeHoachBaoTriView;
+    }
+
+    public TrangChuAdmin getTrangChuAdminView() {
+        return trangChuAdminView;
+    }
+
+    public void setTrangChuAdminView(TrangChuAdmin trangChuAdminView) {
+        this.trangChuAdminView = trangChuAdminView;
+    }
 }
