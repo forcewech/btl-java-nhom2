@@ -6,7 +6,7 @@ package Models;
 
 /**
  *
- * @author Administrator
+ * @author admin
  */
 public class PhongMay {
     private String maPhong,tenPhong,trangThai;

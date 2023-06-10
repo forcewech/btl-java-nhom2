@@ -34,7 +34,7 @@ public class ThucThiBaoTriController {
     private QuanLyBaoTriTaiSanView quanLyBaoTriTaiSanView;
     private NguoiDung nguoiDung;
     private KeHoachBaoTriDAO keHoachBaoTriDAO;
-    private NghiepVuBaoTriTaiSanDAO nghiepVuBaoTriTaiSanDAO = new NghiepVuBaoTriTaiSanDAO();
+    private NghiepVuBaoTriTaiSanDAO nghiepVuBaoTriTaiSanDAO;
     private NhiemVuBaoTriDAO nhiemVuBaoTriDAO;
     private NhiemVuHoanThanhDAO nhiemVuHoanThanhDAO;
     private HoanThanhBaoTriDAO hoanThanhBaoTriDAO;
@@ -54,8 +54,6 @@ public class ThucThiBaoTriController {
     public void setNguoiDung(NguoiDung nguoiDung) {
         this.nguoiDung = nguoiDung;
     }
-    
-    
     
     public ThucThiBaoTriController(QuanLyBaoTriTaiSanView quanLyBaoTriTaiSanView, NguoiDung nguoiDung) {
         this.quanLyBaoTriTaiSanView = quanLyBaoTriTaiSanView;

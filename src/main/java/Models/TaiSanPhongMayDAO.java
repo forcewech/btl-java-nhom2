@@ -63,8 +63,7 @@ public class TaiSanPhongMayDAO {
                 rs.close();
                 sttm.close();
                 conn.close();
-            } catch (Exception e){
-                
+            } catch (Exception e){             
             }
         }
         return ls;

@@ -15,12 +15,14 @@ import view.TrangChuAdmin;
 public class TrangChuAdminController {
     private TrangChuAdmin trangChuAdmin;
     private NguoiDung nguoiDung;
-    private CheckRole checkRole;
     
-    public TrangChuAdminController(TrangChuAdmin trangChuAdmin, NguoiDung nguoiDung, CheckRole checkRole) {
-        this.trangChuAdmin = trangChuAdmin;
+    public TrangChuAdminController(NguoiDung nguoiDung) {
         this.nguoiDung = nguoiDung;
-        this.checkRole = checkRole;
+        initView(nguoiDung);
+    }
+    
+    private void initView(NguoiDung nguoiDung) {
+        trangChuAdmin = new TrangChuAdmin(this, nguoiDung);
     }
     
     public void hienThiTrangChuAdmin() {
@@ -29,6 +31,12 @@ public class TrangChuAdminController {
     
     public void anTrangChuAdmin() {
         trangChuAdmin.setVisible(false);
+    }
+    
+    public void navigateToQuanLyBaoTriTaiSan() {
+        QuanLyBaoTriController quanLyBaoTriController = new QuanLyBaoTriController(nguoiDung);
+        quanLyBaoTriController.showQuanLyBaoTriView();
+        trangChuAdmin.dispose();
     }
     
 }

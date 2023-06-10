@@ -9,6 +9,7 @@ package Models;
  * @author thinh
  */
 public class TaiSanPhongMay {
+
     private String iD;
     private String iDTaiSan;
     private String iDPhongMay;
@@ -27,7 +28,6 @@ public class TaiSanPhongMay {
         this.iDPhongMay = iDPhongMay;
         this.soLuong = soLuong;
     }
-
 
     public String getiD() {
         return iD;
@@ -56,14 +56,13 @@ public class TaiSanPhongMay {
     public int getSoLuong() {
         return soLuong;
     }
-    
+
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
 
     @Override
     public String toString() {
-        return "TaiSanPhongMay{" + "iD=" + iD + ", iDTaiSan=" + iDTaiSan + ", iDPhongMay=" + iDPhongMay + ", soLuong=" + soLuong ;
-    }  
-
+        return "TaiSanPhongMay{" + "iD=" + iD + ", iDTaiSan=" + iDTaiSan + ", iDPhongMay=" + iDPhongMay + ", soLuong=" + soLuong + '}';
+    }
 }
