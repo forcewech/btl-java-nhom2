@@ -4,7 +4,7 @@
  */
 package Models;
 
-import database.DatabaseHelper;
+import Database.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

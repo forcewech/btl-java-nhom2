@@ -8,7 +8,7 @@ import Models.TaiSan;
 import Models.TaiSanDAO;
 import Models.TaiSanPhongMay;
 import Models.TaiSanThayDoi;
-import database.DatabaseHelper;
+import Database.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
