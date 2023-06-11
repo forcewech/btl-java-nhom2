@@ -23,7 +23,7 @@ public class MauDanhGiaSauBaoTriDAO {
     
     public List<MauDanhGiaSauBaoTri> getAllMauDanhGiaSauBaoTris() throws SQLException {
         String query = "select * from MauDanhGiaSauBaoTri";
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         sttm = conn.createStatement();
         ResultSet result = sttm.executeQuery(query);
     
@@ -39,7 +39,7 @@ public class MauDanhGiaSauBaoTriDAO {
     
     public int addOneMauDanhGiaSauBaoTri(MauDanhGiaSauBaoTri mdgsbt) throws SQLException {
         String query = "insert into MauDanhGiaSauBaoTri(iD, tieuDe) values (?, ?)";
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         pttm = conn.prepareStatement(query);
         pttm.setString(1, mdgsbt.getiD());
         pttm.setString(2, mdgsbt.getTieuDe());
@@ -62,7 +62,7 @@ public class MauDanhGiaSauBaoTriDAO {
         
         query.deleteCharAt(query.length() - 1);
         
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         pttm = conn.prepareStatement(query.toString());
         int numColumnInOneTable = 2;
         for(int i=0; i<mdgsbtArrayList.size(); i++) {
@@ -79,7 +79,7 @@ public class MauDanhGiaSauBaoTriDAO {
     
     public int updateMauDanhGiaSauBaoTri(MauDanhGiaSauBaoTri mdgsbt) throws SQLException {
         String query = "update MauDanhGiaSauBaoTri set tieuDe = ? where iD = ?";
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         pttm = conn.prepareStatement(query);
         pttm.setString(1, mdgsbt.getTieuDe());
         pttm.setString(2, mdgsbt.getiD());
@@ -93,7 +93,7 @@ public class MauDanhGiaSauBaoTriDAO {
     
     
     public int delMauDanhGiaSauBaoTribyID(String iD) throws SQLException {
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         
         String query = "delete from MauDanhGiaSauBaoTri where MauDanhGiaSauBaoTri.iD = ?";
         

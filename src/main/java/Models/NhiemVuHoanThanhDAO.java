@@ -23,7 +23,7 @@ public class NhiemVuHoanThanhDAO {
     
     public NhiemVuHoanThanh getNhiemVuHoanThanhsByiD(String iD) throws SQLException {
         String query = "select * from NhiemVuHoanThanh where iD = " + "'" + iD + "'";
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         sttm = conn.createStatement();
         ResultSet result = sttm.executeQuery(query);
         result.next();
@@ -36,7 +36,7 @@ public class NhiemVuHoanThanhDAO {
     
     public int addNhiemVuHoanThanh(NhiemVuHoanThanh nvht) throws SQLException {
         String query = "insert into NhiemVuHoanThanh(iD, soLuongDaHoanThanh, danhGiaNhiemVu) values (?, ?, ?)";
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         pttm = conn.prepareStatement(query);
         pttm.setString(1, nvht.getiD());
         pttm.setInt(2, nvht.getSoLuongDaHoanThanh());
@@ -61,7 +61,7 @@ public class NhiemVuHoanThanhDAO {
 
             query.deleteCharAt(query.length() - 1);
 
-            conn = database.DatabaseHelper.getDBConnection();
+            conn = Database.DatabaseHelper.getDBConnection();
             pttm = conn.prepareStatement(query.toString());
             int numColumnInOneTable = 3;
             for(int i=0; i<nvhtList.size(); i++) {
@@ -80,7 +80,7 @@ public class NhiemVuHoanThanhDAO {
     
     public int updateNhiemVuHoanThanh(NhiemVuHoanThanh nvht) throws SQLException {
         String query = "update NhiemVuHoanThanh set soLuongDaHoanThanh = ?, danhGiaNhiemVu = ? where iD = ?";
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         pttm = conn.prepareStatement(query);
         pttm.setInt(1, nvht.getSoLuongDaHoanThanh());
         pttm.setString(2, nvht.getDanhGiaNhiemVu());
@@ -95,7 +95,7 @@ public class NhiemVuHoanThanhDAO {
     
     
     public int delNhiemVuHoanThanhByID(String iD) throws SQLException {
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         
         String query = "delete from NhiemVuHoanThanh where NhiemVuHoanThanh.iD = ?";
         

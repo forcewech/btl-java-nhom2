@@ -32,7 +32,7 @@ public class NghiepVuBaoTriTaiSanDAO {
                        join TaiSan on TaiSanPhongMay.iDTaiSan = TaiSan.maTaiSan
                        where iDNhiemVuBaoTri = '""" + iDNhiemVuBaoTri + "'";
         
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         
         sttm = conn.createStatement();
         
@@ -72,7 +72,7 @@ public class NghiepVuBaoTriTaiSanDAO {
                        join NhiemVuHoanThanh on TaiSanBaoTri.iD = NhiemVuHoanThanh.iD
                        where iDNhiemVuBaoTri = '""" + iDNhiemVuBaoTri + "'";
         
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         
         sttm = conn.createStatement();
         

@@ -23,7 +23,7 @@ public class TaiSanBaoTriDAO {
     
     public List<TaiSanBaoTri> getAllTaiSanBaoTrisByiDNhiemVuBaoTri(String iDNhiemVuBaoTri) throws SQLException {
         String query = "select * from TaiSanBaoTri where iDNhiemVuBaoTri = " + "'" + iDNhiemVuBaoTri + "'";
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         sttm = conn.createStatement();
         ResultSet result = sttm.executeQuery(query);
     
@@ -42,7 +42,7 @@ public class TaiSanBaoTriDAO {
     
     public List<TaiSanBaoTri> getAllTaiSanBaoTrisByiDTaiSanPhongMay(String iDTaiSanPhongMay) throws SQLException {
         String query = "select * from TaiSanBaoTri where iDTaiSanPhongMay = " + "'" + iDTaiSanPhongMay + "'";
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         sttm = conn.createStatement();
         ResultSet result = sttm.executeQuery(query);
     
@@ -61,7 +61,7 @@ public class TaiSanBaoTriDAO {
     
     public int addOneTaiSanBaoTri(TaiSanBaoTri tsbt) throws SQLException {
         String query = "insert into TaiSanBaoTri(iD, iDNhiemVuBaoTri, iDTaiSanPhongMay, soLuong, yeuCauBaoTri) values (?, ?, ?, ?, ?)";
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         pttm = conn.prepareStatement(query);
         pttm.setString(1, tsbt.getiD());
         pttm.setString(2, tsbt.getiDNhiemVuBaoTri());
@@ -88,7 +88,7 @@ public class TaiSanBaoTriDAO {
 
             query.deleteCharAt(query.length() - 1);
 
-            conn = database.DatabaseHelper.getDBConnection();
+            conn = Database.DatabaseHelper.getDBConnection();
             pttm = conn.prepareStatement(query.toString());
             int numColumnInOneTable = 5;
             for(int i=0; i<tsbtList.size(); i++) {
@@ -109,7 +109,7 @@ public class TaiSanBaoTriDAO {
     
     public int updateTaiSanBaoTri(TaiSanBaoTri tsbt) throws SQLException {
         String query = "update TaiSanBaoTri set soLuong = ?, yeuCauBaoTri = ? where iD = ?";
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         pttm = conn.prepareStatement(query);
         pttm.setInt(1, tsbt.getSoLuong());
         pttm.setString(2, tsbt.getYeuCauBaoTri());
@@ -124,7 +124,7 @@ public class TaiSanBaoTriDAO {
     
     
     public int delTaiSanBaoTriByID(String iD) throws SQLException {
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         
         String query = "delete from TaiSanBaoTri where TaiSanBaoTri.iD = ?";
         
@@ -138,7 +138,7 @@ public class TaiSanBaoTriDAO {
     }
     
     public int delMoreTaiSanBaoTriByID(List<String> listID) throws SQLException {
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         
         StringBuilder query = new StringBuilder("delete from TaiSanBaoTri where ");
         
@@ -163,7 +163,7 @@ public class TaiSanBaoTriDAO {
     }
     
     public int delTaiSanBaoTriByiDNhiemVuBaoTri(String iDNhiemVuBaoTri) throws SQLException {
-        conn = database.DatabaseHelper.getDBConnection();
+        conn = Database.DatabaseHelper.getDBConnection();
         
         String query = "delete from TaiSanBaoTri where TaiSanBaoTri.iDNhiemVuBaoTri = ?";
         
