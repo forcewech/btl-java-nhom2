@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-import database.DatabaseHelper;
+import Database.DatabaseHelper;
 import Models.PhongMayDAO;
 import Models.PhongMay;
 import java.sql.Connection;

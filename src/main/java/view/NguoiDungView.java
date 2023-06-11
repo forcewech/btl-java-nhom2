@@ -1,6 +1,6 @@
 package view;
 
-import database.DatabaseHelper;
+import Database.DatabaseHelper;
 import Models.NguoiDung;
 import Models.NguoiDungDAO;
 import java.sql.Connection;
