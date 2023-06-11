@@ -416,7 +416,7 @@ public class ChiTietThucThiBaoTriView extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Thông tin chi tiết kế hoạch");
+        jLabel2.setText("Thông tin chi tiết thực thi bảo trì");
 
         jLabel4.setText("ID kế hoạch:");
 

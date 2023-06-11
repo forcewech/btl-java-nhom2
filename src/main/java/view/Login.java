@@ -171,7 +171,6 @@ public class Login extends javax.swing.JFrame {
         else{   
             dangNhapController.DangNhap(accountUser, passwordUser);
         }            
-
     }//GEN-LAST:event_Click_DangNhap
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
