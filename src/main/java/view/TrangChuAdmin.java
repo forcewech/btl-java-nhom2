@@ -81,6 +81,11 @@ public class TrangChuAdmin extends javax.swing.JFrame {
         });
 
         jButton5.setText("Quản lý mượn phòng máy");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
 
         jButton6.setText("Quản lý thông tin người dùng");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +95,11 @@ public class TrangChuAdmin extends javax.swing.JFrame {
         });
 
         jButton7.setText("Quản lý thông tin phòng máy");
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
+            }
+        });
 
         Btn_QuanLyBaoTri.setText("Quản lý bảo trì");
         Btn_QuanLyBaoTri.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -205,7 +215,6 @@ public class TrangChuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_QuanLyBaoTriMouseClicked
 
     private void jButtonQLTDTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQLTDTSActionPerformed
-        // TODO add your handling code here:
         SubMenuQuanLyThayDoiTaiSan smqltdts = new SubMenuQuanLyThayDoiTaiSan();
         smqltdts.setVisible(true);
         this.setVisible(false);      
@@ -217,6 +226,16 @@ public class TrangChuAdmin extends javax.swing.JFrame {
         smkk.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonQLKKTSActionPerformed
+
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+       PhongMayView phongMayView = new PhongMayView();
+       phongMayView.setVisible(true);
+    }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        KeHoachMuonView keHoachMuonView = new KeHoachMuonView();
+        keHoachMuonView.setVisible(true);
+    }//GEN-LAST:event_jButton5MouseClicked
 
 
     /**
