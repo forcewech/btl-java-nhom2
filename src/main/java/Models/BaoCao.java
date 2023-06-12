@@ -12,21 +12,22 @@ import java.time.LocalDate;
  */
 public class BaoCao {
     private LocalDate ngayThucHien;
-    private String phong, nguoiKiemKe, tenTaiSan; 
+    private String maBaoCao,phong, nguoiKiemKe, tenTaiSan; 
     private int soLuong;
     private String ghiChu;
     
     public BaoCao() {
     }
 
-    public BaoCao(LocalDate ngayThucHien, String phong, String nguoiKiemKe, String tenTaiSan, int soLuong, String ghiChu) {
+    public BaoCao(LocalDate ngayThucHien, String maBaoCao, String phong, String nguoiKiemKe, String tenTaiSan, int soLuong, String ghiChu) {
         this.ngayThucHien = ngayThucHien;
+        this.maBaoCao = maBaoCao;
         this.phong = phong;
         this.nguoiKiemKe = nguoiKiemKe;
         this.tenTaiSan = tenTaiSan;
         this.soLuong = soLuong;
         this.ghiChu = ghiChu;
-    }    
+    }  
 
     public String getPhong() {
         return phong;
@@ -76,8 +77,17 @@ public class BaoCao {
         this.ngayThucHien = ngayThucHien;
     }  
 
+    public String getMaBaoCao() {
+        return maBaoCao;
+    }
+
+    public void setMaBaoCao(String maBaoCao) {
+        this.maBaoCao = maBaoCao;
+    }
+
     @Override
     public String toString() {
-        return "BaoCao{" + "ngayThucHien=" + ngayThucHien + ", phong=" + phong + ", nguoiKiemKe=" + nguoiKiemKe + ", tenTaiSan=" + tenTaiSan + ", soLuong=" + soLuong + ", ghiChu=" + ghiChu + '}';
-    }     
+        return "BaoCao{" + "ngayThucHien=" + ngayThucHien + ", maBaoCao=" + maBaoCao + ", phong=" + phong + ", nguoiKiemKe=" + nguoiKiemKe + ", tenTaiSan=" + tenTaiSan + ", soLuong=" + soLuong + ", ghiChu=" + ghiChu + '}';
+    }
+   
 }

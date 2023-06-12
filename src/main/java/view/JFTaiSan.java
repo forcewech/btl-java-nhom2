@@ -41,7 +41,7 @@ public class JFTaiSan extends javax.swing.JFrame {
             dataRow[5] = ts.getNgayTrangBi().format(formatter);
             dataRow[6] = ts.getGia();
             tSModel.addRow(dataRow);
-        }
+        }        
     }
     
     public void fillTable(){

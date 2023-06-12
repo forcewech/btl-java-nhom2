@@ -4,8 +4,6 @@
  */
 package Models;
 
-import Models.TaiSan;
-import Models.TaiSanDAO;
 import Database.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

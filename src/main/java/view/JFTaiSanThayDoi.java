@@ -71,6 +71,7 @@ public class JFTaiSanThayDoi extends javax.swing.JFrame {
         jButtonLamMoi = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTaiSanThayDoi = new javax.swing.JTable();
+        jButtonThoat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -153,6 +154,13 @@ public class JFTaiSanThayDoi extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableTaiSanThayDoi);
 
+        jButtonThoat.setText("Thoát");
+        jButtonThoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonThoatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,6 +196,10 @@ public class JFTaiSanThayDoi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonThoat)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,7 +232,9 @@ public class JFTaiSanThayDoi extends javax.swing.JFrame {
                     .addComponent(jTextFieldTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonLamMoi))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonThoat)
                 .addContainerGap())
         );
 
@@ -298,6 +312,13 @@ public class JFTaiSanThayDoi extends javax.swing.JFrame {
         resetForm();
         jTextFieldMaTaiSan.setEnabled(true);
     }//GEN-LAST:event_jButtonLamMoiActionPerformed
+
+    private void jButtonThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThoatActionPerformed
+        // TODO add your handling code here:
+        SubMenuQuanLyThayDoiTaiSan smqltdts = new SubMenuQuanLyThayDoiTaiSan();
+        smqltdts.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonThoatActionPerformed
     
     public void resetForm(){
         jTextFieldMaTaiSan.setText("");
@@ -368,6 +389,7 @@ public class JFTaiSanThayDoi extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLamMoi;
     private javax.swing.JButton jButtonSua;
     private javax.swing.JButton jButtonThem;
+    private javax.swing.JButton jButtonThoat;
     private javax.swing.JButton jButtonTim;
     private javax.swing.JButton jButtonXoa;
     private javax.swing.JLabel jLabel1;

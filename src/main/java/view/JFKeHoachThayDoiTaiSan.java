@@ -4,10 +4,6 @@
  */
 package view;
 
-import Models.TaiSan;
-import Models.TaiSanDAO;
-import Models.TaiSanPhongMay;
-import Models.TaiSanPhongMayDAO;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -103,6 +99,7 @@ public class JFKeHoachThayDoiTaiSan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableKeHoachThayDoiTaiSan = new javax.swing.JTable();
         jButtonChiTiet = new javax.swing.JButton();
+        jButtonThoat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -175,6 +172,13 @@ public class JFKeHoachThayDoiTaiSan extends javax.swing.JFrame {
             }
         });
 
+        jButtonThoat.setText("Thoát");
+        jButtonThoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonThoatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -195,12 +199,12 @@ public class JFKeHoachThayDoiTaiSan extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldMaKeHoach)
                             .addComponent(jTextFieldThoiGianBatDau)
-                            .addComponent(jTextFieldThoiGianKetThuc, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
+                            .addComponent(jTextFieldThoiGianKetThuc))
                         .addGap(77, 77, 77))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(472, Short.MAX_VALUE)
                         .addComponent(jButtonChiTiet)
-                        .addGap(270, 270, 270)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonTim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -212,6 +216,10 @@ public class JFKeHoachThayDoiTaiSan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonThoat)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +248,9 @@ public class JFKeHoachThayDoiTaiSan extends javax.swing.JFrame {
                     .addComponent(jButtonLamMoi)
                     .addComponent(jButtonChiTiet))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonThoat)
                 .addContainerGap())
         );
 
@@ -341,6 +351,13 @@ public class JFKeHoachThayDoiTaiSan extends javax.swing.JFrame {
         }
         this.setVisible(false);
     }//GEN-LAST:event_jButtonChiTietActionPerformed
+
+    private void jButtonThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThoatActionPerformed
+        // TODO add your handling code here:
+        SubMenuQuanLyThayDoiTaiSan smqltdts = new SubMenuQuanLyThayDoiTaiSan();
+        smqltdts.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonThoatActionPerformed
    
     
     /**
@@ -386,6 +403,7 @@ public class JFKeHoachThayDoiTaiSan extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLamMoi;
     private javax.swing.JButton jButtonSua;
     private javax.swing.JButton jButtonThem;
+    private javax.swing.JButton jButtonThoat;
     private javax.swing.JButton jButtonTim;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

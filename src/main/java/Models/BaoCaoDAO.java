@@ -25,16 +25,17 @@ public class BaoCaoDAO {
     public int add(BaoCao bc){
         try {
             String sSQL = """
-                          insert BaoCao(ngayThucHien, phong, nguoiKiemKe, tenTaiSan, soLuong, ghiChu)
-                          values(?,?,?,?,?,?)""";
+                          insert BaoCao(maBaoCao, nguoiKiemKe, ngayThucHien, phong,  tenTaiSan, soLuong, ghiChu)
+                          values(?,?,?,?,?,?,?)""";
             conn = DatabaseHelper.getDBConnection();
             sttm = conn.prepareStatement(sSQL); 
-            sttm.setDate(1, Date.valueOf(bc.getNgayThucHien()));
-            sttm.setString(2, bc.getPhong());
-            sttm.setString(3, bc.getNguoiKiemKe());
-            sttm.setString(4, bc.getTenTaiSan()); 
-            sttm.setInt(5, bc.getSoLuong()); 
-            sttm.setString(6, bc.getGhiChu());
+            sttm.setString(1, bc.getMaBaoCao());
+            sttm.setString(2, bc.getNguoiKiemKe());
+            sttm.setDate(3, Date.valueOf(bc.getNgayThucHien()));
+            sttm.setString(4, bc.getPhong());          
+            sttm.setString(5, bc.getTenTaiSan()); 
+            sttm.setInt(6, bc.getSoLuong()); 
+            sttm.setString(7, bc.getGhiChu());
             if(sttm.executeUpdate()>0){
                 System.out.println("insert thanh cong");
                 return 1;
@@ -47,15 +48,16 @@ public class BaoCaoDAO {
     
     public int update(BaoCao bc){
         try {
-            String sSQL = "update BaoCao set tenTaiSan=?, soLuong=?, ghiChu=? where ngayThucHien=? and phong=? and nguoiKiemKe=?";
+            String sSQL = "update BaoCao set maBaoCao=?, tenTaiSan=?, soLuong=?, ghiChu=? where ngayThucHien=? and phong=? and nguoiKiemKe=?";
             conn = DatabaseHelper.getDBConnection();
-            sttm = conn.prepareStatement(sSQL);            
-            sttm.setString(1, bc.getTenTaiSan()); 
-            sttm.setInt(2,  bc.getSoLuong()); 
-            sttm.setString(3, bc.getGhiChu()); 
-            sttm.setDate(4, Date.valueOf(bc.getNgayThucHien()));
-            sttm.setString(5, bc.getPhong());
-            sttm.setString(6, bc.getNguoiKiemKe());
+            sttm = conn.prepareStatement(sSQL);  
+            sttm.setString(1, bc.getMaBaoCao());
+            sttm.setString(2, bc.getTenTaiSan()); 
+            sttm.setInt(3,  bc.getSoLuong()); 
+            sttm.setString(4, bc.getGhiChu()); 
+            sttm.setDate(5, Date.valueOf(bc.getNgayThucHien()));
+            sttm.setString(6, bc.getPhong());
+            sttm.setString(7, bc.getNguoiKiemKe());
             if(sttm.executeUpdate()>0){
                 System.out.println("update thanh cong");
                 return 1;
@@ -77,12 +79,13 @@ public class BaoCaoDAO {
             rs = sttm.executeQuery(sSQL);
             while(rs.next()){
                 BaoCao bc = new BaoCao();
-                bc.setNgayThucHien(rs.getDate(1).toLocalDate());
-                bc.setPhong(rs.getString(2));
-                bc.setNguoiKiemKe(rs.getString(3));               
-                bc.setTenTaiSan(rs.getString(4));
-                bc.setSoLuong(rs.getInt(5));
-                bc.setGhiChu(rs.getString(6));
+                bc.setMaBaoCao(rs.getString(1));
+                bc.setNguoiKiemKe(rs.getString(2)); 
+                bc.setNgayThucHien(rs.getDate(3).toLocalDate());
+                bc.setPhong(rs.getString(4));                             
+                bc.setTenTaiSan(rs.getString(5));
+                bc.setSoLuong(rs.getInt(6));
+                bc.setGhiChu(rs.getString(7));
                 ls.add(bc);
             }
         } catch (Exception e) {
@@ -111,12 +114,13 @@ public class BaoCaoDAO {
             rs = sttm.executeQuery(sSQL);
             while(rs.next()){
                 BaoCao bc = new BaoCao();
-                bc.setNgayThucHien(rs.getDate(1).toLocalDate());
-                bc.setPhong(rs.getString(2));
-                bc.setNguoiKiemKe(rs.getString(3));               
-                bc.setTenTaiSan(rs.getString(4));
-                bc.setSoLuong(rs.getInt(5));
-                bc.setGhiChu(rs.getString(6));
+                bc.setMaBaoCao(rs.getString(1));
+                bc.setNguoiKiemKe(rs.getString(2)); 
+                bc.setNgayThucHien(rs.getDate(3).toLocalDate());
+                bc.setPhong(rs.getString(4));                             
+                bc.setTenTaiSan(rs.getString(5));
+                bc.setSoLuong(rs.getInt(6));
+                bc.setGhiChu(rs.getString(7));
                 lbc.add(bc);
             }
         } catch (Exception e) {
@@ -145,12 +149,13 @@ public class BaoCaoDAO {
             rs = sttm.executeQuery(sSQL);
             while(rs.next()){
                 BaoCao bc = new BaoCao();
-                bc.setNgayThucHien(rs.getDate(1).toLocalDate());
-                bc.setPhong(rs.getString(2));
-                bc.setNguoiKiemKe(rs.getString(3));               
-                bc.setTenTaiSan(rs.getString(4));
-                bc.setSoLuong(rs.getInt(5));
-                bc.setGhiChu(rs.getString(6));
+                bc.setMaBaoCao(rs.getString(1));
+                bc.setNguoiKiemKe(rs.getString(2)); 
+                bc.setNgayThucHien(rs.getDate(3).toLocalDate());
+                bc.setPhong(rs.getString(4));                             
+                bc.setTenTaiSan(rs.getString(5));
+                bc.setSoLuong(rs.getInt(6));
+                bc.setGhiChu(rs.getString(7));
                 lbc.add(bc);
             }
         } catch (Exception e) {
@@ -179,12 +184,13 @@ public class BaoCaoDAO {
             rs = sttm.executeQuery(sSQL);
             while(rs.next()){
                 BaoCao bc = new BaoCao();
-                bc.setNgayThucHien(rs.getDate(1).toLocalDate());
-                bc.setPhong(rs.getString(2));
-                bc.setNguoiKiemKe(rs.getString(3));               
-                bc.setTenTaiSan(rs.getString(4));
-                bc.setSoLuong(rs.getInt(5));
-                bc.setGhiChu(rs.getString(6));
+                bc.setMaBaoCao(rs.getString(1));
+                bc.setNguoiKiemKe(rs.getString(2)); 
+                bc.setNgayThucHien(rs.getDate(3).toLocalDate());
+                bc.setPhong(rs.getString(4));                             
+                bc.setTenTaiSan(rs.getString(5));
+                bc.setSoLuong(rs.getInt(6));
+                bc.setGhiChu(rs.getString(7));
                 lbc.add(bc);
             }
         } catch (Exception e) {
@@ -212,12 +218,13 @@ public class BaoCaoDAO {
             rs = sttm.executeQuery(sSQL);
             while(rs.next()){
                 BaoCao bc = new BaoCao();
-                bc.setNgayThucHien(rs.getDate(1).toLocalDate());
-                bc.setPhong(rs.getString(2));
-                bc.setNguoiKiemKe(rs.getString(3));
-                bc.setTenTaiSan(rs.getString(4));
-                bc.setSoLuong(rs.getInt(5));
-                bc.setGhiChu(rs.getString(6));                  
+                bc.setMaBaoCao(rs.getString(1));
+                bc.setNguoiKiemKe(rs.getString(2)); 
+                bc.setNgayThucHien(rs.getDate(3).toLocalDate());
+                bc.setPhong(rs.getString(4));                             
+                bc.setTenTaiSan(rs.getString(5));
+                bc.setSoLuong(rs.getInt(6));
+                bc.setGhiChu(rs.getString(7));                  
                 return bc;
             }
         } catch (Exception e) {
