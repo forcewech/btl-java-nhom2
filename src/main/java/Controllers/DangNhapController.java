@@ -19,16 +19,8 @@ public class DangNhapController {
     private TrangChuTeacherController trangChuTeacherController;
     
     public DangNhapController() {
-        initDAO();
-        initView();
-    }
-    
-    private void initView() {
-        this.loginView = new Login(this);
-    }
-    
-    private void initDAO() {
         this.nguoiDungDAO = new NguoiDungDAO();
+        this.loginView = new Login(this);
     }
     
     public void hienThiDangNhapView() {
@@ -39,20 +31,25 @@ public class DangNhapController {
         loginView.setVisible(false);
     }
     
+    public void removeDangNhapView(){
+        loginView.dispose();
+    }
+    
     public void DangNhap(String Account, String Password) {
         NguoiDung nguoiDung = nguoiDungDAO.findUserByUsername_Password(Account, Password);
-        if(nguoiDung == null) {
-            JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không chính xác", "Thất bại", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        JOptionPane.showMessageDialog(null, "Đăng nhập thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-        if(nguoiDung.getRole().equals("Manager")) {
-            trangChuAdminController = new TrangChuAdminController(nguoiDung);
-            trangChuAdminController.hienThiTrangChuAdmin();
+        if( nguoiDung != null) {
+            JOptionPane.showMessageDialog(null, "Đăng nhập thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+            if(nguoiDung.getRole().equalsIgnoreCase("Manager")) {
+                TrangChuAdminController trangChuAdminController = new TrangChuAdminController(nguoiDung);
+                trangChuAdminController.hienThiTrangChuAdmin();
+                removeDangNhapView();
+            } else {
+                TrangChuTeacherController trangChuTeacherController = new TrangChuTeacherController(nguoiDung);
+                trangChuTeacherController.hienThiTrangChuTeacher();
+                removeDangNhapView();
+            }
         } else {
-            trangChuTeacherController = new TrangChuTeacherController(nguoiDung);
-            trangChuTeacherController.hienThiTrangChuTeacher();
+            JOptionPane.showMessageDialog(null, "Đăng nhập thất bại", "Thất bại", JOptionPane.INFORMATION_MESSAGE);
         }
-        this.loginView.dispose();
     }
 }
