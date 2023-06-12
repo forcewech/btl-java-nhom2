@@ -234,8 +234,10 @@ public class JFKeHoachKiemKe extends javax.swing.JFrame {
         // TODO add your handling code here:
         jTextFieldMaKeHoach.setEnabled(false);
         KeHoachKiemKe khkk = getModel();
-        if(khkkDAO.add(khkk) > 0)
+        if(khkkDAO.add(khkk) > 0){           
             JOptionPane.showMessageDialog(this, "Thêm thành công!");
+            fillTable();
+        }       
     }//GEN-LAST:event_jButtonThemActionPerformed
 
     private void jButtonTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTimActionPerformed

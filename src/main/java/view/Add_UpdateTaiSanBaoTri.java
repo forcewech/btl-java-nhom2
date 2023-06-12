@@ -4,6 +4,7 @@
  */
 package view;
 
+import Models.TaiSanDAO;
 import Controllers.KeHoachBaoTriController;
 import Interfaces.ErrorDatabase;
 import Interfaces.ErrorNormal;
@@ -15,7 +16,6 @@ import Models.PhongMay;
 import Models.PhongMayDAO;
 import Models.TaiSan;
 import Models.TaiSanBaoTri;
-import Models.TaiSanDAO;
 import Models.TaiSanPhongMay;
 import java.sql.Connection;
 import java.sql.ResultSet;

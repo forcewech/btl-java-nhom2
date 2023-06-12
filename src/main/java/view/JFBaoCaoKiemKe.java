@@ -4,12 +4,12 @@
  */
 package view;
 
+import Models.TaiSanDAO;
 import Models.TaiSanPhongMay;
 import Models.TaiSanPhongMayDAO;
 import Models.BaoCao;
 import Models.BaoCaoDAO;
 import Models.TaiSan;
-import Models.TaiSanDAO;
 import static java.lang.Integer.parseInt;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -77,15 +77,16 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
     }
     
     public void setModel(BaoCao bc){
+        jTextFieldMaBaoCao.setText(bc.getMaBaoCao());
+        jTextFieldNguoiKiemKe.setText(bc.getNguoiKiemKe());
         LocalDate ngayThucHien = bc.getNgayThucHien();
         String ngayThucHienString = ngayThucHien.toString(); 
         jTextFieldNgayThucHien.setText(ngayThucHienString);
-        jTextFieldPhong.setText(bc.getPhong());
-        jTextFieldNguoiKiemKe.setText(bc.getNguoiKiemKe());
+        jTextFieldPhong.setText(bc.getPhong());       
         jTextFieldTenTaiSan.setText(bc.getTenTaiSan());
         jTextFieldSoLuong.setText(Integer.toString(bc.getSoLuong()));
         jTextFieldGhiChu.setText(bc.getGhiChu());
-        jTextFieldMaBaoCao.setText(bc.getMaBaoCao());
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -416,6 +417,8 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
     private void jButtonLamMoiBCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLamMoiBCActionPerformed
         // TODO add your handling code here:
         resetForm();
+        jTextFieldNgayThucHien.setEnabled(true);
+        jTextFieldNguoiKiemKe.setEnabled(true);
     }//GEN-LAST:event_jButtonLamMoiBCActionPerformed
 
     private void jButtonThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThemActionPerformed
@@ -487,9 +490,9 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
         jTextFieldNgayThucHien.setEnabled(false);
         jTextFieldNguoiKiemKe.setEnabled(false);
         int position = jTableBaoCao.rowAtPoint(evt.getPoint());
-        ngayThucHien = LocalDate.parse(jTableBaoCao.getValueAt(position, 0).toString());
-        phong = jTableBaoCao.getValueAt(position, 1).toString();
-        nguoiKiemKe = jTableBaoCao.getValueAt(position, 2).toString();
+        ngayThucHien = LocalDate.parse(jTableBaoCao.getValueAt(position, 2).toString());
+        phong = jTableBaoCao.getValueAt(position, 3).toString();
+        nguoiKiemKe = jTableBaoCao.getValueAt(position, 1).toString();
         BaoCao bc = bcDAO.findBCByNgayPhongNguoi(ngayThucHien,phong,nguoiKiemKe);
         if(bc != null)
             setModel(bc);

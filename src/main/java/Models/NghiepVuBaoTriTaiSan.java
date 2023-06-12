@@ -4,6 +4,7 @@
  */
 package Models;
 
+import Models.TaiSan;
 import Models.TaiSanPhongMay;
 
 /**

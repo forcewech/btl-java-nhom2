@@ -4,8 +4,6 @@
  */
 package view;
 
-import view.TrangChuAdmin;
-
 /**
  *
  * @author IT SUP
