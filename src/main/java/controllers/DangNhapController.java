@@ -8,6 +8,8 @@ package Controllers;
  *
  * @author thinh
  */
+import Interfaces.CheckManager;
+import Interfaces.CheckRole;
 import view.*;
 import Models.*;
 import javax.swing.JOptionPane;
@@ -15,20 +17,13 @@ import javax.swing.JOptionPane;
 public class DangNhapController {
     private Login loginView;
     private NguoiDungDAO nguoiDungDAO;
-    private TrangChuAdminController trangChuAdminController;
-    private TrangChuTeacherController trangChuTeacherController;
+    private TrangChuAdmin trangChuAdmin;
+    private TrangChuTeacher trangChuTeacher;
     
-    public DangNhapController() {
-        initDAO();
-        initView();
-    }
     
-    private void initView() {
-        this.loginView = new Login(this);
-    }
-    
-    private void initDAO() {
-        this.nguoiDungDAO = new NguoiDungDAO();
+    public DangNhapController(Login loginView, NguoiDungDAO nguoiDungDAO) {
+        this.loginView = loginView;
+        this.nguoiDungDAO = nguoiDungDAO;
     }
     
     public void hienThiDangNhapView() {
@@ -40,19 +35,22 @@ public class DangNhapController {
     }
     
     public void DangNhap(String Account, String Password) {
+        
         NguoiDung nguoiDung = nguoiDungDAO.findUserByUsername_Password(Account, Password);
-        if(nguoiDung == null) {
-            JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không chính xác", "Thất bại", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        JOptionPane.showMessageDialog(null, "Đăng nhập thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-        if(nguoiDung.getRole().equals("Manager")) {
-            trangChuAdminController = new TrangChuAdminController(nguoiDung);
-            trangChuAdminController.hienThiTrangChuAdmin();
+        if( nguoiDung != null) {
+            JOptionPane.showMessageDialog(null, "Đăng nhập thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+            CheckManager checkManager = new CheckManager();
+            trangChuAdmin = new TrangChuAdmin(nguoiDung);
+            trangChuAdmin.setVisible(true);
+            anDangNhapView();
         } else {
-            trangChuTeacherController = new TrangChuTeacherController(nguoiDung);
-            trangChuTeacherController.hienThiTrangChuTeacher();
+            JOptionPane.showMessageDialog(null, "Đăng nhập thất bại", "Thất bại", JOptionPane.INFORMATION_MESSAGE);
+            trangChuTeacher = new TrangChuTeacher();
+            trangChuTeacher.setVisible(true);
+            anDangNhapView();
         }
-        this.loginView.dispose();
+        
     }
+    
+    
 }
