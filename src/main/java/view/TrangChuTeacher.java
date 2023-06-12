@@ -2,6 +2,8 @@ package view;
 
 import Controllers.TrangChuTeacherController;
 import Models.NguoiDung;
+import Models.BaoCao;
+import view.JFBaoCaoKiemKe;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -68,15 +70,12 @@ public class TrangChuTeacher extends javax.swing.JFrame {
         constraints.anchor = GridBagConstraints.CENTER; // Đưa các thành phần ra giữa
         constraints.insets = new Insets(5, 5, 5, 5); // Khoảng cách giữa các thành phần
         constraints.gridx = 0;
-        constraints.gridy = GridBagConstraints.RELATIVE; // Thiết lập hàng dọc
-        JButton button1 = new JButton("Biểu mẫu");
-        JButton button2 = new JButton("Báo cáo");
-        panel.add(button1, constraints);
+        constraints.gridy = GridBagConstraints.RELATIVE; // Thiết lập hàng dọc       
+        JButton button2 = new JButton("Báo cáo");     
         panel.add(button2, constraints);
         int buttonWidth = 300;
         int buttonHeight = 40;
         Dimension buttonSize = new Dimension(buttonWidth, buttonHeight);
-        button1.setPreferredSize(buttonSize);
         button2.setPreferredSize(buttonSize);
         
         frame.getContentPane().add(panel, BorderLayout.CENTER);

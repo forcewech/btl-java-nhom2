@@ -117,7 +117,7 @@
               <Font name="Segoe UI" size="24" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Th&#xf4;ng tin chi ti&#x1ebf;t k&#x1ebf; ho&#x1ea1;ch"/>
+            <Property name="text" type="java.lang.String" value="Th&#xf4;ng tin chi ti&#x1ebf;t b&#x1ea3;o tr&#xec; &#x111;&#xe3; th&#x1ef1;c thi"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="Panel_IDKeHoach">
