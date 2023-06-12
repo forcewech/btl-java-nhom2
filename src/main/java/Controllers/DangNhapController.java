@@ -41,15 +41,17 @@ public class DangNhapController {
         NguoiDung nguoiDung = nguoiDungDAO.findUserByUsername_Password(Account, Password);
         if( nguoiDung != null) {
             JOptionPane.showMessageDialog(null, "Đăng nhập thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-            CheckManager checkManager = new CheckManager();
-            TrangChuAdminController trangChuAdminController = new TrangChuAdminController(nguoiDung);
-            trangChuAdminController.hienThiTrangChuAdmin();
-            removeDangNhapView();
+            if(nguoiDung.getRole().equalsIgnoreCase("Manager")) {
+                TrangChuAdminController trangChuAdminController = new TrangChuAdminController(nguoiDung);
+                trangChuAdminController.hienThiTrangChuAdmin();
+                removeDangNhapView();
+            } else {
+                TrangChuTeacherController trangChuTeacherController = new TrangChuTeacherController(nguoiDung);
+                trangChuTeacherController.hienThiTrangChuTeacher();
+                removeDangNhapView();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Đăng nhập thất bại", "Thất bại", JOptionPane.INFORMATION_MESSAGE);
-            TrangChuTeacherController trangChuTeacherController = new TrangChuTeacherController(nguoiDung);
-            trangChuTeacherController.hienThiTrangChuTeacher();
-            removeDangNhapView();
         }
         
     }
