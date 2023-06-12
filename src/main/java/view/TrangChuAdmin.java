@@ -7,9 +7,7 @@ package view;
 import Controllers.TrangChuAdminController;
 import Interfaces.CheckManager;
 import Models.NguoiDung;
-import view.JFTaiSan;
-import view.SubMenuQuanLyThayDoiTaiSan;
-import view.SubMenuKiemKe;
+import view.NguoiDungView;
 
 /**
  *
@@ -83,6 +81,11 @@ public class TrangChuAdmin extends javax.swing.JFrame {
         });
 
         jButton5.setText("Quản lý mượn phòng máy");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
 
         jButton6.setText("Quản lý thông tin người dùng");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +95,11 @@ public class TrangChuAdmin extends javax.swing.JFrame {
         });
 
         jButton7.setText("Quản lý thông tin phòng máy");
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
+            }
+        });
 
         Btn_QuanLyBaoTri.setText("Quản lý bảo trì");
         Btn_QuanLyBaoTri.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -117,7 +125,7 @@ public class TrangChuAdmin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -166,8 +174,8 @@ public class TrangChuAdmin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +215,6 @@ public class TrangChuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_QuanLyBaoTriMouseClicked
 
     private void jButtonQLTDTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQLTDTSActionPerformed
-        // TODO add your handling code here:
         SubMenuQuanLyThayDoiTaiSan smqltdts = new SubMenuQuanLyThayDoiTaiSan();
         smqltdts.setVisible(true);
         this.setVisible(false);      
@@ -219,6 +226,16 @@ public class TrangChuAdmin extends javax.swing.JFrame {
         smkk.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonQLKKTSActionPerformed
+
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+       PhongMayView phongMayView = new PhongMayView();
+       phongMayView.setVisible(true);
+    }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        KeHoachMuonView keHoachMuonView = new KeHoachMuonView();
+        keHoachMuonView.setVisible(true);
+    }//GEN-LAST:event_jButton5MouseClicked
 
 
     /**

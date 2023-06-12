@@ -8,7 +8,6 @@ package Controllers;
  *
  * @author thinh
  */
-import Interfaces.CheckManager;
 import view.*;
 import Models.*;
 import javax.swing.JOptionPane;
@@ -16,9 +15,8 @@ import javax.swing.JOptionPane;
 public class DangNhapController {
     private Login loginView;
     private NguoiDungDAO nguoiDungDAO;
-    private TrangChuAdmin trangChuAdmin;
-    private TrangChuTeacher trangChuTeacher;
-    
+    private TrangChuAdminController trangChuAdminController;
+    private TrangChuTeacherController trangChuTeacherController;
     
     public DangNhapController() {
         this.nguoiDungDAO = new NguoiDungDAO();
@@ -53,8 +51,5 @@ public class DangNhapController {
         } else {
             JOptionPane.showMessageDialog(null, "Đăng nhập thất bại", "Thất bại", JOptionPane.INFORMATION_MESSAGE);
         }
-        
     }
-    
-    
 }

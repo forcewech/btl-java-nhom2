@@ -4,8 +4,8 @@
  */
 package view;
 
-import Models.TaiSan;
 import Models.TaiSanDAO;
+import Models.TaiSan;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 import java.time.LocalDate;
@@ -41,7 +41,7 @@ public class JFTaiSan extends javax.swing.JFrame {
             dataRow[5] = ts.getNgayTrangBi().format(formatter);
             dataRow[6] = ts.getGia();
             tSModel.addRow(dataRow);
-        }
+        }        
     }
     
     public void fillTable(){
@@ -79,6 +79,7 @@ public class JFTaiSan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTaiSan = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButtonThoat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,6 +170,13 @@ public class JFTaiSan extends javax.swing.JFrame {
             }
         });
 
+        jButtonThoat.setText("Thoát");
+        jButtonThoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonThoatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -177,9 +185,9 @@ public class JFTaiSan extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 426, Short.MAX_VALUE)
                         .addComponent(QUANLYTAISAN)
-                        .addContainerGap(327, Short.MAX_VALUE))
+                        .addContainerGap(477, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -220,6 +228,10 @@ public class JFTaiSan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addGap(6, 6, 6))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonThoat)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +272,9 @@ public class JFTaiSan extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jTextFieldGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonThoat)
                 .addContainerGap())
         );
 
@@ -377,6 +391,13 @@ public class JFTaiSan extends javax.swing.JFrame {
             setModel(ts);
     }//GEN-LAST:event_jTableTaiSanMouseClicked
 
+    private void jButtonThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThoatActionPerformed
+        // TODO add your handling code here:
+        TrangChuAdmin tca = new TrangChuAdmin();
+        tca.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonThoatActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -419,6 +440,7 @@ public class JFTaiSan extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonSua;
     private javax.swing.JButton jButtonThem;
+    private javax.swing.JButton jButtonThoat;
     private javax.swing.JButton jButtonTim;
     private javax.swing.JButton jButtonXoa;
     private javax.swing.JLabel jLabel2;

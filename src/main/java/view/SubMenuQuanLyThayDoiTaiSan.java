@@ -160,24 +160,28 @@ public class SubMenuQuanLyThayDoiTaiSan extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFTaiSanThayDoi jftstd = new JFTaiSanThayDoi();
         jftstd.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonLDSTSTDActionPerformed
 
     private void jButtonLKHTDTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLKHTDTSActionPerformed
         // TODO add your handling code here:
         JFKeHoachThayDoiTaiSan jfkhtdts = new JFKeHoachThayDoiTaiSan();
         jfkhtdts.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonLKHTDTSActionPerformed
 
     private void jButtonNVTDTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNVTDTSActionPerformed
         // TODO add your handling code here:
         JFNhiemVuThayDoiTaiSan jfnvtdts = new JFNhiemVuThayDoiTaiSan();
         jfnvtdts.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonNVTDTSActionPerformed
 
     private void jButtonDGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDGActionPerformed
         // TODO add your handling code here:
         JFDanhGia jfdg = new JFDanhGia();
         jfdg.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonDGActionPerformed
 
     private void jButtonThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThoatActionPerformed

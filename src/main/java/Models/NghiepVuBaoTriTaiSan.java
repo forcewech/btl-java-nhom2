@@ -4,6 +4,9 @@
  */
 package Models;
 
+import Models.TaiSan;
+import Models.TaiSanPhongMay;
+
 /**
  *
  * @author thinh

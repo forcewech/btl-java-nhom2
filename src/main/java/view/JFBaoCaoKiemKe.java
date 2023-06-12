@@ -4,12 +4,12 @@
  */
 package view;
 
+import Models.TaiSanDAO;
 import Models.TaiSanPhongMay;
 import Models.TaiSanPhongMayDAO;
 import Models.BaoCao;
 import Models.BaoCaoDAO;
 import Models.TaiSan;
-import Models.TaiSanDAO;
 import static java.lang.Integer.parseInt;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,36 +37,39 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
         bcModel.setRowCount(0);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for (BaoCao bc : bcDAO.getAll()) {
-            Object dataRow[] = new Object[6];
-            dataRow[0] = bc.getNgayThucHien().format(formatter);
-            dataRow[1] = bc.getPhong();
-            dataRow[2] = bc.getNguoiKiemKe();
-            dataRow[3] = bc.getTenTaiSan();
-            dataRow[4] = bc.getSoLuong();
-            dataRow[5] = bc.getGhiChu();
+            Object dataRow[] = new Object[7];
+            dataRow[0] = bc.getMaBaoCao();
+            dataRow[1] = bc.getNguoiKiemKe();
+            dataRow[2] = bc.getNgayThucHien().format(formatter);
+            dataRow[3] = bc.getPhong();           
+            dataRow[4] = bc.getTenTaiSan();
+            dataRow[5] = bc.getSoLuong();
+            dataRow[6] = bc.getGhiChu();
             bcModel.addRow(dataRow);
         }
     }
     
     public void resetForm(){
-        jTextFieldNgayThucHien.setText("");
+        jTextFieldMaBaoCao.setText("");
         jTextFieldPhong.setText("");
         jTextFieldNguoiKiemKe.setText("");
         jTextFieldTenTaiSan.setText("");
         jTextFieldSoLuong.setText("");
         jTextFieldGhiChu.setText("");
+        jTextFieldNgayThucHien.setText("");
     }
     
     BaoCaoDAO bcDAO = new BaoCaoDAO();
     
     public BaoCao getModel(){
         BaoCao bc = new BaoCao();
+        bc.setMaBaoCao(jTextFieldMaBaoCao.getText().trim());
+        bc.setNguoiKiemKe(jTextFieldNguoiKiemKe.getText().trim());
         String ngayThucHienString = jTextFieldNgayThucHien.getText().trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate ngayThucHien = LocalDate.parse(ngayThucHienString, formatter);
         bc.setNgayThucHien(ngayThucHien);
-        bc.setPhong(jTextFieldPhong.getText().trim());
-        bc.setNguoiKiemKe(jTextFieldNguoiKiemKe.getText().trim());        
+        bc.setPhong(jTextFieldPhong.getText().trim());               
         bc.setTenTaiSan(jTextFieldTenTaiSan.getText().trim());
         bc.setSoLuong(parseInt(jTextFieldSoLuong.getText().trim()));
         bc.setGhiChu(jTextFieldGhiChu.getText().trim());
@@ -74,14 +77,16 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
     }
     
     public void setModel(BaoCao bc){
+        jTextFieldMaBaoCao.setText(bc.getMaBaoCao());
+        jTextFieldNguoiKiemKe.setText(bc.getNguoiKiemKe());
         LocalDate ngayThucHien = bc.getNgayThucHien();
         String ngayThucHienString = ngayThucHien.toString(); 
         jTextFieldNgayThucHien.setText(ngayThucHienString);
-        jTextFieldPhong.setText(bc.getPhong());
-        jTextFieldNguoiKiemKe.setText(bc.getNguoiKiemKe());
+        jTextFieldPhong.setText(bc.getPhong());       
         jTextFieldTenTaiSan.setText(bc.getTenTaiSan());
         jTextFieldSoLuong.setText(Integer.toString(bc.getSoLuong()));
         jTextFieldGhiChu.setText(bc.getGhiChu());
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,7 +99,7 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextFieldNgayThucHien = new javax.swing.JTextField();
+        jTextFieldMaBaoCao = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldNguoiKiemKe = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -114,6 +119,9 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
         jButtonXemTaiSan = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldGhiChu = new javax.swing.JTextField();
+        jButtonThoat = new javax.swing.JButton();
+        jLabelMaBaoCao = new javax.swing.JLabel();
+        jTextFieldNgayThucHien = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -123,7 +131,7 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
         jLabel2.setText("Ngày thực hiện");
 
-        jTextFieldNgayThucHien.setText(" ");
+        jTextFieldMaBaoCao.setText(" ");
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
         jLabel3.setText("Người kiểm kê");
@@ -145,11 +153,11 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Ngày thực hiện", "Phòng", "Người kiểm kê", "Tên tài sản", "Số lượng", "Ghi chú"
+                "Mã báo cáo", "Người kiểm kê", "Ngày thực hiện", "Phòng", "Tên tài sản", "Số lượng", "Ghi chú"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -230,6 +238,20 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
         jLabel7.setText("Ghi chú");
 
         jTextFieldGhiChu.setText(" ");
+        jTextFieldGhiChu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldGhiChuActionPerformed(evt);
+            }
+        });
+
+        jButtonThoat.setText("Thoát");
+        jButtonThoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonThoatActionPerformed(evt);
+            }
+        });
+
+        jLabelMaBaoCao.setText("Mã báo cáo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -250,18 +272,18 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabelMaBaoCao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(51, 51, 51)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldTenTaiSan, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldTenTaiSan, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                                     .addComponent(jTextFieldNguoiKiemKe)
-                                    .addComponent(jTextFieldNgayThucHien)
-                                    .addComponent(jTextFieldGhiChu)
-                                    .addComponent(jTextFieldSoLuong))
+                                    .addComponent(jTextFieldMaBaoCao)
+                                    .addComponent(jTextFieldSoLuong)
+                                    .addComponent(jTextFieldNgayThucHien))
                                 .addGap(28, 28, 28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButtonThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -269,12 +291,19 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
                                     .addComponent(jButtonLamMoiBC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonTim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(51, 51, 51)
-                                .addComponent(jLabel8)
-                                .addGap(51, 51, 51)
-                                .addComponent(jTextFieldPhong, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7))
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldPhong, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldGhiChu))
                                 .addGap(28, 28, 28)
                                 .addComponent(jButtonXemTaiSan)))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonThoat)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,35 +312,50 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldNgayThucHien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonTim)
                     .addComponent(jLabel8)
                     .addComponent(jTextFieldPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonXemTaiSan))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldNguoiKiemKe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonThem))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextFieldTenTaiSan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSuaBC))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jButtonXemTaiSan)
+                    .addComponent(jLabelMaBaoCao)
+                    .addComponent(jTextFieldMaBaoCao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldNgayThucHien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldNguoiKiemKe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldTenTaiSan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButtonThem)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButtonSuaBC)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButtonLamMoiBC)
+                                    .addComponent(jLabel4)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jTextFieldGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextFieldSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonLamMoiBC))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextFieldGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTextFieldSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonThoat)
                 .addContainerGap())
         );
 
@@ -320,7 +364,7 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
 
     private void jButtonTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTimActionPerformed
         // TODO add your handling code here:
-        if(jTextFieldNgayThucHien.getText().isEmpty() && jTextFieldPhong.getText().isEmpty() && jTextFieldTenTaiSan.getText().isEmpty()){
+        if(jTextFieldMaBaoCao.getText().isEmpty() && jTextFieldPhong.getText().isEmpty() && jTextFieldTenTaiSan.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập kiểu tìm kiếm!");
         } else {
             List<BaoCao> lbc = new ArrayList<>();
@@ -357,14 +401,15 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
         bckkModel.setRowCount(0);     
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for(int i = 0; i < lbc.size(); i++){
-            Object dataRow[] = new Object[6];
+            Object dataRow[] = new Object[7];
             BaoCao bc = lbc.get(i);
-            dataRow[0] = bc.getNgayThucHien().format(formatter);
-            dataRow[1] = bc.getPhong();
-            dataRow[2] = bc.getNguoiKiemKe();   
-            dataRow[3] = bc.getTenTaiSan();
-            dataRow[4] = bc.getSoLuong();
-            dataRow[5] = bc.getGhiChu();
+            dataRow[0] = bc.getMaBaoCao();
+            dataRow[1] = bc.getNguoiKiemKe();
+            dataRow[2] = bc.getNgayThucHien().format(formatter);
+            dataRow[3] = bc.getPhong();              
+            dataRow[4] = bc.getTenTaiSan();
+            dataRow[5] = bc.getSoLuong();
+            dataRow[6] = bc.getGhiChu();
             bckkModel.addRow(dataRow); 
         }
     }
@@ -372,6 +417,8 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
     private void jButtonLamMoiBCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLamMoiBCActionPerformed
         // TODO add your handling code here:
         resetForm();
+        jTextFieldNgayThucHien.setEnabled(true);
+        jTextFieldNguoiKiemKe.setEnabled(true);
     }//GEN-LAST:event_jButtonLamMoiBCActionPerformed
 
     private void jButtonThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThemActionPerformed
@@ -443,13 +490,24 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
         jTextFieldNgayThucHien.setEnabled(false);
         jTextFieldNguoiKiemKe.setEnabled(false);
         int position = jTableBaoCao.rowAtPoint(evt.getPoint());
-        ngayThucHien = LocalDate.parse(jTableBaoCao.getValueAt(position, 0).toString());
-        phong = jTableBaoCao.getValueAt(position, 1).toString();
-        nguoiKiemKe = jTableBaoCao.getValueAt(position, 2).toString();
+        ngayThucHien = LocalDate.parse(jTableBaoCao.getValueAt(position, 2).toString());
+        phong = jTableBaoCao.getValueAt(position, 3).toString();
+        nguoiKiemKe = jTableBaoCao.getValueAt(position, 1).toString();
         BaoCao bc = bcDAO.findBCByNgayPhongNguoi(ngayThucHien,phong,nguoiKiemKe);
         if(bc != null)
             setModel(bc);
     }//GEN-LAST:event_jTableBaoCaoMouseClicked
+
+    private void jButtonThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThoatActionPerformed
+        // TODO add your handling code here:
+        SubMenuKiemKe smkk = new SubMenuKiemKe();
+        smkk.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonThoatActionPerformed
+
+    private void jTextFieldGhiChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldGhiChuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldGhiChuActionPerformed
    
     /**
      * @param args the command line arguments
@@ -491,6 +549,7 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLamMoiBC;
     private javax.swing.JButton jButtonSuaBC;
     private javax.swing.JButton jButtonThem;
+    private javax.swing.JButton jButtonThoat;
     private javax.swing.JButton jButtonTim;
     private javax.swing.JButton jButtonXemTaiSan;
     private javax.swing.JLabel jLabel1;
@@ -500,11 +559,13 @@ public class JFBaoCaoKiemKe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelMaBaoCao;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableBaoCao;
     private javax.swing.JTable jTableTaiSanPhong;
     private javax.swing.JTextField jTextFieldGhiChu;
+    private javax.swing.JTextField jTextFieldMaBaoCao;
     private javax.swing.JTextField jTextFieldNgayThucHien;
     private javax.swing.JTextField jTextFieldNguoiKiemKe;
     private javax.swing.JTextField jTextFieldPhong;

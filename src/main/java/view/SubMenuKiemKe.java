@@ -35,7 +35,6 @@ public class SubMenuKiemKe extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(885, 546));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -142,12 +141,14 @@ public class SubMenuKiemKe extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFKeHoachKiemKe jfkhkk = new JFKeHoachKiemKe();
         jfkhkk.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonLapKeHoachKiemKeActionPerformed
 
     private void jButtonBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBaoCaoActionPerformed
         // TODO add your handling code here:
         JFBaoCaoKiemKe jfbckk = new JFBaoCaoKiemKe();
         jfbckk.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonBaoCaoActionPerformed
 
     private void jButtonThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThoatActionPerformed

@@ -61,6 +61,7 @@ public class JFKeHoachKiemKe extends javax.swing.JFrame {
         jButtonHuy = new javax.swing.JButton();
         jButtonLamMoi = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jButtonThoat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,6 +136,13 @@ public class JFKeHoachKiemKe extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("KẾ HOẠCH KIỂM KÊ");
 
+        jButtonThoat.setText("Thoát");
+        jButtonThoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonThoatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,8 +173,12 @@ public class JFKeHoachKiemKe extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1034, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonThoat)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,8 +204,10 @@ public class JFKeHoachKiemKe extends javax.swing.JFrame {
                 .addComponent(jButtonHuy)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonLamMoi)
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonThoat)
                 .addContainerGap())
         );
 
@@ -220,8 +234,10 @@ public class JFKeHoachKiemKe extends javax.swing.JFrame {
         // TODO add your handling code here:
         jTextFieldMaKeHoach.setEnabled(false);
         KeHoachKiemKe khkk = getModel();
-        if(khkkDAO.add(khkk) > 0)
+        if(khkkDAO.add(khkk) > 0){           
             JOptionPane.showMessageDialog(this, "Thêm thành công!");
+            fillTable();
+        }       
     }//GEN-LAST:event_jButtonThemActionPerformed
 
     private void jButtonTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTimActionPerformed
@@ -272,6 +288,13 @@ public class JFKeHoachKiemKe extends javax.swing.JFrame {
         if(khkk != null)
             setModel(khkk);
     }//GEN-LAST:event_jTableKeHoachKiemKeMouseClicked
+
+    private void jButtonThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThoatActionPerformed
+        // TODO add your handling code here:
+        SubMenuKiemKe smkk = new SubMenuKiemKe();
+        smkk.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonThoatActionPerformed
 
     public void resetForm(){
         jTextFieldMaKeHoach.setText("");
@@ -351,6 +374,7 @@ public class JFKeHoachKiemKe extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLamMoi;
     private javax.swing.JButton jButtonSua;
     private javax.swing.JButton jButtonThem;
+    private javax.swing.JButton jButtonThoat;
     private javax.swing.JButton jButtonTim;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
